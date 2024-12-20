@@ -25,6 +25,7 @@ Scenario: usuário quer atualizar lista de filmes abandonados de um filme que n�
     Then uma mensagem de confirmação é mostrada para o usuário afirmando "Filme adicionado com sucesso"
     And clica em “Voltar para lista de abandonados”
     And o usuário é redirecionado para tela de "Meus filmes abandonados"
+
 Scenario: usuário quer ver detalhes de um filme cadastrado
      Given que o usuário "Pedro" está logado no sistema 
      And está na página "Meus filmes assistidos"
@@ -35,6 +36,7 @@ Scenario: usuário quer ver detalhes de um filme cadastrado
      And seleciona a opção "Confirmar"
      Then aparece uma mensagem afirmando "Filme encontrado"
      And o usuário é redirecionado para tela de "Informações do filme"
+
 Scenario: usuário quer remover filme da lista de filmes abandonados que já está na lista
      Given que o usuário "Pedro" está logado no sistema
      And está na tela de "Meus filmes abandonados"
