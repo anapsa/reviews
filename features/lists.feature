@@ -8,8 +8,8 @@ Feature: Listas de filmes/séries assistidos e abandonados
    And está na página "Meus_filmes_assistidos"
    When seleciona a opção em "Adicionar_Filme"
    And aparecem os seguintes campos para preencher:
-   | Nome do Filme            | Gênero  | Descrição                                                                        | Avaliação do usuário |                   
-   | "A Lista de Schindler"   | "Drama" | "Um filme sobre um homem de negócios durante a Segunda Guerra Mundial"           | "Excelente Filme"    |
+     | Nome do Filme            | Gênero  | Descrição                                                                        | Avaliação do usuário |                   
+     | "A Lista de Schindler"   | "Drama" | "Um filme sobre um homem de negócios durante a Segunda Guerra Mundial"           | "Excelente Filme"    |
    And seleciona a opção "Concluir_Adicionar_Filme"
    Then uma mensagem de confirmação é mostrada para o usuário indicando "Filme_adicionado_com_sucesso"
    And o usuário é redirecionado para a página "Meus_filmes_assistidos"
