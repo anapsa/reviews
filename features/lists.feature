@@ -34,7 +34,7 @@ Scenario: usuário quer ver detalhes de um filme cadastrado
          | Nome do Filme           |   
          | "A Lista de Schindler"  |
      And seleciona a opção "Confirmar"
-     Then aparece uma mensagem afirmando "Filme encontrado"
+     Then aparece uma mensagem afirmando "O Filme foi encontrado"
      And o usuário é redirecionado para tela de "Informações do filme"
 
 Scenario: usuário quer remover filme da lista de filmes abandonados que já está na lista
@@ -60,6 +60,6 @@ Scenario: usuário quer remover filme da lista de filmes abandonados que já est
          | Nome do Filme |
          | "O Rei Leão"  |
      And seleciona a opção em "Confirmar"
-     Then aparece uma mensagem afirmando "O Filme não encontrado na lista"
+     Then aparece uma mensagem afirmando "O Filme não foi encontrado na lista"
      And o usuário é redirecionado para tela de "Meus filmes assistidos"
 
