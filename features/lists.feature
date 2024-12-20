@@ -60,6 +60,6 @@ Scenario: usuário quer remover filme da lista de filmes abandonados que já est
          | Nome do Filme |
          | "O Rei Leão"  |
      And seleciona a opção em "Confirmar"
-     Then aparece uma mensagem afirmando "O Filme não foi encontrado na lista"
+     Then aparece uma mensagem afirmando " Filme não foi encontrado na lista"
      And o usuário é redirecionado para tela de "Meus filmes assistidos"
 
