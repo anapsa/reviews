@@ -44,6 +44,14 @@ Feature: Listas de filmes/séries assistidos e abandonados
      Then uma mensagem de confirmação é mostrada para o usuario afirmando "Filme removido com sucesso"
      And o usuário é redirecionado para tela de "Meus filmes abandonados"
 
+      Scenario: usuário quer remover filme da lista de filmes assistidos que já está na lista
+     Given que o usuário "Pedro" está logado no sistema
+     And está na tela de "Meus filmes assistidos"
+     When o usuário "Pedro" seleciona o filme "It: A Coisa"
+     And seleciona "Remover Filme"
+     Then uma mensagem de confirmação é mostrada para o usuario afirmando "Filme removido com sucesso"
+     And o usuário é redirecionado para tela de "Meus filmes assistidos"
+
      Scenario: usuário quer encontrar filme da lista de filmes assistidos que não está cadastrado
      Given que o usuário "Pedro" está logado no sistema e está na tela "Meus_filmes_assistidos"
      When seleciona a opção em "Buscar_Filme"
