@@ -16,7 +16,7 @@ Scenario:  usuário quer atualizar lista de filmes assistidos de um filme que n�
    And o usuário é redirecionado para a página "Meus_filmes_assistidos"
 
 Scenario: usuário quer atualizar lista de filmes abandonados de um filme que não na lista de abandonados
-    Given que o usuário "Pedro" está na tela de "Meus filmes abandonados"
+    Given que o usuário "Pedro" está na tela de "Meus_filmes_abandonados"
     When clica em "Adicionar Filme"
     And aparece o seguintes campos para preencher:
          | Nome do Filme            | Gênero   |   | Descrição                        | Avaliação do usuário                     |  
@@ -24,7 +24,7 @@ Scenario: usuário quer atualizar lista de filmes abandonados de um filme que n�
     And clica em "Concluir Adicionar Filme"
     Then uma mensagem de confirmação é mostrada para o usuário afirmando "Filme adicionado com sucesso"
     And clica em “Voltar para lista de abandonados”
-    And o usuário é redirecionado para tela de "Meus filmes abandonados"
+    And o usuário é redirecionado para tela de "Meus_filmes_abandonados"
 
 Scenario: usuário quer ver detalhes de um filme cadastrado
      Given que o usuário "Pedro" está logado no sistema 
@@ -43,7 +43,7 @@ Scenario: usuário quer remover filme da lista de filmes abandonados que já est
      When o usuário "Pedro" seleciona o filme "Interestelar"
      And seleciona "Remover Filme"
      Then uma mensagem de confirmação é mostrada para o usuario afirmando "Filme removido com sucesso"
-     And o usuário é redirecionado para tela de "Meus filmes abandonados"
+     And o usuário é redirecionado para tela de "Meus_filmes_abandonados"
 
       Scenario: usuário quer remover filme da lista de filmes assistidos que já está na lista
      Given que o usuário "Pedro" está logado no sistema
@@ -60,6 +60,6 @@ Scenario: usuário quer remover filme da lista de filmes abandonados que já est
          | Nome do Filme |
          | "O Rei Leão"  |
      And seleciona a opção em "Confirmar"
-     Then aparece uma mensagem afirmando " Filme não encontrado na lista"
+     Then aparece uma mensagem afirmando "Filme não encontrado na lista"
      And o usuário é redirecionado para tela de "Meus filmes assistidos"
 
