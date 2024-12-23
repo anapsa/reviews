@@ -44,3 +44,5 @@ Scenario: Visualizando a lista de seguidores
 
 roteiro_atividade1
 roteiro_atividade3
+
+roteiro_atividade2
