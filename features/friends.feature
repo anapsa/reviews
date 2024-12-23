@@ -42,4 +42,4 @@ Scenario: Visualizando a lista de seguidores
  Then o usuário “Luan_Thiers” ainda está na página “Meu_Perfil”
  And ele visualiza uma lista com todos os seus seguidores
 
-
+roteiro_atividade3
