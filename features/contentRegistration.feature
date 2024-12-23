@@ -28,3 +28,14 @@ Scenario: Cadastrar novo filme
     And o usuário “Breno” adiciona o título “Vingadores: Ultimato”
     And seleciona a opção “Finalizar cadastro”
     Then uma mensagem de erro é exibida indicando “Esse filme já existe!”
+
+Scenario: Cadastrar filme com informações insuficientes
+    Given que o usuário “Breno” está autenticado no sistema
+    And “Breno” possui acesso a conta de administrador
+    And está na página “Conteúdos”
+    When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
+    And o usuário “Breno” adiciona o título “About Time”
+    And seleciona a opção “Romance” para “Gênero” do filme 
+    And seleciona a opção “12” para “Classificação Indicativa” do filme
+    And seleciona a opção “Finalizar cadastro”
+    Then uma mensagem de erro é exibida indicando “Informações insuficientes de cadastro :(”
