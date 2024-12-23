@@ -13,3 +13,12 @@ Scenario: Criar um post válido
     And confirma 
     Then o post do filme “Legalmente Loira” de título “Melhor filme de comédia” com conteúdo “gostei muito do filme” deve ser criado com sucesso
     And aparecer na tela de "timeline pública"
+
+Scenario: Criar um post sem título
+    Given que o usuário "Lucas" está autenticado
+    When ele navega para a tela de criação de post
+    And escolhe o filme “Legalmente Loira”
+    And insere o conteúdo “gostei muito do filme” no post
+    And insere a classificação "5" estrelas
+    And tenta confirmar 
+    Then uma mensagem é exibida indicando "o título do post não foi preenchido"
