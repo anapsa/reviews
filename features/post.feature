@@ -22,3 +22,21 @@ Scenario: Criar um post sem título
     And insere a classificação "5" estrelas
     And tenta confirmar 
     Then uma mensagem é exibida indicando "o título do post não foi preenchido"
+
+Scenario: Excluir um post existente
+    Given que o usuário "apsbpc" está autenticado 
+    And o usuário é proprietário do post sobre o filme “Legalmente Loira”
+    When o usuário “apsbpc” acessa o post sobre o filme “Legalmente Loira”
+    And seleciona a opção “excluir post”
+    And confirma 
+    Then o post do usuário “apsbpc” sobre o filme “Legalmente Loira” é removido da timeline pública
+
+Scenario: Editar um post existente
+    Given que o usuário "apsbpc" está autenticado 
+    And o usuário é proprietário do post sobre o filme “Legalmente Loira”
+    When o usuário “apsbpc” acessa o post sobre o filme “Legalmente Loira”
+    And seleciona a opção “editar post”
+    And modifica o título para “novo título” 
+    And modifica o conteúdo para “novo conteúdo”
+    And confirma 
+    Then o post do usuário “apsbpc” sobre o filme “Legalmente Loira” é atualizado com as modificações
