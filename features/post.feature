@@ -44,13 +44,13 @@ Scenario: Editar um post existente
 
 Scenario: Erro na edição de um post existente
     Given que o usuário "apsbpc" está autenticado 
-    And o usuário é proprietário do post sobre o filme “Legalmente Loira”
-    When o usuário “apsbpc” acessa o post sobre o filme “Legalmente Loira”
-    And seleciona a opção “editar post”
-    And modifica o título para “” 
+    And o usuário "apsbpc" é proprietário do post sobre o filme “Legalmente Loira”
+    And o usuário "apsbpc" está na página "edição de post" do post sobre o filme “Legalmente Loira”
+    When o usuário “apsbpc” modifica o título para “” 
     And modifica o conteúdo para “novo conteúdo”
     And confirma 
     Then uma mensagem é exibida indicando "o título do post não foi preenchido"
+    And o usuário "apsbpc" continua na página "edição de post"
 
 Scenario: Curtir um post existente
     Given que o usuário "Lucas" está autenticado
