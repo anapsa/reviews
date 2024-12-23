@@ -18,4 +18,3 @@ Scenario: Cadastrar novo filme
     Then o usuário “Breno” continua na página “Conteúdos”
     And aparece o filme “Meu Malvado Favorito 4” entre os conteúdos disponíveis
     And o filme “Meu Malvado favorito 4” é propriamente salvo pelo sistema
-

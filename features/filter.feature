@@ -7,6 +7,3 @@ Categorizar/buscar posts por tópicos
     And escolhe “Comédia”
     Then o usuário “Polita” é redirecionado para página “Resultados do Filtro”
     And são mostrados os posts em ordem cronológica “Não sei sei só sei que foi assim, Filme Sessão da Tarde”
-
-
-
