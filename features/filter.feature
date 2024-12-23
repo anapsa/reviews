@@ -1,7 +1,7 @@
 Categorizar/buscar posts por tópicos
 
  Scenario: Filtrar posts por gênero
-    Given que o usuário “Polita” está autenticado no sistema
+    Given que o usuário “Polita” está logado no sistema
     And está na página “Fórum”
     When o usuário “Polita” filtra pela opção “Gênero” 
     And escolhe “Comédia”
