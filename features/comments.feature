@@ -11,3 +11,11 @@ Scenario: Comentar em um post
     And confirma o envio
     Then o comentário “discordo mano” deve ser exibido publicamente no post
 
+Scenario: Excluir o comentário de um post
+    Given que o usuário "Luan" está logado no sistema
+    And existe o comentário “discordo mano” do usuário “Lucas” no post do usuário “Luan” sobre o filme “Se7en”
+    When o usuário “Luan” selecionar a opção “excluir” no comentário “discordo mano” do usuário “Lucas” no post sobre o filme “Se7en” do usuário "Luan"
+    Then é exibida uma mensagem indicando “comentário foi excluído com sucesso” 
+    And o comentário “discordo mano” do usuário “Lucas” no post do usuário “Luan” sobre o filme “Se7en” desaparece do post
+
+
