@@ -40,3 +40,9 @@ Scenario: Editar um post existente
     And modifica o conteúdo para “novo conteúdo”
     And confirma 
     Then o post do usuário “apsbpc” sobre o filme “Legalmente Loira” é atualizado com as modificações
+
+Scenario: Curtir um post existente
+    Given que o usuário "Lucas" está autenticado
+    And existe o post do usuário “Luan” sobre o filme “Se7en” na timeline com “0” curtidas
+    When o usuário “Lucas” seleciona a opção “curtir” no post do usuário “Luan” sobre o filme “Se7en” na tela de "timeline"
+    Then o post do usuário “Luan” sobre o filme “Se7en” é atualizado com “1” curtidas
