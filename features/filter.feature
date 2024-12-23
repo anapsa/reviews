@@ -1,0 +1,1 @@
+Categorizar/buscar posts por tópicos
