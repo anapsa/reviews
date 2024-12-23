@@ -10,15 +10,15 @@ Scenario: Cadastrar novo filme
     And “Breno” possui acesso a conta de administrador
     And está na página “Conteúdos”
     When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
-    And o usuário “Breno” adiciona o título “Meu Malvado Favorito 4”
+    And o usuário “Breno” adiciona o título “Whiplash”
     And seleciona a opção “Animação” para “Gênero” do filme 
     And seleciona a opção “Livre” para “Classificação Indicativa” do filme 
     And seleciona a opção “/capa.png” para “Capa” do filme
     And seleciona a opção “Finalizar cadastro”
     Then o usuário “Breno” continua na página “Conteúdos”
-    And aparece o filme “Meu Malvado Favorito 4” entre os conteúdos disponíveis
-    And o filme “Meu Malvado favorito 4” é propriamente salvo pelo sistema
-    And uma mensagem é mostrada  "O filme foi adicionado com sucesso :)"
+    And aparece o filme “Whiplash” entre os conteúdos disponíveis
+    And o filme “Whiplash” é propriamente salvo pelo sistema
+    And uma mensagem é mostrada  "O filme foi adicionado corretamente"
 
  Scenario: Cadastrar filme já existente
     Given que o usuário “Breno” está autenticado no sistema
