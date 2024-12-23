@@ -18,3 +18,13 @@ Scenario: Cadastrar novo filme
     Then o usuário “Breno” continua na página “Conteúdos”
     And aparece o filme “Meu Malvado Favorito 4” entre os conteúdos disponíveis
     And o filme “Meu Malvado favorito 4” é propriamente salvo pelo sistema
+
+ Scenario: Cadastrar filme já existente
+    Given que o usuário “Breno” está autenticado no sistema
+    And “Breno” possui acesso a conta de administrador
+    And está na página “Conteúdos”
+    And o filme “Vingadores: Ultimato” já está disponível no sistema
+    When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
+    And o usuário “Breno” adiciona o título “Vingadores: Ultimato”
+    And seleciona a opção “Finalizar cadastro”
+    Then uma mensagem de erro é exibida indicando “Esse filme já existe!”
