@@ -41,8 +41,3 @@ Scenario: Visualizando a lista de seguidores
  When o usuário “Luan_Thiers” seleciona a opção “Seguidores”
  Then o usuário “Luan_Thiers” ainda está na página “Meu_Perfil”
  And ele visualiza uma lista com todos os seus seguidores
-
-roteiro_atividade1
-roteiro_atividade3
-
-roteiro_atividade2
