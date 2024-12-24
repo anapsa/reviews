@@ -24,3 +24,10 @@ Scenario: Filtrar posts por gênero inexistente no banco de dados
    Then o usuário “Polita” é redirecionado para página “Resultados do Filtro”
    And é mostrada uma mensagem de aviso “Nenhum post foi encontrado”
 
+ Scenario: Buscar posts pelo título da review
+ Given que o usuário “Polita” está logado no sistema
+ And está na página “Fórum”
+ When o usuário “Polita” acessa a barra de pesquisa e busca “Vivemos numa Matrix?”
+ And seleciona “Pesquisar”
+ Then o usuário “Polita” é redirecionado para página “Resultados da Pesquisa”
+ And são mostrados os posts “Vivemos numa Matrix?” na página “Resultados da pesquisa”
