@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { Result, SuccessResult } from '../utils/result';
-import TestService from '../services/test.service';
-import TestEntity from '../entities/test.entity';
+import { Result, SuccessResult } from '../src/utils/result';
+import TestService from '../src/services/test.service';
+import TestEntity from '../src/entities/test.entity';
 
 class TestController {
   private prefix: string = '/tests';
