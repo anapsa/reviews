@@ -1,17 +1,15 @@
-// userController possui as funções de criação e alteração dos usuários
+const User = require("../models/review");
 
-const User = require("../models/user");
+const createReview = async (req, res) => {
+  const { title, body, classification, owner, content } = req.body;
 
-// Criar um novo usuário
-const createUser = async (req, res) => {
-  const { name, email, password } = req.body;
-
-// Avisando se algum campo nao for preenchidoa
-  if (!name || !email || !password) {
+  if (!title || !classification || !content) {
     return res.status(400).json({ message: "Preencha todos os campos" });
+  } else if(!owner) {s
+    return res.status(400).json({message: "Usuário não está cadastrado" })
   }
-
-  // Verifica se já existe um usuario com este email
+  //usar isso para verificar se o usuário x já postou uma review do filme y
+  /* 
   try {
     const userExists = await User.findOne({ email });
     if (userExists) {
@@ -26,6 +24,7 @@ const createUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Erro ao criar usuário", error });
   }
+    */
 };
 
 // Obter todos os usuários
