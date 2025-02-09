@@ -5,7 +5,7 @@ const createReview = async (req, res) => {
 
   if (!title || !classification || !content) {
     return res.status(400).json({ message: "Preencha todos os campos" });
-  } else if(!owner) {s
+  } else if(!owner) {
     return res.status(400).json({message: "Usuário não está cadastrado" })
   }
   //usar isso para verificar se o usuário x já postou uma review do filme y
