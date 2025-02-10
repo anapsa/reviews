@@ -1,6 +1,6 @@
 //contentController possui as funções de criação de conteúdo
 
-const Content = require("../models/User");
+const Content = require("../models/Content");
 
 // Criar um novo filme
 const createContent = async (req, res) => {
@@ -36,4 +36,4 @@ const getAllContents = async (req,res) => {
     }
 }
 
-module.exports = { createContent, getContent };
+module.exports = { createContent, getAllContents };
