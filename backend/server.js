@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
+const cors = require("cors");
 
 const app = express();
 
@@ -9,6 +10,7 @@ const app = express();
 connectDB();
 
 // Middlewares
+app.use(cors())
 app.use(express.json());
 
 // Rota para efetuar procedimentos com os usuários do banco
