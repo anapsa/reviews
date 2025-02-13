@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
-const contentRoutes = require("./routes/contentRoutes")
+const movieRoutes = require("./routes/movieRoutes")
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 // Rota para efetuar procedimentos com os usuários do banco
 app.use("/users", userRoutes);
 //Rota para efetuar procedimentos com os filmes do banco
-app.use("/contents", contentRoutes)
+app.use("/movies", movieRoutes)
 
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
