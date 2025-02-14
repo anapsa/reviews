@@ -12,16 +12,16 @@ router.get('/lists/:type', ListController.getList);
 router.get('/lists', ListController.getAllLists);
 
 // Rota para obter um membro de uma lista pelo ID
-router.get('/lists/:type/members/:memberId', ListController.getMember);
+router.get('/lists/:type/members/:memberName', ListController.getMember);
 
 // Rota para adicionar um membro à lista (watched ou abandoned)
 router.post('/lists/:type/members', ListController.addMember);
 
 // Rota para remover um membro da lista (watched ou abandoned)
-router.delete('/lists/:type/members/:memberId', ListController.removeMember);
+router.delete('/lists/:type/members/:memberName', ListController.removeMember);
 
 // Rota para atualizar a lista de membros (watched ou abandoned)
-router.put('/lists/:type/members/:memberId', ListController.updateListMember);
+router.put('/lists/:type/members/:memberName', ListController.updateListMember);
 
 // Rota para deletar a lista (watched ou abandoned)
 router.delete('/lists/:type', ListController.deleteList);

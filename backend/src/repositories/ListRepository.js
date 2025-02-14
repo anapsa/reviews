@@ -34,28 +34,28 @@ class ListRepository {
   }
 
 
-  async removeMemberFromList(type, memberId) {
+  async removeMemberFromList(type, memberName) {
     const list = await this.getListByType(type);
     if (list) {
-      list.members = list.members.filter((member) => member.id !== memberId);
+      list.members = list.members.filter((member) => member.name !== memberName);
       return await list.save();
     }
     return null;
   }
 
-  async getListMember(type, memberId) {
+  async getListMember(type, memberName) {
     const list = await this.getListByType(type);
     if (list) {
-      const member = list.members.find(member => member.id === memberId); 
+      const member = list.members.find(member => member.name === memberName); 
       return member || null; 
     }
     return null;
 }
 
-async updateListMember(type, memberId, newMember) {
+async updateListMember(type, memberName, newMember) {
   const list = await this.getListByType(type);
   if (list) {
-    const memberIndex = list.members.findIndex(member => member.id === memberId);
+    const memberIndex = list.members.findIndex(member => member.name === memberName);
     if (memberIndex !== -1) {
       list.members[memberIndex] = { ...list.members[memberIndex], ...newMember };
       await list.save();  

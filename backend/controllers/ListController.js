@@ -76,7 +76,7 @@ class ListController {
   
     // Remover um membro da lista (watched ou abandoned)
     async removeMember(req, res) {
-      const { type, memberId } = req.params;
+      const { type, memberName } = req.params;
   
       // Valida o tipo
       if (!['watched', 'abandoned'].includes(type)) {
@@ -84,7 +84,7 @@ class ListController {
       }
   
       try {
-        const updatedList = await ListRepository.removeMemberFromList(type, memberId);
+        const updatedList = await ListRepository.removeMemberFromList(type, memberName);
         if (updatedList) {
           res.status(200).json(updatedList);
         } else {
@@ -98,14 +98,14 @@ class ListController {
 
     async getMember(req, res){
   
-        const {type, memberId} = req.params;
+        const {type, memberName} = req.params;
         
         if (!['watched', 'abandoned'].includes(type)) {
           return res.status(400).json({ message: 'Tipo de lista inválido. Use "watched" ou "abandoned".' });
         }
 
         try{
-           const selectedMember = await ListRepository.getListMember(type,memberId);
+           const selectedMember = await ListRepository.getListMember(type,memberName);
            if (selectedMember) {
             res.status(200).json(selectedMember);
           } else {
@@ -120,7 +120,7 @@ class ListController {
   
     // Atualizar a lista de membros (watched ou abandoned)
     async updateListMember(req, res) {
-      const { type, memberId } = req.params; // Obtém o tipo da lista e o ID do membro da URL
+      const { type, memberName } = req.params; // Obtém o tipo da lista e o ID do membro da URL
       const newMember = req.body; // Obtém o novo membro a partir do corpo da requisição
     
       // Valida o tipo da lista
@@ -129,7 +129,7 @@ class ListController {
       }
     
       try {
-        const updatedList = await ListRepository.updateListMember(type, memberId, newMember);
+        const updatedList = await ListRepository.updateListMember(type, memberName, newMember);
         if (updatedList) {
           res.status(200).json(updatedList); // Retorna a lista atualizada
         } else {
