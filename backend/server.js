@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
+const listRoutes = require('./routes/listRoutes');
 const cors = require("cors");
 
 const app = express();
@@ -15,6 +16,8 @@ app.use(express.json());
 
 // Rota para efetuar procedimentos com os usuários do banco
 app.use("/users", userRoutes);
+app.use("/api",listRoutes)
+
 
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
