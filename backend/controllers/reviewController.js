@@ -1,40 +1,34 @@
-const User = require("../models/review");
+const Review = require("../models/review");
+const { loggedInUser } = require("../routes/userRoutes");
 
 const createReview = async (req, res) => {
-  const { title, body, classification, owner, content } = req.body;
-
-  if (!title || !classification || !content) {
-    return res.status(400).json({ message: "Preencha todos os campos" });
-  } else if(!owner) {
-    return res.status(400).json({message: "Usuário não está cadastrado" })
-  }
-  //usar isso para verificar se o usuário x já postou uma review do filme y
-  /* 
-  try {
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: "Email já cadastrado" });
+    const { title, body, classification} = req.body;
+    const user = loggedInUser(); 
+  
+    if (!title || !classification) {
+        return res.status(400).json({ message: "Preencha todos os campos" });
+    } 
+    if (!user) {
+        return res.status(401).json({ message: "Usuário não autenticado" });
     }
-
-    // Cria o novo usuario no banco
-    const newUser = new User({ name, email, password });
-    await newUser.save();
-
-    res.status(201).json({ message: "Usuário criado com sucesso" });
-  } catch (error) {
-    res.status(500).json({ message: "Erro ao criar usuário", error });
-  }
-    */
+  
+    try{
+        const newReview = new Review({ title, body, classification, owner: user.id});
+        await newReview.save();
+        res.status(201).json({ message: "Review criado com sucesso" });
+    } catch (error) {
+        res.status(500).json({ message: "Erro ao criar review", error });
+    }
 };
 
-// Obter todos os usuários
-const getUsers = async (req, res) => {
+// Obter todas as reviews
+const getReviews = async (req, res) => {
   try {
-    const users = await User.find();
-    res.json(users);
+    const reviews = await Review.find();
+    res.json(reviews);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao buscar usuários" });
+    res.status(500).json({ message: "Erro ao buscar reviews" });
   }
 };
 
-module.exports = { createUser, getUsers };
+module.exports = { createReview, getReviews};

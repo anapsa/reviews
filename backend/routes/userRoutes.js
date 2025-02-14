@@ -10,9 +10,11 @@ router.get("/", getUsers);
 
 //
 
-const bcrypt = require("bcryptjs");
+//const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 
+
+let loggedInUser = null;
 
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
@@ -28,14 +30,18 @@ router.post("/login", async (req, res) => {
   if (password != user.password) {
     return res.status(400).json({ error: "Senha incorreta" });
   }
+  req.loggedInUser = {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+  };
+
   res.json({
     message: "Login bem-sucedido!",
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-    },
+    user: req.loggedInUser,
   });
+  console.log("Usuário autenticado:", user);
 });
 
 module.exports = router;
+module.exports.loggedInUser = () => loggedInUser;

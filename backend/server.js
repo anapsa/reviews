@@ -4,6 +4,7 @@ const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
 const listRoutes = require('./routes/listRoutes');
 const cors = require("cors");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/users", userRoutes);
 app.use("/api",listRoutes)
 
+app.use("/reviews", reviewRoutes);
 
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
