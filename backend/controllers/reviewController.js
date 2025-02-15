@@ -3,17 +3,18 @@ const { loggedInUser } = require("../routes/userRoutes");
 
 const createReview = async (req, res) => {
     const { title, body, classification} = req.body;
-    const user = loggedInUser(); 
+    
   
     if (!title || !classification) {
         return res.status(400).json({ message: "Preencha todos os campos" });
     } 
-    if (!user) {
-        return res.status(401).json({ message: "Usuário não autenticado" });
+    if (!req.user) {
+      return res.status(401).json({ message: "Usuário não autenticado" });
     }
+
   
     try{
-        const newReview = new Review({ title, body, classification, owner: user.id});
+        const newReview = new Review({ title, body, classification, owner: req.user.id});
         await newReview.save();
         res.status(201).json({ message: "Review criado com sucesso" });
     } catch (error) {
