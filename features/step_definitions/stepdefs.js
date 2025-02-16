@@ -148,10 +148,11 @@ When('uma requisição DELETE com um JSON com o comentário para a rota {string}
     }
 });
 When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}', async function (updates, rota) {
+    console.log("estou criando updates " + updates);
     try {
         response = await axios.put(rota, {
             id: reviewId, 
-            uptades: updates
+            updates: updates
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -159,6 +160,18 @@ When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}
         response = error.response;
     }
 });
+When('uma requisição PUT com um JSON com a review {string} para a rota {string}', async function (review, rota) {
+    try {
+        response = await axios.put(rota, {
+            reviewId: review
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    } catch (error) {
+        response = error.response;
+    }
+}
+);
 Then('o JSON da resposta contém {string}', function (expectedMessage) {
     assert.strictEqual(response.data.message, expectedMessage);
 });
