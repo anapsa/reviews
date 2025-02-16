@@ -7,6 +7,7 @@ import { HttpError } from './utils/errors/http.error';
 import { FailureResult } from './utils/result';
 import Database from '../database';
 
+
 const app: express.Express = express();
 app.use(express.json());
 
