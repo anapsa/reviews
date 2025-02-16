@@ -1,6 +1,6 @@
 // userController possui as funções de criação e alteração dos usuários
 
-const User = require("../models/user");
+const User = require("../models/User");
 
 // Criar um novo usuário
 const createUser = async (req, res) => {
@@ -11,8 +11,18 @@ const createUser = async (req, res) => {
     return res.status(400).json({ message: "Preencha todos os campos" });
   }
 
+  if (password.length < 8) {
+    return res.status(400).json({ message: "A senha deve ter pelo menos 8 caracteres" });
+  }
+
   // Verifica se já existe um usuario com este email
   try {
+
+    const nameExists = await User.findOne({ name });
+    if (nameExists) {
+      return res.status(400).json({ message: "Username já cadastrado" });
+    }
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: "Email já cadastrado" });
