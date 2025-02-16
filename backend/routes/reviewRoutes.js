@@ -7,6 +7,6 @@ const router = express.Router();
 // De acordo com o comando no postman, encaminha-se para a função especificada
 router.post("/add", authMiddleware, createReview);
 router.get("/get", getReviews);
-router.delete("/delete", authMiddleware, deleteReview)
-router.put("/edit", authMiddleware, editReview)
+router.delete("/delete", authMiddleware, deleteReview);
+router.put("/edit", authMiddleware, editReview);
 module.exports = router; 

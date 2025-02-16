@@ -15,13 +15,11 @@ const createReview = async (req, res) => {
     try{
         const newReview = new Review({ title, body, classification, owner: req.user.id, likes: []});
         await newReview.save();
-        console.log(newReview._id)
         res.status(201).json({
           message: "Review criada com sucesso",
           id: newReview._id.toString()  
         });
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: "Erro ao criar review", error });
     }
 };
