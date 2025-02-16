@@ -16,7 +16,6 @@ app.use(express.json());
 app.use("/users", userRoutes);
 //Rota para efetuar procedimentos com os filmes do banco
 app.use("/movies", movieRoutes)
-
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

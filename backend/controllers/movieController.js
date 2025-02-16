@@ -4,9 +4,9 @@ const Movie = require("../models/Movie");
 
 // Criar um novo filme
 const createMovie = async (req, res) => {
-    const {name, gender, rating, cover, synopsis} = req.body;
+    const {name, genre, rating, cover, synopsis} = req.body;
 
-    if(!name || !gender || !rating || !cover) {
+    if(!name || !genre || !rating || !cover.imageURL || !cover.title) {
         return res.status(400).json({message: "Todos os campos devem ser preenchidos"});
     }
 
@@ -17,7 +17,7 @@ const createMovie = async (req, res) => {
         }
         
         //Cria o novo filme
-        const newMovie = new Movie({name, gender, rating, cover, synopsis});
+        const newMovie = new Movie({name, genre, rating, cover, synopsis});
         await newMovie.save();
 
         res.status(201).json({message: "Filme foi cadastrado com sucesso"})
@@ -30,12 +30,12 @@ const deleteMoviebyName = async (req,res) => {
     const {name} = req.body
 
     if(!name){
-        return res.status(400).json({message: "Você deve informar o nome do filme a ser deletado"})
+        return res.status(204).json({message: "Você deve informar o nome do filme a ser deletado"})
     }
     try{
-        const dleetedMovie = await Movie.findOneAndDelete({name: name})
-        if(dleetedMovie){
-            res.status(201).json({message: "Filme " + name + " foi deletado"})
+        const deletedMovie = await Movie.findOneAndDelete({name: name})
+        if(deletedMovie){
+            res.status(200).json({message: "Filme " + name + " foi deletado"})
         }
         else{
             res.status(400).json({messaage: "Filme não foi encontrado"})
@@ -80,8 +80,22 @@ const getAllMovies = async (req,res) => {
     }
 }
 
-// const deleteMovie = async (req,res) => {
-    
-// }
+const findMovie = async (req,res) => {
+    const {name} = req.body
+    if(!name){
+        return res.status(400).json({message: "Você deve informar o nome do filme a ser procurado"})
+    }
+    try{
+        const findMovie = await Movie.findOne({name})
+        if(findMovie){
+            res.status(201).json({movie: findMovie, message: "Filme foi encontrado"})
+        }
+        else{
+            res.status(400).json({movie: null, message: "Filme não foi encontrado"})
+        }
+    } catch(error){
+        return res.status(500).json({message: "Erro no apagamento do filme ",error})
+    }
+}
 
-module.exports = { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName};
+module.exports = { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName, findMovie};
