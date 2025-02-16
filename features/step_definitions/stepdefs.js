@@ -53,12 +53,12 @@ Given('que o usuário {string} está autenticado no sistema', function (username
             }
         };
         try{
-            response = await axios.get("http://localhost:5001/movies/get", {data: {name: movie.name}});
+            response = await axios.post("http://localhost:5001/movies/add", movie);
         } catch(error){
             response = error.response;
         }
     
-        if(response.status.toString() === "201"){
+        if(response.status.toString() === "400"){
             try{
                 response = await axios.put("http://localhost:5001/movies/update", movie);
             } catch(error){
@@ -68,12 +68,7 @@ Given('que o usuário {string} está autenticado no sistema', function (username
             assert.strictEqual(statusResponse,"201", "Filme não foi cadastrado corretamente");
         }
         else{
-            try{
-                response = await axios.post("http://localhost:5001/movies/add", movie);
-            } catch(error){
-                response = error.response;
-            }
-            let statusResponse = response.status.toString()
+            let statusResponse = response.status.toString();
             assert.strictEqual(statusResponse,"201", "Filme não foi cadastrado corretamente");
         }
     });
