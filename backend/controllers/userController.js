@@ -6,7 +6,7 @@ const User = require("../models/User");
 const createUser = async (req, res) => {
   const { name, email, password } = req.body;
 
-// Avisando se algum campo nao for preenchido
+// Avisando se algum campo nao for preenchidoa
   if (!name || !email || !password) {
     return res.status(400).json({ message: "Preencha todos os campos" });
   }
