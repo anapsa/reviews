@@ -11,10 +11,8 @@ const createReview = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Usuário não autenticado" });
     }
-
-  
     try{
-        const newReview = new Review({ title, body, classification, owner: req.user.id});
+        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: 0});
         await newReview.save();
         res.status(201).json({ message: "Review criado com sucesso" });
     } catch (error) {
@@ -22,7 +20,6 @@ const createReview = async (req, res) => {
     }
 };
 
-// Obter todas as reviews
 const getReviews = async (req, res) => {
   try {
     const reviews = await Review.find();
@@ -32,4 +29,24 @@ const getReviews = async (req, res) => {
   }
 };
 
-module.exports = { createReview, getReviews};
+
+const deleteReview = async (req, res) => {
+  const { id } = req.params; 
+
+  try {
+      const review = await Review.findById(id);
+      if (!review) {
+          return res.status(404).json({ message: "Review não encontrada" });
+      }
+      if (review.owner.toString() !== req.user.id) {
+          return res.status(403).json({ message: "Ação não permitida" });
+      }
+
+      await Review.findByIdAndDelete(id);
+      res.json({ message: "Review excluída com sucesso" });
+  } catch (error) {
+      res.status(500).json({ message: "Erro ao excluir review", error });
+  }
+};
+
+module.exports = { createReview, getReviews, deleteReview};
