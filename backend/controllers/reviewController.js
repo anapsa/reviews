@@ -12,10 +12,11 @@ const createReview = async (req, res) => {
       return res.status(401).json({ message: "Usuário não autenticado" });
     }
     try{
-        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: 0});
+        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: []});
         await newReview.save();
-        res.status(201).json({ message: "Review criado com sucesso" });
+        res.status(201).json({ message: "Review criada com sucesso" });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ message: "Erro ao criar review", error });
     }
 };
