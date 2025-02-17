@@ -66,7 +66,7 @@ class ListController {
         if (updatedList) {
           res.status(200).json(updatedList);
         } else {
-          res.status(404).json({ message: 'Lista não encontrada' });
+          res.status(404).json({ message: 'Lista não encontrada ou membro já cadastrado' });
         }
       } catch (error) {
         console.error(error);

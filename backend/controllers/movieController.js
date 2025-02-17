@@ -1,6 +1,6 @@
 //movieController possui as funções de criação de conteúdo
 
-const Movie = require("../models/Movie");
+const Movie = require("../models/movie");
 
 // Criar um novo filme
 const createMovie = async (req, res) => {

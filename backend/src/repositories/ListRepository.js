@@ -27,18 +27,26 @@ class ListRepository {
   async addMemberToList(type, member) {
     const list = await this.getListByType(type);
     if (list) {
-      list.members.push(member);
-      return await list.save();
+        const existingMember = await this.getListMember(type, member.name);
+        if (!existingMember) {
+            list.members.push(member);
+            return await list.save();
+        }
+        return null; // Já existe na lista
     }
-    return null;
-  }
+    return null; // Lista não encontrada
+}
 
 
   async removeMemberFromList(type, memberName) {
     const list = await this.getListByType(type);
     if (list) {
-      list.members = list.members.filter((member) => member.name !== memberName);
-      return await list.save();
+      const deletedMember = await this.getListMember(type, memberName);
+      if(deletedMember){
+        list.members = list.members.filter((member) => member.name !== deletedMember.name);
+        return await list.save();
+      }
+      return null;
     }
     return null;
   }

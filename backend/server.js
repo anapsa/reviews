@@ -3,7 +3,7 @@ const express = require("express");
 const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
 const listRoutes = require('./routes/listRoutes');
-const cors = require("cors");
+//const cors = require("cors");
 const reviewRoutes = require("./routes/reviewRoutes");
 const commentRoutes = require("./routes/commentRoutes");
 const movieRoutes = require("./routes/movieRoutes")
@@ -14,7 +14,7 @@ const app = express();
 connectDB();
 
 // Middlewares
-app.use(cors())
+//app.use(cors())
 app.use(express.json());
 
 // Rota para efetuar procedimentos com os usuários do banco
