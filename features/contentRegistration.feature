@@ -1,42 +1,70 @@
-Cadastro de Conteúdo
-
 Feature: Cadastro de Conteúdo
     As a usuário administrador
     I want to adicionar novos filmes e séries ao catálogo
     So that os demais usuários possam fazer reviews ligados a esses filmes ou séries
 
 Scenario: Cadastrar novo filme
-    Given que o usuário “Breno” está autenticado no sistema
-    And “Breno” possui acesso a conta de administrador
-    And está na página “Conteúdos”
-    When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
-    And o usuário “Breno” adiciona o título “Whiplash”
-    And seleciona a opção “Animação” para “Gênero” do filme 
-    And seleciona a opção “Livre” para “Classificação Indicativa” do filme 
-    And seleciona a opção “/capa.png” para “Capa” do filme
-    And seleciona a opção “Finalizar cadastro”
-    Then o usuário “Breno” continua na página “Conteúdos”
-    And aparece o filme “Whiplash” entre os conteúdos disponíveis
-    And o filme “Whiplash” é propriamente salvo pelo sistema
-    And uma mensagem é mostrada  "O filme foi adicionado corretamente"
+    Given que o usuário "Breno" está autenticado no sistema
+    And "Breno" possui acesso a conta de administrador
+    And o filme "Whiplash" não está disponível no sistema
+    When é enviado novo conteúdo com uma requisição POST com JSON nome "Whiplash", gênero "Animação", classificação indicativa "Livre", capa "exemplo/whiplash.png", título "whiplash" para a route "http://localhost:5001/movies/add"
+    Then o status da resposta deve ser "201"
+    And o JSON da resposta deve conter "Filme foi cadastrado com sucesso"
 
- Scenario: Cadastrar filme já existente
-    Given que o usuário “Breno” está autenticado no sistema
-    And “Breno” possui acesso a conta de administrador
-    And está na página “Conteúdos”
-    And o filme “Vingadores: Ultimato” já está disponível no sistema
-    When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
-    And o usuário “Breno” adiciona o título “Vingadores: Ultimato”
-    And seleciona a opção “Finalizar cadastro”
-    Then uma mensagem de erro é exibida indicando “Esse filme já existe!”
+Scenario: Cadastrar filme já existente
+    Given que o usuário "Breno" está autenticado no sistema
+    And "Breno" possui acesso a conta de administrador
+    And o filme "Vingadores: Ultimato" já está disponível no sistema
+    When é enviado novo conteúdo com uma requisição POST com JSON nome "Vingadores: Ultimato", gênero "Ação", classificação indicativa "+12", capa "exemplo/vingadores.png", título "vingadores" para a route "http://localhost:5001/movies/add"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Esse filme já existe!"
 
 Scenario: Cadastrar filme com informações insuficientes
-    Given que o usuário “Breno” está autenticado no sistema
-    And “Breno” possui acesso a conta de administrador
-    And está na página “Conteúdos”
-    When o usuário “Breno” seleciona “Cadastrar novo conteúdo”
-    And o usuário “Breno” adiciona o título “About Time”
-    And seleciona a opção “Romance” para “Gênero” do filme 
-    And seleciona a opção “12” para “Classificação Indicativa” do filme
-    And seleciona a opção “Finalizar cadastro”
-    Then uma mensagem de erro é exibida indicando “Informações insuficientes de cadastro :(”
+    Given que o usuário "Breno" está autenticado no sistema
+    And "Breno" possui acesso a conta de administrador
+    When é enviado novo conteúdo com uma requisição POST com JSON nome "About Time", gênero "", classificação indicativa "+16", capa "", título "aboutTime" para a route "http://localhost:5001/movies/add"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Todos os campos devem ser preenchidos"
+
+Scenario: Procurar um filme pelo nome
+    Given o filme "Pistoleiro Papaco" já está disponível no sistema com gênero "Cowboy", classificação indicativa "Livre", capa "exemplo/papaco.png", título "papaco"
+    When é enviada uma busca com uma requisição GET pelo filme de nome "Pistoleiro Papaco" para a route "http://localhost:5001/movies/get"
+    Then o status da resposta deve ser "201"
+    And o JSON da resposta deve conter "Filme foi encontrado"
+    And o filme retornado deve ter nome "Pistoleiro Papaco", gênero "Cowboy", classificação indicativa "Livre", capa "exemplo/papaco.png", título "papaco"
+
+Scenario: Procurar um filme inexistente
+    Given o filme "Anora" não está disponível no sistema
+    When é enviada uma busca com uma requisição GET pelo filme de nome "Anora" para a route "http://localhost:5001/movies/get"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Filme não foi encontrado"
+
+Scenario: Deletar um filme existente
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Barbie" já está disponível no sistema com gênero "Animação", classificação indicativa "Livre", capa "exemplo/barbie.png", título "barbie"
+    When uma requisição DELETE é enviada para o filme de nome "Barbie" para a route "http://localhost:5001/movies/delete"
+    Then o status da resposta deve ser "200"
+    And o JSON da resposta deve conter "Filme Barbie foi deletado" 
+
+Scenario: Deletar um filme que não existe
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Crepúsculo" não está disponível no sistema
+    When uma requisição DELETE é enviada para o filme de nome "Crepúsculo" para a route "http://localhost:5001/movies/delete"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Filme não foi encontrado"
+
+
+Scenario: Atualizar valores de um filme existente
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "A Lista de Schindler" já está disponível no sistema com gênero "Drama", classificação indicativa "+14", capa "exemplo/schindler.png", título "schindler"
+    When uma requisição de modificação POST é enviada para o filme de nome "A Lista de Schindler", gênero "Drama", classificação indicativa "+14", capa "exemplo/ListaSchindler.png", título "CapaDeSchindler" para a route "http://localhost:5001/movies/update"
+    Then o status da resposta deve ser "201"
+    And o JSON da resposta deve conter "Filme A Lista de Schindler foi atualizado" 
+    And o filme retornado deve ter nome "A Lista de Schindler", gênero "Drama", classificação indicativa "+14", capa "exemplo/ListaSchindler.png", título "CapaDeSchindler"
+
+Scenario: Atualizar valores de um filme que não existe
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Nosferatu" não está disponível no sistema
+    When uma requisição de modificação POST é enviada para o filme de nome "Nosferatu", gênero "Terror", classificação indicativa "+18", capa "exemplo/nosferatu.png", título "Nosferatu" para a route "http://localhost:5001/movies/update"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Filme não foi encontrado"
