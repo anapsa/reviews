@@ -1,9 +1,14 @@
-<<<<<<< HEAD
 const { Given, When, Then } = require('@cucumber/cucumber');
 const axios = require('axios');
 const assert = require('assert');
 
-let response;
+const systemState = {
+    user: {name: null, admin: null},
+    page: null,
+    searchResult: null
+};
+
+let response
 
 Given('que o usuário {string} com senha {string} está autenticado no sistema', async function (email, password) {
     try {
@@ -16,6 +21,7 @@ Given('que o usuário {string} com senha {string} está autenticado no sistema',
         throw new Error('Falha na autenticação');
     }
 });
+
 Given('que o usuário {string} com senha {string} não está autenticado no sistema', async function (email, password) {
     token = "";
 });
@@ -47,7 +53,6 @@ Given('existe a review com título {string}, corpo {string} e classificação {i
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        console.log('Resposta da criação da review:', reviewResponse.data);
 
         if (reviewResponse.data && reviewResponse.data.id) {
             reviewId = reviewResponse.data.id;
@@ -182,18 +187,7 @@ When('uma requisição POST com um JSON com name {string}, email {string}, passw
     } catch (error) {
         response = error.response;
     }
-=======
-const assert = require('assert');
-const { Given, When, Then } = require('@cucumber/cucumber');
-const axios = require('axios');
-
-const systemState = {
-    user: {name: null, admin: null},
-    page: null,
-    searchResult: null
-};
-
-let response
+});
 
 Given('que o usuário {string} está autenticado no sistema', function (username) {
     systemState.user.name = username;
@@ -351,7 +345,6 @@ Then('o filme retornado deve ter nome {string}, gênero {string}, classificaçã
     const jsonResponse = (({name,genre,rating,cover}) => ({name,genre,rating,cover}))(response.data.movie);
 
     assert.deepEqual(expectedMovie, jsonResponse, "O filme retornado não confere com o registrado");
->>>>>>> crudMovie
 });
 
 Then('o status da resposta deve ser {string}', function (expectedStatus) {
@@ -360,9 +353,4 @@ Then('o status da resposta deve ser {string}', function (expectedStatus) {
 
 Then('o JSON da resposta deve conter {string}', function (expectedMessage) {
     assert.strictEqual(response.data.message, expectedMessage);
-<<<<<<< HEAD
 });
-
-=======
-});
->>>>>>> crudMovie
