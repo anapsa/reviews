@@ -34,3 +34,10 @@ Scenario: Editar uma review
     When uma requisição PUT com um JSON com o corpo "Mudei minha review" para a rota "http://localhost:5001/reviews/edit"
     Then o JSON da resposta contém "Review editada com sucesso"
     And o status da resposta é "200"
+
+Scenario: Curtir uma review
+    Given que o usuário "ana@email.com" com senha "123456" está autenticado no sistema 
+    And existe a review do usuário "dos3@cin.ufpe.br" com senha "12345678" com título "Título da Review", corpo "Conteúdo da Review" e classificação 5
+    When uma requisição PUT com um JSON com a review para a rota "http://localhost:5001/reviews/like"
+    Then o JSON da resposta contém "Review curtida com sucesso"
+    And o status da resposta é "200"
