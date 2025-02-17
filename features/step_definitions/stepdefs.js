@@ -122,9 +122,7 @@ Then('o usuário {string} não existe mais no sistema', async function (username
     const userResponse = await request(BASE_URL).get(`/users/find/${username}`);
     assert.strictEqual(userResponse.status, 404, `Usuário ainda existe no sistema, mas deveria ter sido deletado`);
 });
-const { Given, When, Then } = require('@cucumber/cucumber');
-const axios = require('axios');
-const assert = require('assert');
+
 
 let response;
 
