@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const request = require('supertest');
-const axios = require('axios');
+const axios = require('axios'); 
 
 const BASE_URL = process.env.TEST_URL || 'http://localhost:5001';
 
@@ -149,12 +149,13 @@ Given('que o usuário {string} com senha {string} está autenticado no sistema',
 Given('que o usuário {string} com senha {string} não está autenticado no sistema', async function (email, password) {
     token = "";
 });
-Given('o usuário {string} é proprietário da review com título {string}, corpo {string} e classificação {int}', async function (email, titulo, corpo, classificacao) {
+Given('o usuário {string} é proprietário da review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, titulo, corpo, classificacao, content) {
     try {
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: titulo,
             body: corpo,
-            classification: classificacao
+            classification: classificacao,
+            content: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -168,12 +169,13 @@ Given('o usuário {string} é proprietário da review com título {string}, corp
         throw new Error('Falha ao criar a review: ' + (error.response ? error.response.data.message : error.message));
     }
 });
-Given('existe a review com título {string}, corpo {string} e classificação {int}', async function (titulo, corpo, classificacao) {
+Given('existe a review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (titulo, corpo, classificacao, content) {
     try {
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: titulo,
             body: corpo,
-            classification: classificacao
+            classification: classificacao, 
+            content: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -211,7 +213,7 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
     }
 });
-Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
+Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, password, title, body, classification, content) {
     try {
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
@@ -222,7 +224,8 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: title,
             body: body,
-            classification: classification 
+            classification: classification, 
+            content: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const { loggedInUser } = require("../routes/userRoutes");
 
 const createReview = async (req, res) => {
-    const { title, body, classification} = req.body;
+    const { title, body, classification, cont} = req.body;
     
   
     if (!title || !classification) {
@@ -12,8 +12,9 @@ const createReview = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Usuário não autenticado"});
     }
+    contentId = new mongoose.Types.ObjectId(cont)
     try{
-        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: []});
+        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: [], content: contentId});
         await newReview.save();
         res.status(201).json({
           message: "Review criada com sucesso",
@@ -71,35 +72,32 @@ const editReview = async (req, res) => {
       res.status(500).json({ message: "Erro ao editar a review", error });
   }
 };
+
 const likeReview = async (req, res) => {
   const { reviewId } = req.body;
-
   if (!reviewId) {
     return res.status(400).json({ message: "O ID da review é obrigatório" });
   }
-
   if (!req.user || !req.user.id) {
     return res.status(401).json({ message: "Usuário não autenticado" });
   }
-
   try {
     const review = await Review.findById(reviewId);
     if (!review) {
       return res.status(404).json({ message: "Review não encontrada" });
     }
-
-    // Adiciona o like apenas se ainda não existir
     const updatedReview = await Review.findByIdAndUpdate(
       reviewId,
       { $addToSet: { likes: req.user.id } },
       { new: true }
     );
-
     return res.status(200).json({ message: "Review curtida com sucesso", review: updatedReview });
   } catch (error) {
     console.error("Erro ao curtir a review: ", error);
     return res.status(500).json({ message: "Erro interno ao curtir a review", error: error.message });
   }
 };
+
+
 
 module.exports = { createReview, getReviews, deleteReview, editReview, likeReview};
