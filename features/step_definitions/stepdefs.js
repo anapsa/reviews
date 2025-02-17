@@ -797,7 +797,7 @@ Given('o usuário {string} existe no sistema', async function (username) {
     //descrição
 });
 
-When('é enviado ao sistema uma requisição GET para a route {string}', async function (route){
+When('é enviado ao sistema uma requisição GET para a rota {string}', async function (route){
     try{
         response = await axios.get(route);
         
@@ -807,12 +807,12 @@ When('é enviado ao sistema uma requisição GET para a route {string}', async f
     }
 });
 
-When('são buscadas as reviews do filme {string}', async function (filme){
+When('são buscadas as reviews do movie {string}', async function (filme){
     const FilmeEncontrado = response.data.find(f => f.name === filme);
     review_list = FilmeEncontrado.reviews;
 });
 
-Then('o status da resposta deve ser {string}', function (expectedStatus) {
+Then('o status da answer deve ser {string}', function (expectedStatus) {
     assert.strictEqual(response.status.toString(), expectedStatus);
 });
 
