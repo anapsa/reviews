@@ -6,6 +6,7 @@ const listRoutes = require('./routes/listRoutes');
 const cors = require("cors");
 const reviewRoutes = require("./routes/reviewRoutes");
 const commentRoutes = require("./routes/commentRoutes");
+const movieRoutes = require("./routes/movieRoutes")
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use("/users", userRoutes);
 app.use("/api",listRoutes)
 app.use("/reviews", reviewRoutes);
 app.use("/comment", commentRoutes)
+//Rota para efetuar procedimentos com os filmes do banco
+app.use("/movies", movieRoutes)
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
