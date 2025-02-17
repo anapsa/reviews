@@ -9,5 +9,5 @@ const UserSchema = new mongoose.Schema({
   following: [{ type: String, ref: 'User' }], // Referência aos usuários que este usuário segue
 }, { timestamps: true });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.models.User || mongoose.model("User", UserSchema);
 module.exports = User;
