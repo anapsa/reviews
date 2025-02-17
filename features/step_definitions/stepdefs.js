@@ -126,7 +126,13 @@ Then('o usuário {string} não existe mais no sistema', async function (username
 });
 
 
-let response;
+const systemState = {
+    user: {name: null, admin: null},
+    page: null,
+    searchResult: null
+};
+
+let response
 
 Given('que o usuário {string} com senha {string} está autenticado no sistema', async function (email, password) {
     try {
@@ -139,6 +145,7 @@ Given('que o usuário {string} com senha {string} está autenticado no sistema',
         throw new Error('Falha na autenticação');
     }
 });
+
 Given('que o usuário {string} com senha {string} não está autenticado no sistema', async function (email, password) {
     token = "";
 });
@@ -170,7 +177,6 @@ Given('existe a review com título {string}, corpo {string} e classificação {i
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
-        console.log('Resposta da criação da review:', reviewResponse.data);
 
         if (reviewResponse.data && reviewResponse.data.id) {
             reviewId = reviewResponse.data.id;
@@ -183,18 +189,12 @@ Given('existe a review com título {string}, corpo {string} e classificação {i
 });
 Given('existe o comentário {string} do usuário {string} com senha {string}', async function (conteudo, email, senha) {
     try {
-        console.log("Autenticando usuário:", email);
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
             password: senha
         });
 
         const token = loginResponse.data.token;
-        console.log("Token obtido:", token);
-
-        console.log("Criando comentário...");
-        console.log(reviewId)
-        console.log(conteudo)
         const commentResponse = await axios.post('http://localhost:5001/comment/add', {
             body: conteudo,
             review: reviewId // Certifique-se de que reviewId está definido
@@ -206,7 +206,6 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         } else {
             throw new Error('Comentário não foi criado corretamente');
         }
-        console.log("comentário salvo com ID:", commentId);
     } catch (error) {
         console.error("Erro ao criar/verificar comentário:", error.response?.data || error.message);
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
@@ -214,17 +213,12 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
 });
 Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
     try {
-        console.log("Autenticando usuário:", email);
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
             password: password
         });
 
         const token = loginResponse.data.token;
-        console.log("Token obtido:", token);
-        console.log("title " + title) 
-        console.log("body " + body);
-        console.log("class " + classification); 
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: title,
             body: body,
@@ -237,7 +231,6 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
         } else {
             throw new Error('Comentário não foi criado corretamente');
         }
-        console.log("comentário salvo com ID:", reviewId);
     } catch (error) {
         console.error("Erro ao criar/verificar review:", error.response?.data || error.message);
         throw new Error(`Erro ao criar/verificar review: ${error.message}`);
@@ -291,9 +284,7 @@ When('uma requisição DELETE com um JSON com a review para a rota {string}', as
     }
 });
 When('uma requisição DELETE com um JSON com o comentário para a rota {string}', async function (rota) {
-    console.log("ID do comentário a excluir:", commentId);
     try {
-        console.log(token)
         response = await axios.delete(rota, {
             headers: { Authorization: `Bearer ${token}` },
             data: { id: commentId } 
@@ -303,7 +294,7 @@ When('uma requisição DELETE com um JSON com o comentário para a rota {string}
     }
 });
 When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}', async function (updates, rota) {
-    console.log("estou criando updates " + updates);
+
     try {
         response = await axios.put(rota, {
             id: reviewId, 
@@ -317,7 +308,6 @@ When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}
 });
 When('uma requisição PUT com um JSON com a review para a rota {string}', async function (rota) {
     try {
-        console.log("ID da review no like:", reviewId);
         response = await axios.put(rota, {
             reviewId: reviewId
         }, {
@@ -351,6 +341,164 @@ When('uma requisição POST com um JSON com name {string}, email {string}, passw
     } catch (error) {
         response = error.response;
     }
+});
+
+Given('que o usuário {string} está autenticado no sistema', function (username) {
+    systemState.user.name = username;
+    assert.strictEqual(systemState.user.name, username, "Usuário incorreto");
+  });
+
+  Given('{string} possui acesso a conta de administrador', function (username) {
+    assert.strictEqual(systemState.user.name, username, "Usuário incorreto");
+    systemState.user.admin = true
+    assert.strictEqual(systemState.user.admin, true, "Usuário sem acesso ao cadastro de filmes");
+  });
+
+  Given('o filme {string} já está disponível no sistema', async function (movie) {
+    try{
+        response = await axios.post("http://localhost:5001/movies/add", {
+            name: movie,
+            genre: "default",
+            rating: "default",
+            cover: {
+                imageURL: "default",
+                title: "default"
+            }
+        });
+    } catch(error){
+        response = error.response
+    }
+  
+    possibleStatus = ["201","400"]
+    let statusResponse = response.status.toString()
+    
+    assert.ok(possibleStatus.includes(statusResponse), "Filme não foi cadastrado corretamente")
+    });
+
+    Given('o filme {string} já está disponível no sistema com gênero {string}, classificação indicativa {string}, capa {string}, título {string}', async function (name, genre, rating, coverURL, title) {
+        const movie = {
+            name: name,
+            genre: genre,
+            rating: rating,
+            cover: {
+                imageURL: coverURL,
+                title: title
+            }
+        };
+        try{
+            response = await axios.post("http://localhost:5001/movies/add", movie);
+        } catch(error){
+            response = error.response;
+        }
+    
+        if(response.status.toString() === "400"){
+            try{
+                response = await axios.put("http://localhost:5001/movies/update", movie);
+            } catch(error){
+                response = error.response;
+            }
+            let statusResponse = response.status.toString();
+            assert.strictEqual(statusResponse,"201", "Filme não foi cadastrado corretamente");
+        }
+        else{
+            let statusResponse = response.status.toString();
+            assert.strictEqual(statusResponse,"201", "Filme não foi cadastrado corretamente");
+        }
+    });
+    
+    Given('o filme {string} não está disponível no sistema', async function (movie) {
+        try{
+            response = await axios.delete("http://localhost:5001/movies/delete", {
+                data: { name: movie }
+            });
+        } catch(error){
+            response = error.response
+        }
+        
+        possibleStatus = ["200","400"]
+        let statusResponse = response.status.toString()
+        
+        assert.ok(possibleStatus.includes(statusResponse), "Filme não foi cadastrado corretamente")
+    });
+
+
+
+
+
+
+  When('é enviado novo conteúdo com uma requisição POST com JSON nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string} para a route {string}', async function (name, genre, rating, coverURL, title, route) {
+    try{
+        response = await axios.post(route, {
+            name: name,
+            genre: genre,
+            rating: rating,
+            cover:{
+                imageURL: coverURL,
+                title: title
+            }
+        });
+    } catch (error){
+        response = error.response
+    }
+  });
+
+  When('é enviada uma busca com uma requisição GET pelo filme de nome {string} para a route {string}', async function (name, route) {
+    try{
+
+        response = await axios.get(route, {
+            data: {name: name}
+        });
+    } catch (error){
+        response = error.response;
+    }
+  });
+
+  When('uma requisição DELETE é enviada para o filme de nome {string} para a route {string}', async function (name,route) {
+    try{
+        response = await axios.delete(route, {
+            data: {name: name}
+        });
+    } catch (error){
+        response = error.response;
+    }
+  });
+
+When('uma requisição de modificação POST é enviada para o filme de nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string} para a route {string}', 
+    async function (name, genre, rating, coverURL, title, route) {
+        try{
+            response = await axios.put(route, {
+                name:name,
+                genre: genre,
+                rating: rating,
+                cover:{
+                    imageURL: coverURL,
+                    title: title
+                }
+            });
+        } catch (error){
+            response = error.response;
+        }
+});
+
+
+
+
+
+
+Then('o filme retornado deve ter nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string}', async function (name, genre, rating, coverURL, title){
+    const expectedMovie = {
+        name: name,
+        genre: genre,
+        rating: rating,
+        cover: {
+            imageURL: coverURL,
+            title: title
+        }
+    };
+
+    const jsonResponse = (({name,genre,rating,cover}) => ({name,genre,rating,cover}))(response.data.movie);
+
+    assert.deepEqual(expectedMovie, jsonResponse, "O filme retornado não confere com o registrado");
 });
 
 Then('o status da resposta deve ser {string}', function (expectedStatus) {
