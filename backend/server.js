@@ -2,7 +2,10 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./database/db");
 const userRoutes = require("./routes/userRoutes");
-const contentRoutes = require("./routes/contentRoutes")
+const listRoutes = require('./routes/listRoutes');
+const cors = require("cors");
+const reviewRoutes = require("./routes/reviewRoutes");
+const commentRoutes = require("./routes/commentRoutes");
 
 const app = express();
 
@@ -10,13 +13,14 @@ const app = express();
 connectDB();
 
 // Middlewares
+app.use(cors())
 app.use(express.json());
 
 // Rota para efetuar procedimentos com os usuários do banco
 app.use("/users", userRoutes);
-//Rota para efetuar procedimentos com os filmes do banco
-app.use("/contents", contentRoutes)
-
+app.use("/api",listRoutes)
+app.use("/reviews", reviewRoutes);
+app.use("/comment", commentRoutes)
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
