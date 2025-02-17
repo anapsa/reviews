@@ -17,3 +17,5 @@ app.use("/users", userRoutes);
 // Inicia o servidor
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+module.exports = app;
