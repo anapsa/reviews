@@ -17,3 +17,11 @@ Scenario: Excluir um comentário sendo proprietário da review
     When uma requisição DELETE com um JSON com o comentário para a rota "http://localhost:5001/comment/delete"
     Then o JSON da resposta contém "Comentário excluído com sucesso"
     And o status da resposta é "201"
+
+Scenario: Excluir um comentário sendo proprietário do comentário
+    Given que o usuário "dos3@cin.ufpe.br" com senha "12345678" está autenticado no sistema
+    And existe a review do usuário "ana@email.com" com senha "123456" com título "Título da Review", corpo "Conteúdo da Review" e classificação 5
+    And existe o comentário "não gostei da sua review" do usuário "dos3@cin.ufpe.br" com senha "12345678"
+    When uma requisição DELETE com um JSON com o comentário para a rota "http://localhost:5001/comment/delete"
+    Then o JSON da resposta contém "Comentário excluído com sucesso"
+    And o status da resposta é "201"
