@@ -88,7 +88,7 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
     }
 });
-Given('existe o post do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
+Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
     try {
         console.log("Autenticando usuário:", email);
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
