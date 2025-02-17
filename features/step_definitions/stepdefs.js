@@ -120,6 +120,33 @@ Given('que o usuário {string} está autenticado no sistema', function (username
     }
   });
 
+  When('uma requisição DELETE é enviada para o filme de nome {string} para a route {string}', async function (name,route) {
+    try{
+        response = await axios.delete(route, {
+            data: {name: name}
+        });
+    } catch (error){
+        response = error.response;
+    }
+  });
+
+When('uma requisição de modificação POST é enviada para o filme de nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string} para a route {string}', 
+    async function (name, genre, rating, coverURL, title, route) {
+        try{
+            response = await axios.put(route, {
+                name:name,
+                genre: genre,
+                rating: rating,
+                cover:{
+                    imageURL: coverURL,
+                    title: title
+                }
+            });
+        } catch (error){
+            response = error.response;
+        }
+});
+
 
 
 

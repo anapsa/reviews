@@ -38,3 +38,33 @@ Scenario: Procurar um filme inexistente
     When é enviada uma busca com uma requisição GET pelo filme de nome "Anora" para a route "http://localhost:5001/movies/get"
     Then o status da resposta deve ser "400"
     And o JSON da resposta deve conter "Filme não foi encontrado"
+
+Scenario: Deletar um filme existente
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Barbie" já está disponível no sistema com gênero "Animação", classificação indicativa "Livre", capa "exemplo/barbie.png", título "barbie"
+    When uma requisição DELETE é enviada para o filme de nome "Barbie" para a route "http://localhost:5001/movies/delete"
+    Then o status da resposta deve ser "200"
+    And o JSON da resposta deve conter "Filme Barbie foi deletado" 
+
+Scenario: Deletar um filme que não existe
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Crepúsculo" não está disponível no sistema
+    When uma requisição DELETE é enviada para o filme de nome "Crepúsculo" para a route "http://localhost:5001/movies/delete"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Filme não foi encontrado"
+
+
+Scenario: Atualizar valores de um filme existente
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "A Lista de Schindler" já está disponível no sistema com gênero "Drama", classificação indicativa "+14", capa "exemplo/schindler.png", título "schindler"
+    When uma requisição de modificação POST é enviada para o filme de nome "A Lista de Schindler", gênero "Drama", classificação indicativa "+14", capa "exemplo/ListaSchindler.png", título "CapaDeSchindler" para a route "http://localhost:5001/movies/update"
+    Then o status da resposta deve ser "201"
+    And o JSON da resposta deve conter "Filme A Lista de Schindler foi atualizado" 
+    And o filme retornado deve ter nome "A Lista de Schindler", gênero "Drama", classificação indicativa "+14", capa "exemplo/ListaSchindler.png", título "CapaDeSchindler"
+
+Scenario: Atualizar valores de um filme que não existe
+    Given que o usuário "Polita" está autenticado no sistema
+    And o filme "Nosferatu" não está disponível no sistema
+    When uma requisição de modificação POST é enviada para o filme de nome "Nosferatu", gênero "Terror", classificação indicativa "+18", capa "exemplo/nosferatu.png", título "Nosferatu" para a route "http://localhost:5001/movies/update"
+    Then o status da resposta deve ser "400"
+    And o JSON da resposta deve conter "Filme não foi encontrado"

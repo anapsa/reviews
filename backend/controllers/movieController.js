@@ -38,7 +38,7 @@ const deleteMoviebyName = async (req,res) => {
             res.status(200).json({message: "Filme " + name + " foi deletado"})
         }
         else{
-            res.status(400).json({messaage: "Filme não foi encontrado"})
+            res.status(400).json({message: "Filme não foi encontrado"})
         }
     } catch(error){
         return res.status(500).json({message: "Erro no apagamento do filme ",error})
@@ -60,10 +60,10 @@ const updateMoviebyName = async(req,res) => {
         )
 
         if (updatedMovie){
-            res.status(201).json({message: "Filme foi atualizado: ", updatedMovie})
+            res.status(201).json({message: "Filme " + name + " foi atualizado", movie: updatedMovie})
         }
         else{
-            res.status(400).json({messaage: "Filme não foi encontrado"})
+            res.status(400).json({message: "Filme não foi encontrado"})
         }
     } catch(error){
         return res.status(500).json({message:"Erro na adição do filme ", error})
