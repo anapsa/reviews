@@ -1,6 +1,7 @@
 const assert = require('assert');
 const { Given, When, Then } = require('@cucumber/cucumber');
 const request = require('supertest');
+const axios = require('axios');
 
 const BASE_URL = process.env.TEST_URL || 'http://localhost:5001';
 
@@ -187,18 +188,12 @@ Given('existe a review com título {string}, corpo {string} e classificação {i
 });
 Given('existe o comentário {string} do usuário {string} com senha {string}', async function (conteudo, email, senha) {
     try {
-        console.log("Autenticando usuário:", email);
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
             password: senha
         });
 
         const token = loginResponse.data.token;
-        console.log("Token obtido:", token);
-
-        console.log("Criando comentário...");
-        console.log(reviewId)
-        console.log(conteudo)
         const commentResponse = await axios.post('http://localhost:5001/comment/add', {
             body: conteudo,
             review: reviewId // Certifique-se de que reviewId está definido
@@ -210,7 +205,6 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         } else {
             throw new Error('Comentário não foi criado corretamente');
         }
-        console.log("comentário salvo com ID:", commentId);
     } catch (error) {
         console.error("Erro ao criar/verificar comentário:", error.response?.data || error.message);
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
@@ -218,17 +212,12 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
 });
 Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
     try {
-        console.log("Autenticando usuário:", email);
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
             password: password
         });
 
         const token = loginResponse.data.token;
-        console.log("Token obtido:", token);
-        console.log("title " + title) 
-        console.log("body " + body);
-        console.log("class " + classification); 
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: title,
             body: body,
@@ -241,7 +230,6 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
         } else {
             throw new Error('Comentário não foi criado corretamente');
         }
-        console.log("comentário salvo com ID:", reviewId);
     } catch (error) {
         console.error("Erro ao criar/verificar review:", error.response?.data || error.message);
         throw new Error(`Erro ao criar/verificar review: ${error.message}`);
@@ -295,9 +283,7 @@ When('uma requisição DELETE com um JSON com a review para a rota {string}', as
     }
 });
 When('uma requisição DELETE com um JSON com o comentário para a rota {string}', async function (rota) {
-    console.log("ID do comentário a excluir:", commentId);
     try {
-        console.log(token)
         response = await axios.delete(rota, {
             headers: { Authorization: `Bearer ${token}` },
             data: { id: commentId } 
@@ -307,7 +293,7 @@ When('uma requisição DELETE com um JSON com o comentário para a rota {string}
     }
 });
 When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}', async function (updates, rota) {
-    console.log("estou criando updates " + updates);
+
     try {
         response = await axios.put(rota, {
             id: reviewId, 
@@ -321,7 +307,6 @@ When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}
 });
 When('uma requisição PUT com um JSON com a review para a rota {string}', async function (rota) {
     try {
-        console.log("ID da review no like:", reviewId);
         response = await axios.put(rota, {
             reviewId: reviewId
         }, {
