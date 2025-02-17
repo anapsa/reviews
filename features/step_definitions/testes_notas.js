@@ -5,7 +5,7 @@ const filePath = "test.json";
 
 import {
     getAllNote, addNote, updateNote, deleteNote
-} from '../../src/notas.js';
+} from 'notas.js';
 
 const userId = "joao";
 const notes = [
