@@ -88,6 +88,37 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
     }
 });
+Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string} e classificação {int}', async function (email, password, title, body, classification) {
+    try {
+        console.log("Autenticando usuário:", email);
+        const loginResponse = await axios.post('http://localhost:5001/users/login', {
+            email: email,
+            password: password
+        });
+
+        const token = loginResponse.data.token;
+        console.log("Token obtido:", token);
+        console.log("title " + title) 
+        console.log("body " + body);
+        console.log("class " + classification); 
+        const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
+            title: title,
+            body: body,
+            classification: classification 
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        if (reviewResponse.data && reviewResponse.data.id) {
+            reviewId = reviewResponse.data.id;
+        } else {
+            throw new Error('Comentário não foi criado corretamente');
+        }
+        console.log("comentário salvo com ID:", reviewId);
+    } catch (error) {
+        console.error("Erro ao criar/verificar review:", error.response?.data || error.message);
+        throw new Error(`Erro ao criar/verificar review: ${error.message}`);
+    }
+});
 When('uma requisição POST com um JSON com título {string}, corpo {string} e classificação {int} para a rota {string}', async function (titulo, corpo, classificacao, rota) {
     try {
         response = await axios.post(rota, {
@@ -148,10 +179,11 @@ When('uma requisição DELETE com um JSON com o comentário para a rota {string}
     }
 });
 When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}', async function (updates, rota) {
+    console.log("estou criando updates " + updates);
     try {
         response = await axios.put(rota, {
             id: reviewId, 
-            uptades: updates
+            updates: updates
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -159,6 +191,20 @@ When('uma requisição PUT com um JSON com o corpo {string} para a rota {string}
         response = error.response;
     }
 });
+When('uma requisição PUT com um JSON com a review para a rota {string}', async function (rota) {
+    try {
+        console.log("ID da review no like:", reviewId);
+        response = await axios.put(rota, {
+            reviewId: reviewId
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+    } catch (error) {
+        response = error.response;
+        console.error("Erro na requisição PUT:", error.message);
+    }
+});
+
 Then('o JSON da resposta contém {string}', function (expectedMessage) {
     assert.strictEqual(response.data.message, expectedMessage);
 });

@@ -20,6 +20,7 @@ const createReview = async (req, res) => {
           id: newReview._id.toString()  
         });
     } catch (error) {
+
         res.status(500).json({ message: "Erro ao criar review", error });
     }
 };
@@ -56,7 +57,6 @@ const deleteReview = async (req, res) => {
 
 const editReview = async (req, res) => {
   const {id, updates} = req.body; 
-
   try {
       const review = await Review.findById(new mongoose.Types.ObjectId(id));
       if (!review) {
@@ -71,5 +71,35 @@ const editReview = async (req, res) => {
       res.status(500).json({ message: "Erro ao editar a review", error });
   }
 };
+const likeReview = async (req, res) => {
+  const { reviewId } = req.body;
 
-module.exports = { createReview, getReviews, deleteReview, editReview};
+  if (!reviewId) {
+    return res.status(400).json({ message: "O ID da review é obrigatório" });
+  }
+
+  if (!req.user || !req.user.id) {
+    return res.status(401).json({ message: "Usuário não autenticado" });
+  }
+
+  try {
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ message: "Review não encontrada" });
+    }
+
+    // Adiciona o like apenas se ainda não existir
+    const updatedReview = await Review.findByIdAndUpdate(
+      reviewId,
+      { $addToSet: { likes: req.user.id } },
+      { new: true }
+    );
+
+    return res.status(200).json({ message: "Review curtida com sucesso", review: updatedReview });
+  } catch (error) {
+    console.error("Erro ao curtir a review: ", error);
+    return res.status(500).json({ message: "Erro interno ao curtir a review", error: error.message });
+  }
+};
+
+module.exports = { createReview, getReviews, deleteReview, editReview, likeReview};
