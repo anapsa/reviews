@@ -98,6 +98,39 @@ const likeReview = async (req, res) => {
   }
 };
 
+const filterReviews = async (req, res) => {
+  try {
+    const { classification, genre, movieTitle } = req.body;
+
+    //Classification é atributo da própria review então isso é testado primeiro
+    let reviewFilter = {};
+    if (classification) reviewFilter.classification = classification;
+
+    let reviews = await Review.find(reviewFilter);
 
 
-module.exports = { createReview, getReviews, deleteReview, editReview, likeReview};
+    if (!genre && !movieTitle) {
+      return res.status(200).json({message: "Filmes encontrados", data: reviews});
+    }
+
+    // Extrair por gênero e título que são atributos do objeto movie
+    const contentIds = reviews.map(review => review.content);
+
+    const contentFilter = { _id: { $in: contentIds } };
+    if (genre) contentFilter.genre = genre;
+    if (movieTitle) contentFilter.title = movieTitle;
+
+    const validContents = await Content.find(contentFilter);
+    const validContentIds = validContents.map(content => content._id.toString());
+    const filteredReviews = reviews.filter(review => 
+      validContentIds.includes(review.content.toString())
+    );
+
+    return res.status(200).json({message: "Filmes encontrados", data: filteredReviews});
+  } catch (error) {
+    return res.status(500).json({ error: "Erro ao buscar reviews"});
+  }
+};
+
+
+module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, filterReviews};
