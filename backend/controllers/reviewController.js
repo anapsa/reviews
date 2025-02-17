@@ -1,4 +1,5 @@
 const Review = require("../models/review");
+const Content = require("../models/movie")
 const mongoose = require("mongoose");
 const { loggedInUser } = require("../routes/userRoutes");
 
@@ -21,7 +22,6 @@ const createReview = async (req, res) => {
           id: newReview._id.toString()  
         });
     } catch (error) {
-
         res.status(500).json({ message: "Erro ao criar review", error });
     }
 };
@@ -100,7 +100,7 @@ const likeReview = async (req, res) => {
 
 const filterReviews = async (req, res) => {
   try {
-    const { classification, genre, movieTitle } = req.body;
+    const { classification, genre, title } = req.body;
 
     //Classification é atributo da própria review então isso é testado primeiro
     let reviewFilter = {};
@@ -109,8 +109,8 @@ const filterReviews = async (req, res) => {
     let reviews = await Review.find(reviewFilter);
 
 
-    if (!genre && !movieTitle) {
-      return res.status(200).json({message: "Filmes encontrados", data: reviews});
+    if (!genre && !title) {
+      return res.status(200).json({message: reviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: reviews});
     }
 
     // Extrair por gênero e título que são atributos do objeto movie
@@ -118,7 +118,7 @@ const filterReviews = async (req, res) => {
 
     const contentFilter = { _id: { $in: contentIds } };
     if (genre) contentFilter.genre = genre;
-    if (movieTitle) contentFilter.title = movieTitle;
+    if (title) contentFilter.title = title;
 
     const validContents = await Content.find(contentFilter);
     const validContentIds = validContents.map(content => content._id.toString());
@@ -126,7 +126,7 @@ const filterReviews = async (req, res) => {
       validContentIds.includes(review.content.toString())
     );
 
-    return res.status(200).json({message: "Filmes encontrados", data: filteredReviews});
+    return res.status(200).json({message: filteredReviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: filteredReviews});
   } catch (error) {
     return res.status(500).json({ error: "Erro ao buscar reviews"});
   }
@@ -134,3 +134,5 @@ const filterReviews = async (req, res) => {
 
 
 module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, filterReviews};
+
+
