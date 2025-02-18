@@ -45,11 +45,11 @@ Scenario: Curtir uma review
 Scenario: Filtrar a review por classificação
 Given que o usuário "ana@email.com" com senha "123456" está autenticado no sistema
 And o usuário "ana@email.com" é proprietário da review com título "Título da Review 5", corpo "Conteúdo da Review 5", classificação 5 e conteúdo "67ad7e98d4b8624b167ce4a1"
-And o usuário "ana@email.com" é proprietário da review com título "Título da Review 3", corpo "Conteúdo da Review 3", classificação 5 e conteúdo "67ad7e98d4b8624b167ce4a1"
-When uma requisição GET com classificação 3, gênero "", título "" é enviada pela rota "http://localhost:5001/reviews/filter"
+And o usuário "ana@email.com" é proprietário da review com título "New Review", corpo "Mais que perfeito", classificação 8 e conteúdo "67ad7e98d4b8624b167ce4a1"
+When uma requisição GET com classificação 8, gênero "", título "" é enviada pela rota "http://localhost:5001/reviews/filter"
 Then o status da resposta deve ser "200"
 And o JSON da resposta deve conter "Reviews Encontradas"
-And a review retornada deve ter título "Título da Review", corpo "Conteúdo da Review", classificação 3 e conteúdo "67ad7e98d4b8624b167ce4a1"
+And a review retornada deve ter título "New Review", corpo "Mais que perfeito", classificação 8 e conteúdo "67ad7e98d4b8624b167ce4a1"
 
 Scenario: Filtrar a review por classificação inexistente
 Given que o usuário "ana@email.com" com senha "123456" está autenticado no sistema

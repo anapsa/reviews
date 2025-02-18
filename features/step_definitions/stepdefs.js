@@ -156,7 +156,7 @@ Given('o usuário {string} é proprietário da review com título {string}, corp
             title: titulo,
             body: corpo,
             classification: classificacao,
-            content: content
+            cont: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -178,7 +178,7 @@ Given('existe a review com título {string}, corpo {string}, classificação {in
             title: titulo,
             body: corpo,
             classification: classificacao, 
-            content: content
+            cont: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -229,7 +229,7 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
             title: title,
             body: body,
             classification: classification, 
-            content: content
+            cont: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -511,8 +511,6 @@ Then('o filme retornado deve ter nome {string}, gênero {string}, classificaçã
 });
 
 Then('o status da resposta deve ser {string}', function (expectedStatus) {
-    console.log(response.status.toString())
-    console.log(response.data.message)
     assert.strictEqual(response.status.toString(), expectedStatus);
 });
 

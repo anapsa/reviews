@@ -9,6 +9,6 @@ router.get("/get", getReviews);
 router.delete("/delete", authMiddleware, deleteReview);
 router.put("/edit", authMiddleware, editReview);
 router.put("/like", authMiddleware, likeReview);
-router.get("/filter", authMiddleware, filterReviews);
+router.get("/filter", filterReviews);
 
 module.exports = router; 
