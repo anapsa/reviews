@@ -1,0 +1,24 @@
+#upbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100vw;
+    height: 23vh;
+    gap: 20px;
+    background: #387478;
+}
+
+#perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100px;
+    height: 100%;
+}
+
+p {
+    color: #FFFFFF;
+    font-weight: 200;
+}
