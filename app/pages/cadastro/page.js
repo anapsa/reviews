@@ -1,9 +1,9 @@
 'use client';
 
 import './style.css'
-import Sidebar from './components/sidebar/sidebar'
-import FormCadastro from './components/form_cadastro/form_cadastro'
-import FormLogin from './components/form_login/form_login'
+import Sidebar from '../../components/sidebar/sidebar'
+import FormCadastro from '../../components/form_cadastro/form_cadastro'
+import FormLogin from '../../components/form_login/form_login'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
