@@ -1,6 +1,6 @@
 import { Express, Router } from 'express';
 import { di } from '../di';
-import TestController from '../controllers/test.controller';
+import TestController from '../../controllers/test.controller';
 import TestService from '../services/test.service';
 
 const router = Router();
