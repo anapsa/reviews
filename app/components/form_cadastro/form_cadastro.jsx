@@ -81,9 +81,12 @@ export default function FormCadastro() {
             document.getElementById('nome').style.border = '';
             document.getElementById('e-mail').style.border = '';
             document.getElementById('password').style.border = '';
-
+            
             if (response.ok) {
                 message.style.color = 'green';
+                setTimeout(() => {
+                    window.location.href = '/pages/teste';
+                }, 200);
             } else {
                 if (mensagem === 'Username já cadastrado!') {
                     setShowSvgName(true);
