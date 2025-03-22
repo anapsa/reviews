@@ -1,0 +1,21 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+    outline: 1px solid red;
+}
+body {
+  background-color: #F7E7DC; 
+  font-family: Arial, sans-serif; 
+  min-height: 100vh; 
+}
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+  

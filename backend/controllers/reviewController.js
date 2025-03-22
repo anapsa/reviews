@@ -1,9 +1,11 @@
 const Review = require("../models/review");
+const User = require("../models/User");
+const Movie = require("../models/movie");
 const mongoose = require("mongoose");
 const { loggedInUser } = require("../routes/userRoutes");
 
 const createReview = async (req, res) => {
-    const { title, body, classification, cont} = req.body;
+    const { title, body, classification, content} = req.body;
     
   
     if (!title || !classification) {
@@ -12,7 +14,7 @@ const createReview = async (req, res) => {
     if (!req.user) {
       return res.status(401).json({ message: "Usuário não autenticado"});
     }
-    contentId = new mongoose.Types.ObjectId(cont)
+    const contentId = new mongoose.Types.ObjectId(content)
     try{
         const newReview = new Review({ title, body, classification, owner: req.user.id, likes: [], content: contentId});
         await newReview.save();
@@ -28,6 +30,7 @@ const createReview = async (req, res) => {
 
 const getReviews = async (req, res) => {
   try {
+    
     const reviews = await Review.find();
     res.json(reviews);
   } catch (error) {
@@ -35,6 +38,30 @@ const getReviews = async (req, res) => {
   }
 };
 
+const getReviewById = async (req,res) => {
+  const { id } = req.params;
+  try {
+    console.log("Recebendo ID:", id);
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(410).json({ message: "ID inválido" });
+    }
+    const review = await Review.findById(new mongoose.Types.ObjectId(id));
+    const owner = await User.findById(new mongoose.Types.ObjectId(review.owner));
+    const content = await Movie.findById(new mongoose.Types.ObjectId(review.content));
+    if (!review) {
+      return res.status(404).json({ message: "Review não encontrado" });
+    }
+    console.log(owner)
+    res.json({
+      review,
+      owner,
+      content
+    });
+  } catch (error) {
+    console.log(error.message)
+    res.status(500).json({ message: "Erro ao buscar reviews" });
+  }
+}
 
 const deleteReview = async (req, res) => {
   const { id } = req.body; 
@@ -100,4 +127,4 @@ const likeReview = async (req, res) => {
 
 
 
-module.exports = { createReview, getReviews, deleteReview, editReview, likeReview};
+module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById};
