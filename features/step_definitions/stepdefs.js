@@ -803,6 +803,20 @@ When("uma requisição GET com classificação {int}, gênero {string}, título 
     }
 })
 
+When("uma requisição GET sem classificação, mas com gênero {string}, título {string} é enviada pela rota {string}", 
+    async function(genre, title, route){
+    try{
+        response = await axios.get(route, {
+            data: {
+                genre: genre,
+                title: title
+            }
+        });
+    } catch (error){
+        response = error.response;
+    }
+})
+
 Then('a review retornada deve ter título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function(titulo, corpo, classificacao, content){
     const expectedReview = {
         title: titulo,

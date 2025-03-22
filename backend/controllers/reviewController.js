@@ -114,16 +114,16 @@ const filterReviews = async (req, res) => {
     }
 
     // Extrair por gênero e título que são atributos do objeto movie
-    const contentIds = reviews.map(review => review.content);
+    const contentIds = reviews.filter(review=>review.content!=undefined).map(review => review.content);
 
     const contentFilter = { _id: { $in: contentIds } };
     if (genre) contentFilter.genre = genre;
-    if (title) contentFilter.title = title;
+    if (title) contentFilter.name = title;
 
     const validContents = await Content.find(contentFilter);
     const validContentIds = validContents.map(content => content._id.toString());
     const filteredReviews = reviews.filter(review => 
-      validContentIds.includes(review.content.toString())
+      review.content && validContentIds.includes(review.content.toString())
     );
 
     return res.status(200).json({message: filteredReviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: filteredReviews});
