@@ -838,4 +838,52 @@ Then('o JSON da resposta deve possuir a mensagem afirmando {string}', function (
     assert.strictEqual(response.data.message, expectedMessage);
 });
 
+let review_list;
+let userReview;
 
+Given('o usuário {string} existe no sistema', async function (username) {
+    //descrição
+});
+
+When('é enviado ao sistema uma requisição GET para a rota {string}', async function (route){
+    try{
+        response = await axios.get(route);
+        
+    }
+    catch (error) {
+        response = error.response;
+    }
+});
+
+When('são buscadas as reviews do movie {string}', async function (filme){
+    const FilmeEncontrado = response.data.find(f => f.name === filme);
+    review_list = FilmeEncontrado.reviews;
+});
+
+Then('o status da answer deve ser {string}', function (expectedStatus) {
+    assert.strictEqual(response.status.toString(), expectedStatus);
+});
+
+Then('o JSON da resposta deve ser conter {string}', function(lista) {
+    const expectedList = JSON.parse(lista);
+
+    // Função para remover os atributos indesejados
+    const cleanReview = (review_list) => review_list.map(({ _id, createdAt, updatedAt, ...rest }) => rest);
+
+    // Remove os campos antes de comparar
+    assert.deepStrictEqual(cleanReview(review_list), expectedList);
+});
+
+When('é buscada a review publicada pelo usuário {string}', async function(user){
+    const cleanReview = (review_list) => review_list.map(({ _id, createdAt, updatedAt, ...rest }) => rest);
+    const aux = cleanReview(review_list);
+    userReview = aux.find(r => r.user === user);
+});
+
+Then('o JSON da resposta deve ser {string}', function(review) {
+    const expectedReview = JSON.parse(review);
+
+    
+    // Remove os campos antes de comparar
+    assert.deepStrictEqual(userReview, expectedReview);
+});

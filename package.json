@@ -3,15 +3,23 @@
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.6",
+    "next": "^15.2.0",
+    "react-dom": "^19.0.0",
     "supertest": "^7.0.0"
   },
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js"
+    "test": "cucumber-js",
+    "dev": "next dev",
+    "clean": "rimraf .next",
+    "build": "next build",
+    "start": "next start"
   },
   "license": "ISC",
   "devDependencies": {
-    "@cucumber/cucumber": "^11.2.0"
+    "@cucumber/cucumber": "^11.2.0",
+    "rimraf": "^6.0.1"
   }
 }

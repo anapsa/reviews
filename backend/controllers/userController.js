@@ -17,7 +17,6 @@ const createUser = async (req, res) => {
 
   // Verifica se já existe um usuario com este email
   try {
-
     const nameExists = await User.findOne({ name });
     if (nameExists) {
       return res.status(400).json({ message: "Username já cadastrado" });
@@ -35,6 +34,7 @@ const createUser = async (req, res) => {
     res.status(201).json({ message: "Usuário criado com sucesso" });
   } catch (error) {
     res.status(500).json({ message: "Erro ao criar usuário", error });
+    console.log(error)
   }
 };
 
