@@ -17,7 +17,7 @@ function SearchBar(){
         <div id='searchbar'>
             <input type="text" id='searchInput' placeholder='Pesquisar'/>
             <svg id='lupa' version="1.0" xmlns="http://www.w3.org/2000/svg"
-                width="70px" height="60px" viewBox="0 0 512.000000 512.000000"
+                width="70px" height="40px" viewBox="0 0 512.000000 512.000000"
                 preserveAspectRatio="xMidYMid meet">
 
                 <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"

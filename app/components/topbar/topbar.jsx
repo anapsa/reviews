@@ -1,7 +1,7 @@
 import SearchBar from "../searchbar/searchbar";
 import topbar from './topbar.css'
 
-export default function TopBar(){
+ function TopBar(){
 
     return(
         <div id='topbar'>
@@ -9,18 +9,18 @@ export default function TopBar(){
                     <SearchBar id='searchbar'/>
                         
                     <div id='filter-container'>
-                    <div className="filter-label">Filtrar por</div>
+                    <div className="filter-label">Filtrar por:</div>
                     <div id='options'>
                         <div className="filter-option">Assistidos</div>
                         <div className="filter-option">Abandonados</div>
-                        <div className="filter-option">Adicionar</div>
-                        <div className="filter-option">Remover</div>
+                        <button className="filter-option">Adicionar</button>
+                        <button className="filter-option">Remover</button>
                     </div>
                 </div>
             </div>
 
             <div id='profile_infos'>
-                            <svg id ='avatar' width="130" height="130" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <svg id ='avatar' width="130" height="80" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1355_1795)">
                                 <ellipse cx="63.6624" cy="74.6296" rx="56.7078" ry="56.9753" fill="#629584"/>
                                 <path d="M66.1633 84.8627C77.8167 84.8627 87.2636 75.4158 87.2636 63.7624C87.2636 52.109 77.8167 42.6621 66.1633 42.6621C54.5099 42.6621 45.063 52.109 45.063 63.7624C45.063 75.4158 54.5099 84.8627 66.1633 84.8627Z" fill="#FFB6B6"/>
@@ -41,3 +41,5 @@ export default function TopBar(){
     )
 
 }
+
+export default topbar;

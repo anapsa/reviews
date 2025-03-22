@@ -1,13 +1,15 @@
 
-#topbar{
+#topbar {
     width: 1440px;
-    height: 200px;
+    height: 120px; /* Altura reduzida */
     background-color: #387478;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between; /* Melhor espaçamento entre os elementos */
+    padding: 0 20px;
+    justify-content: flex-start;
+    gap: 40px;  /* Garante que os elementos não fiquem colados nas bordas */
 }
-
 #search_options{
     display: flex;
     flex-direction: column;
@@ -15,15 +17,14 @@
     justify-content: center;
 }
 
-#profile_infos{
+#profile_infos {
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
-#searchbar{
-    margin-top: 30px;
-    right: 120px;
-    bottom: 35px;
+#searchbar {
+    margin-top: 10px; /* Reduzido para caber melhor */
 }
 
 #filter-container {
@@ -39,6 +40,7 @@
    align-self: flex-start;
    display: flex;
    align-items: center;
+   flex-direction: column;
 }
 
 .profile{
@@ -52,42 +54,45 @@
     display: flex;
     position: relative;
     justify-content: space-around;
-    align-items: stretch;
+    align-items: center; /* Mantém os itens centralizados */
     background-color: #243642;
     font-family: "Gasoek One", sans-serif;
     color: #FFFFFF;
     border-radius: 40px;
     border: 2px solid white;
     gap: 10px;
-    padding: 0;
-    height: 80px;
+    padding: 10px 15px; /* Ajuste fino para manter o espaçamento adequado */
+    height: 40px; /* Altura reduzida sem comprometer a legibilidade */
     box-sizing: border-box;
+    margin-top: 5px;
 }
-
 .filter-option {
-    padding: 15px 20px;
-    flex: 1;
-    position: relative;
+    background: none;
+    border: none;
+    padding: 10px 15px;
     cursor: pointer;
-    background-color: transparent;
-    transition: background-color 0.3s ease;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     height: 100%;
-    box-sizing: border-box;
 }
 
 .filter-option:not(:last-child)::after {
     content: "";
     position: absolute;
-    right: -5px;
-    top: 0;
-    height: 100%;
-    width: 3px;
+    right: -5px; 
+    top: -5px; 
+    height: calc(100% + 10px); 
+    width: 2px;
     background-color: white;
 }
 
+
 .filter-option:hover {
-    background-color: #444;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
 }
