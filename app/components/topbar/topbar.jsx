@@ -8,11 +8,14 @@ export default function TopBar(){
             <div id='search_options'>
                     <SearchBar id='searchbar'/>
                         
-                <div id='options'>
-                    <div className="filter-option">Assistidos</div>
-                    <div className="filter-option">Abandonados</div>
-                    <div className="filter-option">Adicionar</div>
-                    <div className="filter-option">Remover</div>
+                    <div id='filter-container'>
+                    <div className="filter-label">Filtrar por</div>
+                    <div id='options'>
+                        <div className="filter-option">Assistidos</div>
+                        <div className="filter-option">Abandonados</div>
+                        <div className="filter-option">Adicionar</div>
+                        <div className="filter-option">Remover</div>
+                    </div>
                 </div>
             </div>
 

@@ -1,3 +1,4 @@
+
 #topbar{
     width: 1440px;
     height: 200px;
@@ -23,6 +24,15 @@
     margin-top: 30px;
     right: 120px;
     bottom: 35px;
+}
+
+#filter-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre a mensagem e a div options */
+    font-family: "Gasoek One", sans-serif;
+    font-size: 24px;
+    color: #FFFFFF;
 }
 
 #avatar{
@@ -55,7 +65,7 @@
 }
 
 .filter-option {
-    padding: 10px 0;
+    padding: 15px 20px;
     flex: 1;
     position: relative;
     cursor: pointer;
