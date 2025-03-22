@@ -1,0 +1,136 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ../../../node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!../../../node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/filterReviews/filterReviews.css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************/
+@import url('https://fonts.googleapis.com/css2?family=Gaseok+One&display=swap');
+
+
+#container {
+    display: flex;
+    align-items: center;  /* Alinha verticalmente */
+    gap: 12px; /* Espaço entre os elementos */
+}
+
+
+#titulo {
+    font-family: gasoek-one, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+body {
+    background-color: #387478;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#movieButton {
+    color: #FFFFFF;
+    background-color: #243642;
+    border: 0.1px solid #E2F1E7;;
+    float: left;
+    height: 35px;
+    width: 150px;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: gasoek-one, sans-serif;
+    font-style: normal;
+    cursor: pointer;
+    border-radius: 14px 0% 0% 14px;
+}
+
+#genreButton {
+    color: #FFFFFF;
+    background-color: #243642;
+    border: 0.1px solid #E2F1E7;;
+    float: left;
+    height: 35px;
+    width: 150px;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: gasoek-one, sans-serif;
+    font-style: normal;
+    cursor: pointer;
+}
+
+#classificationButton {
+    color: #FFFFFF;
+    background-color: #243642;
+    border: 0.1px solid #E2F1E7;;
+    float: left;
+    height: 35px;
+    width: 150px;
+    line-height: 30px;
+    font-weight: bold;
+    font-family: gasoek-one, sans-serif;
+    font-style: normal;
+    cursor: pointer;
+    border-radius: 0% 14px 14px 0%;
+}
+
+#movieButton:hover {
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 16px 16px 0 rgba(0,0,0,0.19);
+    border: 2px solid #E2F1E7;
+}
+
+#classificationButton:hover {
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 16px 16px 0 rgba(0,0,0,0.19);
+    border: 2px solid #E2F1E7;
+}
+
+#genreButton:hover {
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 16px 16px 0 rgba(0,0,0,0.19);
+    border: 2px solid #E2F1E7;
+}
+
+#filterContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown {
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 150px;
+    background-color: #243642;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 0 0;
+    border-radius: 5px;
+    float: left;
+
+    max-height: 150px; 
+    overflow-y: auto; 
+}
+
+.dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 10px;
+}
+
+.dropdown li {
+    padding: 8px 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    border: #FFFFFF;
+    transition: background 0.2s;
+    font-weight: bold;
+    font-family: gasoek-one, sans-serif;
+    font-style: normal;
+    cursor: pointer;
+}
+
+.dropdown li:hover {
+    background-color: #E2F1E7;
+}
+
+
