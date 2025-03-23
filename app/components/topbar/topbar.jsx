@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 
- function TopBar({SetIsAddButton, SetIsRemoveButton,SetIsWatchedButton,SetIsAbandonedButton}){
+ function TopBar({SetIsAddButton, SetIsRemoveButton,SetIsWatched,SetIsAbandoned}){
 
     useEffect(() => {
         const IsAddButton = document.getElementById('addButton');
@@ -19,12 +19,14 @@ import { useEffect, useState } from 'react';
 
         const IsWatchedButton = document.getElementById('watchedButton');
         IsWatchedButton.addEventListener('click', function(){
-           SetIsWatchedButton(true);
+           SetIsWatched(true);
+           SetIsAbandoned(false);
         })
 
         const IsAbandonedButton = document.getElementById('abandonedButton');
         IsAbandonedButton.addEventListener('click', function(){
-           SetIsAbandonedButton(true);
+           SetIsAbandoned(true);
+           SetIsWatched(false);
         })
     
     });
@@ -35,7 +37,7 @@ import { useEffect, useState } from 'react';
                     <SearchBar id='searchbar'/>
                         
                     <div id='filter-container'>
-                    <div className="filter-label">Filtrar por:</div>
+                    <div className="filter-label">Suas Listas:</div>
                     <div id='options'>
                         <button id ='watchedButton' className="filter-option">Assistidos</button>
                         <button id ='abandonedButton' className="filter-option">Abandonados</button>

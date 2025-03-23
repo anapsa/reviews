@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import './movie_info.css';
 
-export default function MovieInfo() {
+export default function MovieInfo(IsWatched,IsAbandoned) {
   const [watchedMovies, setWatchedMovies] = useState([]);
   const [detailedWatchedMovies, setDetailedWatchedMovies] = useState([]);
   const [abandonedMovies, setAbandonedMovies] = useState([]);
   const [detailedAbandonedMovies, setDetailedAbandonedMovies] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const imageFilme = 'https://upload.wikimedia.org/wikipedia/pt/thumb/1/1d/SchindlerPoster.jpg/250px-SchindlerPoster.jpg'
 
   // Função para buscar a lista de filmes assistidos
   const fetchWatchedList = async (name) => {
@@ -26,7 +28,6 @@ export default function MovieInfo() {
     }
   };
 
-  // Função para buscar a lista de filmes abandonados
   const fetchAbandonedList = async (name) => {
     try {
       const response = await fetch(`http://localhost:5001/users/${name}/abandoned`);
@@ -45,7 +46,6 @@ export default function MovieInfo() {
     }
   };
 
-  // Função para buscar os detalhes de um filme
   const fetchMovieDetails = async (movieName) => {
     try {
       const response = await fetch('http://localhost:5001/movies/get', {
@@ -69,99 +69,124 @@ export default function MovieInfo() {
     }
   };
 
-  // Primeiro useEffect: busca a lista de assistidos e abandonados
+  // Função genérica para buscar detalhes dos filmes
+  const fetchMoviesDetails = async (movies, setDetailedMovies) => {
+    if (movies.length === 0) return;
+
+    const moviesDetails = await Promise.all(
+      movies.map(async (movie) => {
+        const details = await fetchMovieDetails(movie.title);
+        return details ? { ...details, avaliation: movie.avaliation } : null;
+      })
+    );
+
+    setDetailedMovies(moviesDetails.filter(movie => movie !== null));
+  };
+
   useEffect(() => {
+    console.log({IsWatched,IsAbandoned});
     const userName = 'xupenio';
     fetchWatchedList(userName);
     fetchAbandonedList(userName);
-  }, []); // Roda apenas uma vez ao montar o componente
+  }, []); 
 
-  // Segundo useEffect: busca os detalhes dos filmes assistidos
   useEffect(() => {
-    if (watchedMovies.length === 0) return;
-  
-    const fetchMoviesDetails = async () => {
-      const moviesDetails = await Promise.all(
-        watchedMovies.map(async (movie) => {
-          const details = await fetchMovieDetails(movie.title);
-          return details ? { ...details, avaliation: movie.avaliation } : null;
-        })
-      );
-  
-      setDetailedWatchedMovies(moviesDetails.filter(movie => movie !== null));
-    };
-  
-    fetchMoviesDetails();
+    fetchMoviesDetails(watchedMovies, setDetailedWatchedMovies);
   }, [watchedMovies]);
-  // Terceiro useEffect: busca os detalhes dos filmes abandonados
+
   useEffect(() => {
-    if (abandonedMovies.length === 0) return;
-
-    const fetchMoviesDetails = async () => {
-      const moviesDetails = await Promise.all(
-        abandonedMovies.map(async (movie) => {
-          const details = await fetchMovieDetails(movie.title);
-          return details;
-        })
-      );
-
-      setDetailedAbandonedMovies(moviesDetails.filter(movie => movie !== null));
-    };
-
-    fetchMoviesDetails();
+    fetchMoviesDetails(abandonedMovies, setDetailedAbandonedMovies);
   }, [abandonedMovies]);
+
+  useEffect(() => {
+    if (detailedWatchedMovies.length > 0 || detailedAbandonedMovies.length > 0) {
+      setLoading(false);
+    }
+  }, [detailedWatchedMovies, detailedAbandonedMovies]);
 
   return (
     <div id='movieInfo'>
-      <h2>Filmes Assistidos</h2>
-      {detailedWatchedMovies.length > 0 ? (
-        detailedWatchedMovies.map((movie, index) => (
-          <div key={index} className="movieItem">
-            <img className="movieCover" src={movie.cover?.imageURL || 'https://via.placeholder.com/150'} alt={movie.name} />
-            <div className="movieDetails">
-              <h2 className="movieTitle">{movie.name}</h2>
-              <p className="movieGenre">
-                Gênero: <span className="genreHighlight">{movie.genre || "Desconhecido"}</span>
-              </p>
-              <div className="movieStars">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <span key={i} className={i < movie.rating ? "star filled" : "star"}>★</span>
-                ))}
-              </div>
-              <p className="movieSynopsis">{movie.synopsis || "Sinopse não disponível."}</p>
-              <p className="movieAvaliation">Avaliação: {movie.avaliation || "Sem avaliação."}</p>
-            </div>
-          </div>
-        ))
+      {loading ? (
+        <p>Carregando...</p>
       ) : (
-        <p>Carregando filmes assistidos...</p>
-      )}
+        <>
+          {IsWatched.IsWatched && <h2 className='TypeList'>Filmes Assistidos</h2>}
+          {detailedWatchedMovies.length > 0 ? (
+              IsWatched.IsWatched && detailedWatchedMovies.map((movie, index) => (
+                <div key={index}  className="movieItem">
+                  <img className="movieCover" src={movie.cover?.imageURL || 'https://via.placeholder.com/150'} alt={movie.name} />
+                  
+                  <div className="movieDetails">
+                    <h2 className="movieTitle">{movie.name}</h2>
+                    <p className="movieGenre">
+                      Gênero: <span className="genreHighlight">{movie.genre || "Desconhecido"}</span>
+                    </p>
 
-      <h2>Filmes Abandonados</h2>
-      {detailedAbandonedMovies.length > 0 ? (
-        detailedAbandonedMovies.map((movie, index) => (
-          <div key={index} className="movieItem abandoned">
-            <img className="movieCover" src={movie.cover?.imageURL || 'https://via.placeholder.com/150'} alt={movie.name} />
-            <div className="movieDetails">
-              <h2 className="movieTitle">{movie.name}</h2>
-              <p className="movieGenre">
-                Gênero: <span className="genreHighlight">{movie.genre || "Desconhecido"}</span>
-              </p>
-                <div className="movieStars">{Array.from({ length: 5 }).map((_, i) => (<span key={i} 
-                                  className={i < Math.ceil(movie.avg / 2) ? "star filled" : "star"}
-                                >
-                                  ★
-                                </span>
-                              ))}
+                    <div className='movieDownInfos'>
+                      <p className="movieSynopsis">Sinopse: {movie.synopsis || "Sinopse não disponível."}</p>
+                      <p className="movieAvaliation">Avaliação: {movie.avaliation || "Sem avaliação."}</p>
+                    </div>
+                  </div>
+                        <div className="movieStars">
+                          {Array.from({ length: Math.ceil(movie.avg/2) }).map((_, i) => (
+                            <svg
+                              key={i}
+                              width="24"
+                              height="24"
+                              viewBox="0 0 48 46"
+                              fill="#F9A826"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path d="M24 0L29.6129 17.2746H47.7764L33.0818 27.9508L38.6946 45.2254L24 34.5491L9.30537 45.2254L14.9182 27.9508L0.223587 17.2746H18.3871L24 0Z" />
+                            </svg>
+                          ))}
+                      </div>
                 </div>
-              <p className="movieSynopsis">Sinopse: {movie.synopsis || "Sinopse não disponível."}</p>
-              <p className="movieAvaliation">Avaliação: {movie.avaliation || "Sem avaliação."}</p>
-            </div>
-          </div>
-        ))
-      ) : (
-        <p>Carregando filmes abandonados...</p>
+              ))
+            ) : (
+              (IsWatched.IsWatched && <p>Nenhum filme assistido encontrado.</p>)
+          )}
+
+
+          {IsWatched.IsAbandoned && (<h2 className='TypeList'>Filmes Abandonados</h2>)}
+          {detailedAbandonedMovies.length > 0 ? (
+            IsWatched.IsAbandoned && detailedAbandonedMovies.map((movie, index) => (
+              <div key={index} className="movieItem">
+                <img className="movieCover" src={imageFilme || 'https://via.placeholder.com/150'} alt={movie.name} />
+                <div className="movieDetails">
+                  <h2 className="movieTitle">{movie.name}</h2>
+                  <p className="movieGenre">
+                    Gênero: <span className="genreHighlight">{movie.genre || "Desconhecido"}</span>
+                  </p>
+                  <div className='movieDownInfos'>
+                      <p className="movieSynopsis">Sinopse: {movie.synopsis || "Sinopse não disponível."}</p>
+                      <p className="movieAvaliation">Avaliação: {movie.avaliation || "Sem avaliação."}</p>
+                  </div>
+                </div>
+
+                <div className="movieStars">
+                    {Array.from({ length: Math.ceil(movie.avg) }).map((_, i) => (
+                      <svg
+                        key={i}
+                        width="24"
+                        height="24"
+                        viewBox="0 0 48 46"
+                        fill="#F9A826"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M24 0L29.6129 17.2746H47.7764L33.0818 27.9508L38.6946 45.2254L24 34.5491L9.30537 45.2254L14.9182 27.9508L0.223587 17.2746H18.3871L24 0Z" />
+                      </svg>
+                    ))}
+                 </div>
+              </div>
+            ))
+          ) : (
+            IsWatched.IsAbandoned && (<p>Nenhum filme abandonado encontrado.</p>)
+          )}
+        </>
       )}
     </div>
   );
 }
+
+

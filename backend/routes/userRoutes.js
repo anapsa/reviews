@@ -1,5 +1,5 @@
 const express = require("express");
-const { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched,addAbandoned, getWatched,getAbandoned,deleteWatched,deleteAbandoned} = require("../controllers/userController");
+const { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched,addAbandoned, getWatched,getAbandoned,deleteWatched,deleteAbandoned, findWatched} = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 const { login } = require("../controllers/authController"); 
 
@@ -18,5 +18,6 @@ router.get("/:name/watched", getWatched);
 router.get("/:name/abandoned", getAbandoned);
 router.delete("/:name/watched/:title",deleteWatched);
 router.delete("/:name/abandoned/:title",deleteAbandoned);
+router.get(":/name/watched/:title",findWatched);
 module.exports = router;
 

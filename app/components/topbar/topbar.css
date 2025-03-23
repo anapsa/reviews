@@ -1,6 +1,6 @@
 
 #topbar {
-    width: 1440px;
+    width: 100vw;
     height: 120px; /* Altura reduzida */
     background-color: #387478;
     display: flex;

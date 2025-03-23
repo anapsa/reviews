@@ -1,16 +1,67 @@
 #movieInfo{
-    width: 1066px;
-    height: 247px;
+    width: 100vw;
+    height: 100vh - 120px;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
     gap: 30px;
+    overflow:hidden;
+    padding-top: 30px;
+    padding-left: 150px;
 }
 
-#movieCover{
+.typeList{
+    color: #000000;
+    font-size:14px ;
+}
+
+.movieStar{
+    display: flex;
+    flex-direction: row;
+    padding-right: 200px;
+}
+
+.movieItem{
+    display: flex;
+    flex-direction: row;
+}
+
+.movieDetails{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 35px;
+}
+.movieTitle{
+    font-size: 24px;
+    color: black;
+}
+
+.movieCover{
     width: 162px;
-    height: 100%;
+    height: 241px;
+}
+
+.movieGenre{
+    font-size: 20px;
+    color: #6C9C8B;
+}
+
+.movieSynopsis{
+    font-size: 16px;
+    color: black;
+}
+
+.movieAvaliation{
+    font-size: 16px;
+    color: black;
+}
+
+.movieDownInfos{
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    gap: 10px;
 }
 
 #movieUpInfos{

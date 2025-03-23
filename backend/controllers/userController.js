@@ -323,4 +323,22 @@ const deleteAbandoned = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched, addAbandoned,getWatched, getAbandoned, deleteWatched, deleteAbandoned};
+const findWatched = async (req,res) => {
+    const {title} = req.body;
+    if(!title){
+        return res.status(400).json({message: "Você deve informar o nome do filme a ser procurado"})
+    }
+    try{
+        const findWatched = await User.watched.findOne(title);
+        if(findWatched){
+            res.status(201).json({movie: findMovie, message: "Filme foi encontrado"})
+        }
+        else{
+            res.status(400).json({movie: null, message: "Filme não foi encontrado"})
+        }
+    } catch(error){
+        return res.status(500).json({message: "Erro no apagamento do filme ",error})
+    }
+}
+
+module.exports = { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched, addAbandoned,getWatched, getAbandoned, deleteWatched, deleteAbandoned,findWatched};

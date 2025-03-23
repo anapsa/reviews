@@ -1,15 +1,13 @@
 import './searchbar.css'
 import { useEffect } from 'react';
 
-function SearchBar(){
+function SearchBar(SetIsSearch){
 
     useEffect(() => {
-        const lupa = document.getElementById('lupa');
-        lupa.addEventListener('click',IsClick);
-        function IsClick(){
-            const bar = document.getElementById('searchInput');
-            console.log(bar.value)
-        }
+        const IsSearch = document.getElementById('lupa');
+        IsSearch.addEventListener('click',function(){
+            SetIsSearch(true);
+        });
     
     });
     
