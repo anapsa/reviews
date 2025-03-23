@@ -26,13 +26,11 @@ export default function ReviewDetail() {
   };
   const handleConfirm = async () => {
     try {
-      // Verifique se o texto não está vazio
+     
       if (!text.trim()) {
         alert('Por favor, digite algo!');
         return;
       }
-
-      // Faz a requisição POST
       const response = await fetch('http://localhost:5001/comment/add', {
         method: 'POST',
         headers: {
