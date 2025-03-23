@@ -6,29 +6,11 @@ import ReviewCard from '../../components/review_card/ReviewCard';
 
 export default function Page() {
   const router = useRouter();
-  const [userName, setUserName] = useState({ user: {} });
-  const [reviews, setReviews] = useState([
-    {
-      id: 1,
-      title: "“Pra cima deles!” 5★",
-      movie: "Vingadores: Ultimato | Ação",
-      comment: "Muito bom, chorei",
-      date: "26-04-2019",
-      likes: 47
-    },
-    {
-      id: 2,
-      title: "“Não sei, só sei que foi assim” 5★",
-      movie: "O Auto da Compadecida 2 | Comédia",
-      comment: "Melhor filme já feito",
-      date: "25-12-2024",
-      likes: 25
-    }
-  ]);
-
+  const [userName, setUserName] = useState({ user: { review: [] } }); // Inicialize com reviewIds vazias
   const [userData, setUserData] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
+  const [userReviews, setUserReviews] = useState([]); // Estado para armazenar as reviews do usuário
 
   useEffect(() => {
     const storedUserName = localStorage.getItem('userName');
@@ -41,8 +23,39 @@ export default function Page() {
     if (storedUserData) {
       const parsedUserData = JSON.parse(storedUserData);
       setUserData(parsedUserData);
+      // Busca as reviews do usuário com base nas IDs
+      fetchUserReviews(parsedUserData.review);
     }
   }, []);
+
+  const fetchUserReviews = async (reviewIds) => {
+    console.log(reviewIds)
+    try {
+      // Verifica se reviewIds é um array antes de usar o map
+      if (!Array.isArray(reviewIds)) {
+        console.error('reviewIds não é um array:', reviewIds);
+        return;
+      }
+  
+      const reviews = await Promise.all(
+        reviewIds.map(async (id) => {
+          const response = await fetch(`http://localhost:5001/reviews/getReview/${id}`);
+          if (response.ok) {
+            return await response.json();
+          } else {
+            console.error(`Erro ao buscar review com ID ${id}`);
+            return null;
+          }
+        })
+      );
+  
+      // Filtra as reviews válidas (remove nulls)
+      const validReviews = reviews.filter(review => review !== null);
+      setUserReviews(validReviews); // Atualiza o estado com as reviews encontradas
+    } catch (error) {
+      console.error('Erro ao buscar reviews:', error);
+    }
+  };
 
   const follow = async () => {
     if (!userName?.user?.name || !userData?.name) {
@@ -121,8 +134,8 @@ export default function Page() {
       )}
 
       <div className="reviews">
-        {reviews.length > 0 ? (
-          reviews.map((review) => (
+        {userReviews.length > 0 ? (
+          userReviews.map((review) => (
             <div key={review.id} className="review">
               <img src={review.movieImage || "https://upload.wikimedia.org/wikipedia/pt/9/9b/Avengers_Endgame.jpg"} alt={review.movie} className="review-image" />
               <div className="review-content">

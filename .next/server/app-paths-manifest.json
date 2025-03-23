@@ -1,6 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/pages/page_userProfile/page": "app/pages/page_userProfile/page.js",
   "/pages/page_search/page": "app/pages/page_search/page.js",
-  "/pages/cadastro/page": "app/pages/cadastro/page.js",
-  "/pages/page_userProfile/page": "app/pages/page_userProfile/page.js"
+  "/pages/cadastro/page": "app/pages/cadastro/page.js"
 }
