@@ -5,12 +5,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/pages/teste/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/teste/page.css",
-      "static/chunks/app/pages/teste/page.js"
-    ],
     "/pages/reviews/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

@@ -103,6 +103,8 @@
 
     max-height: 150px; 
     overflow-y: auto; 
+
+    z-index: 2;
 }
 
 .dropdown::-webkit-scrollbar {
@@ -132,7 +134,7 @@
 
 #appliedFilter {
     display: flex;         /* Muda para inline-flex para garantir o ajuste correto ao conteúdo */
-    padding: 10px 10px;           /* Mantém o espaçamento interno */
+    padding: 10px 10px;          
     background-color: #405D72;
     color: #FFFFFF;
     border: none;
@@ -158,8 +160,9 @@
 }
 
 #svg_container{
-    position: absolute;
+    position: relative;
     cursor: pointer;
+    z-index: 1;
 }
 
 #svgoff, #svgon {

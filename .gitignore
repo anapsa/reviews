@@ -26,6 +26,8 @@ Thumbs.db
 dist/
 lib/
 
+.next/
+
 # Env
 .env
 .env.test

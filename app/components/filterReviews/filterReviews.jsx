@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import './filterReviews.css';
 
-export default function FilterReviews() {
+export default function FilterReviews({ selectedMovies, setSelectedMovies }) {
     const [isOpenMovie, setIsOpenMovie] = useState(false);
     const [isOpenClassification, setIsOpenClassification] = useState(false);
     const [isOpenGenre, setIsOpenGenre] = useState(false);
@@ -17,6 +17,8 @@ export default function FilterReviews() {
     const [itemTitles, setItemTitles] = useState(undefined);
     const [itemClassification, setItemClassification] = useState(undefined);
     const [itemGenre, setItemGenre] = useState(undefined);
+
+    //const [selectedMovies, setSelectedMovies] = useState(null);
     
     const ClickMovie = () => {
         setIsOpenMovie(!isOpenMovie);
@@ -30,7 +32,8 @@ export default function FilterReviews() {
     };
 
     const deleteFilter = () => {
-        setSelectedItem(null)
+        setSelectedItem(null);
+        setSelectedMovies(null)
         setSelectedItemTitle(null);
         setSelectedItemGenre(null);
         setSelectedItemClassification(null);
@@ -60,12 +63,20 @@ export default function FilterReviews() {
 
     useEffect(() => {
         async function getMovies (){
+            setItemTitles([]);
+            setItemClassification([]);
+            setItemGenre([]);
+
             const response = await fetch("http://localhost:5001/movies/", {
                 method: "GET",
                 headers: {
                 "Content-Type": "application/json"
                 },
             });
+
+            if (!response.ok) {
+                throw new Error(`Erro na requisição: ${response.status}`);
+            }
 
             const movies = await response.json();
 
@@ -91,7 +102,7 @@ export default function FilterReviews() {
 
             console.log([selectedItemTitle, selectedItemGenre, selectedItemClassification])
             if (Object.keys(requestBody).length === 0) {
-                return; // Não faz requisição se não houver dados válidos
+                return; // Checa se os valores realmente foram adicionados
             }
 
             try {
@@ -107,7 +118,9 @@ export default function FilterReviews() {
                     throw new Error(`Erro na requisição: ${response.status}`);
                 }
     
-                const reviews = await response.json();
+                const data = await response.json();
+                const reviews = data.review;
+                setSelectedMovies(reviews);
                 console.log(reviews);
             } catch (error) {
                 console.error("Erro ao buscar reviews:", error);

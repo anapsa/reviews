@@ -1,40 +1,21 @@
 #container {
-    position: relative; /* Permite o posicionamento absoluto dos filhos */
-    width: 100vw;       /* 100% da largura da tela */
-    height: 100vh;      /* 100% da altura da tela */
+    position: relative;
+    width: 100vw;       
+    height: 100vh;      
     background-color: #387478;
     display: flex;
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    align-items: flex-start; /* Alinha o conteúdo ao topo */
+    justify-content: center; 
+    align-items: flex-start; 
 }
 
 html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Impede a rolagem e garante que o conteúdo não ultrapasse a tela */
+    overflow: hidden;
 }
 
 #filtro {
-    position: absolute; /* Posiciona o filtro dentro de #container */
-    top: 11vh;          /* 20% da altura da tela */
-    left: 30vw;         /* 30% da largura da tela */
-    transform: translate(-50%, -50%); /* Ajusta para centralizar */
+    position: absolute; 
+    top: 11vh;          
+    transform: translate(-50%, -50%);
 }
-
-#notFound {
-    display: flex;
-    flex-direction: column;  /* Organiza os itens verticalmente */
-    justify-content: center; /* Alinha os itens verticalmente ao centro */
-    align-items: center;     /* Alinha os itens horizontalmente ao centro */
-    height: 100vh;           /* Ocupa 100% da altura da tela */
-    text-align: center;      /* Garante que o texto fique centralizado */
-}
-
-#messageNotFound {
-    margin-top: 20px;
-    color: #FD0808;
-    font-family: "Nunito", serif;
-    font-size: 24px;
-}
-
-

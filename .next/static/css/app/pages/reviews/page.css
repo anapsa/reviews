@@ -106,6 +106,8 @@
 
     max-height: 150px; 
     overflow-y: auto; 
+
+    z-index: 2;
 }
 
 .dropdown::-webkit-scrollbar {
@@ -135,7 +137,7 @@
 
 #appliedFilter {
     display: flex;         /* Muda para inline-flex para garantir o ajuste correto ao conteúdo */
-    padding: 10px 10px;           /* Mantém o espaçamento interno */
+    padding: 10px 10px;          
     background-color: #405D72;
     color: #FFFFFF;
     border: none;
@@ -164,8 +166,9 @@
 }
 
 #svg_container{
-    position: absolute;
+    position: relative;
     cursor: pointer;
+    z-index: 1;
 }
 
 #svgoff, #svgon {
@@ -187,39 +190,16 @@
     opacity: 0;
   }
   
-/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/pages/reviews/style.css ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************/
-#container {
-    position: relative; /* Permite o posicionamento absoluto dos filhos */
-    width: 100vw;       /* 100% da largura da tela */
-    height: 100vh;      /* 100% da altura da tela */
-    background-color: #387478;
-    display: flex;
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    align-items: flex-start; /* Alinha o conteúdo ao topo */
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* Impede a rolagem e garante que o conteúdo não ultrapasse a tela */
-}
-
-#filtro {
-    position: absolute; /* Posiciona o filtro dentro de #container */
-    top: 11vh;          /* 20% da altura da tela */
-    left: 30vw;         /* 30% da largura da tela */
-    transform: translate(-50%, -50%); /* Ajusta para centralizar */
-}
-
+/*!******************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/postNotFound/postNotFound.css ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************/
 #notFound {
     display: flex;
-    flex-direction: column;  /* Organiza os itens verticalmente */
-    justify-content: center; /* Alinha os itens verticalmente ao centro */
-    align-items: center;     /* Alinha os itens horizontalmente ao centro */
-    height: 100vh;           /* Ocupa 100% da altura da tela */
-    text-align: center;      /* Garante que o texto fique centralizado */
+    flex-direction: column;  
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;           
+    text-align: center;      
 }
 
 #messageNotFound {
@@ -228,6 +208,27 @@ html, body {
     font-family: "Nunito", serif;
     font-size: 24px;
 }
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/pages/reviews/style.css ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+#container {
+    position: relative;
+    width: 100vw;       
+    height: 100vh;      
+    background-color: #387478;
+    display: flex;
+    justify-content: center; 
+    align-items: flex-start; 
+}
 
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 
-
+#filtro {
+    position: absolute; 
+    top: 11vh;          
+    transform: translate(-50%, -50%);
+}
