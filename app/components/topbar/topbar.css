@@ -6,9 +6,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between; /* Melhor espaçamento entre os elementos */
-    padding: 0 20px;
+    padding: 0 20px 0 120px;
     justify-content: flex-start;
-    gap: 40px;  /* Garante que os elementos não fiquem colados nas bordas */
+    gap: 40px;  
 }
 #search_options{
     display: flex;

@@ -1,0 +1,76 @@
+#PopUpAdicao{
+    width: 650px;
+    height: 500px;
+    background-color: #E2F1E7;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+
+#backButton{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+
+#addForm{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+#Title, #Avaliation{
+    width: 480px;
+    height: 52px;
+    border-radius: 26px;
+    padding: 0 25px 0 25px;
+    font-size: 24px;
+    background-color: #E2F1E7;
+    border: 3px solid #cccccc;
+}
+
+label{
+    font-size: 24px;
+}
+
+#finishButton{
+    width: 342px;
+    height: 84px;
+    border-radius: 42px;
+    font-size: 32px;
+    background-color: #629584;
+    color: #ffffff;
+    border: 3px solid #629584;
+    cursor: pointer;
+}
+
+.InfoFilm{
+    display: flex;
+    flex-direction: column;
+
+}
+
+#choose_list{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.options_movies{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#watched, #Abandoned{
+     width: 30px;
+     height: 30px;
+     border-radius: 15px;
+}

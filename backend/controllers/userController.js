@@ -160,4 +160,167 @@ const updateUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, getUsers, findUser, followUser, deleteUser, updateUser};
+const addWatched = async (req, res) => {
+  const { name, title, avaliation } = req.body;
+  
+  // Verifica se todos os campos necessários foram fornecidos
+  if (!name || !title || !avaliation) {
+    return res.status(400).json({ message: "Todos os campos (name, title, avaliation) são obrigatórios" });
+  }
+
+  try {
+    // Encontra o usuário
+    const user = await User.findOne({ name });
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    // Cria o objeto para adicionar ao campo 'watched'
+    const filmData = { title, avaliation };
+
+    // Adiciona o filme à lista 'watched' do usuário
+    user.watched.push(filmData);
+
+    // Salva as alterações no banco de dados
+    await user.save();
+
+    // Responde ao cliente com sucesso
+    res.status(200).json({ message: "Filme adicionado à lista de assistidos com sucesso!" });
+
+  } catch (error) {
+    console.error("Erro ao adicionar filme:", error);
+    res.status(500).json({ message: "Erro ao adicionar filme", error });
+  }
+};
+
+const addAbandoned = async (req, res) => {
+  const { name, title, avaliation } = req.body;
+  
+  // Verifica se todos os campos necessários foram fornecidos
+  if (!name || !title || !avaliation) {
+    return res.status(400).json({ message: "Todos os campos (name, title, avaliation) são obrigatórios" });
+  }
+
+  try {
+    // Encontra o usuário
+    const user = await User.findOne({ name });
+
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    // Cria o objeto para adicionar ao campo 'watched'
+    const filmData = { title, avaliation };
+
+    // Adiciona o filme à lista 'watched' do usuário
+    user.abandoned.push(filmData);
+
+    // Salva as alterações no banco de dados
+    await user.save();
+
+    // Responde ao cliente com sucesso
+    res.status(200).json({ message: "Filme adicionado à lista de abandonados com sucesso!" });
+
+  } catch (error) {
+    console.error("Erro ao adicionar filme:", error);
+    res.status(500).json({ message: "Erro ao adicionar filme", error });
+  }
+};
+
+const getWatched = async (req, res) => {
+  try {
+    const user = await User.findOne({ name: req.params.name });
+     console.log(user.watched);
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    res.json(user.watched);
+  } catch (error) {
+    console.error("Erro ao buscar lista de assistidos:", error);
+    res.status(500).json({ message: "Erro ao buscar lista de assistidos", error });
+  }
+};
+
+const getAbandoned = async (req, res) => {
+  try {
+    const user = await User.findOne({ name: req.params.name });
+     console.log(user.abandoned);
+    if (!user) {
+      return res.status(404).json({ message: "Usuário não encontrado" });
+    }
+
+    res.json(user.abandoned);
+  } catch (error) {
+    console.error("Erro ao buscar lista de abandonados:", error);
+    res.status(500).json({ message: "Erro ao buscar lista de abandonados", error });
+  }
+};
+
+const deleteWatched = async (req, res) => {
+  const { title } = req.params;  // Corrigindo a forma de acessar o título
+  const { name } = req.params;   // Extraindo o nome do usuário dos parâmetros
+  
+  // Encontrar o usuário
+  const user = await User.findOne({ name });
+
+  if (!user) {
+    return res.status(400).json({ message: "Usuário não foi encontrado" });
+  }
+
+  if (!title) {
+    return res.status(204).json({ message: "Você deve informar o nome do filme a ser deletado" });
+  }
+
+  try {
+    // Remove o filme com o título informado do array 'watched' do usuário
+    const deletedMovie = await User.updateOne(
+      { _id: user._id },  // Encontrando o usuário pelo _id
+      { $pull: { watched: { title } } } // Removendo o filme com o título correspondente
+    );
+
+    if (deletedMovie.nModified > 0) {
+      res.status(200).json({ message: `Filme "${title}" foi deletado` });
+    } else {
+      res.status(400).json({ message: "Filme não foi encontrado na lista de assistidos" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Erro no apagamento do filme", error });
+  }
+};
+
+
+const deleteAbandoned = async (req, res) => {
+  const { title } = req.params;  // Corrigindo a forma de acessar o título
+  const { name } = req.params;   // Extraindo o nome do usuário dos parâmetros
+  
+  // Encontrar o usuário
+  const user = await User.findOne({ name });
+
+  if (!user) {
+    return res.status(400).json({ message: "Usuário não foi encontrado" });
+  }
+
+  if (!title) {
+    return res.status(204).json({ message: "Você deve informar o nome do filme a ser deletado" });
+  }
+
+  try {
+    // Remove o filme com o título informado do array 'watched' do usuário
+    const deletedMovie = await User.updateOne(
+      { _id: user._id },  
+      { $pull: { abandoned: { title } } } // Removendo o filme com o título correspondente
+    );
+
+    if (deletedMovie.nModified > 0) {
+      res.status(200).json({ message: `Filme "${title}" foi deletado` });
+    } else {
+      res.status(400).json({ message: "Filme não foi encontrado na lista de abandonados" });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: "Erro no apagamento do filme", error });
+  }
+};
+
+module.exports = { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched, addAbandoned,getWatched, getAbandoned, deleteWatched, deleteAbandoned};

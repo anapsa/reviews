@@ -1,7 +1,33 @@
 import SearchBar from "../searchbar/searchbar";
 import topbar from './topbar.css'
+import { useEffect, useState } from 'react';
 
- function TopBar(){
+
+
+ function TopBar({SetIsAddButton, SetIsRemoveButton,SetIsWatchedButton,SetIsAbandonedButton}){
+
+    useEffect(() => {
+        const IsAddButton = document.getElementById('addButton');
+        IsAddButton.addEventListener('click', function(){
+           SetIsAddButton(true);
+        })
+
+        const IsRemoveButton = document.getElementById('removeButton');
+        IsRemoveButton.addEventListener('click', function(){
+           SetIsRemoveButton(true);
+        })
+
+        const IsWatchedButton = document.getElementById('watchedButton');
+        IsWatchedButton.addEventListener('click', function(){
+           SetIsWatchedButton(true);
+        })
+
+        const IsAbandonedButton = document.getElementById('abandonedButton');
+        IsAbandonedButton.addEventListener('click', function(){
+           SetIsAbandonedButton(true);
+        })
+    
+    });
 
     return(
         <div id='topbar'>
@@ -11,10 +37,10 @@ import topbar from './topbar.css'
                     <div id='filter-container'>
                     <div className="filter-label">Filtrar por:</div>
                     <div id='options'>
-                        <div className="filter-option">Assistidos</div>
-                        <div className="filter-option">Abandonados</div>
-                        <button className="filter-option">Adicionar</button>
-                        <button className="filter-option">Remover</button>
+                        <button id ='watchedButton' className="filter-option">Assistidos</button>
+                        <button id ='abandonedButton' className="filter-option">Abandonados</button>
+                        <button id = 'addButton' className="filter-option">Adicionar</button>
+                        <button id ='removeButton'className="filter-option">Remover</button>
                     </div>
                 </div>
             </div>
@@ -42,4 +68,4 @@ import topbar from './topbar.css'
 
 }
 
-export default topbar;
+export default TopBar;
