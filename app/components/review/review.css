@@ -98,4 +98,38 @@ likes {
     height: 241px; 
 
 }
+.openPopUp{
+    display: flex;
+    align-items: center;
+    flex-direction: center;
+    justify-content: space-between; 
+    height: 241px;
+    z-index: 20; 
+}
+.custom-textarea {
+    width: 100%; 
+    width: 1100px; 
+    height: 150px; 
+    padding: 10px; 
+    font-size: 16px;
+    font-family: 'Nunito', sans-serif;
+    border: 2px solid #387478; 
+    border-radius: 10px; 
+    background-color: #d6d6d6; 
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s; 
+    resize: none; 
+  }
+  
+  
+  .custom-textarea:focus {
+    outline: none; 
+    border-color: #5d8184; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; 
+  }
 
+  .custom-textarea::placeholder {
+    color: #aaa; 
+    font-style: italic; 
+  }

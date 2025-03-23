@@ -12,7 +12,7 @@ const createComment = async (req, res) => {
         return res.status(400).json({ message: "Preencha todos os campos" });
     } 
     if (!req.user) {
-    console.log("user")
+    console.log(user+"user")
       return res.status(401).json({ message: "Usuário não autenticado" });
     }
     try{

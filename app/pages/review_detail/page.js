@@ -13,10 +13,48 @@ export default function ReviewDetail() {
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
   const reviewId = "67df0753c306e96f1d17ae40";
-  const handleClick = () => {
-    console.log("Botão clicado!");
-  };
+  const [isTextBoxVisible, setIsTextBoxVisible] = useState(false);
 
+  const [text, setText] = useState('');
+
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+  const handleClick = () => {
+    setIsTextBoxVisible(!isTextBoxVisible);
+  };
+  const handleConfirm = async () => {
+    try {
+      // Verifique se o texto não está vazio
+      if (!text.trim()) {
+        alert('Por favor, digite algo!');
+        return;
+      }
+
+      // Faz a requisição POST
+      const response = await fetch('http://localhost:5001/comment/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTkzMzYzYmM3OWY3OTVmYWE4MmVjMiIsImlhdCI6MTc0MjY5NTk2OSwiZXhwIjoxNzQyNjk5NTY5fQ.WqSBVGhHcT_3gyh8Ysyq605OAZyIuXt-w2rmbmhuqiA'
+        },
+        body: JSON.stringify({ body: text, review: reviewId}) 
+      });
+
+      if (!response.ok) {
+        throw new Error('Erro ao enviar o texto!');
+      }
+
+      
+      alert('Texto enviado com sucesso!');
+      setText('');
+    } catch (err) {
+      setError(err.message);
+      console.error('Erro ao enviar:', err);
+    }
+  };
+  
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -52,9 +90,17 @@ export default function ReviewDetail() {
         {comments.length > 0 ? (
           comments.map((comment) => (
             <div key={comment._id} className="comment">
-              <div className="commentV">
-                <co>{comment.owner?.name || "Anônimo"}</co> 
-                <p> {comment.body}</p>
+              <div>
+                <div className="commentH">
+                  <b>por: {comment.owner?.name || "Anônimo"}</b> 
+                  <div className="horizontal">
+                    <b className="text-xl font-bold">Curtir Cometário</b>
+                    <likes className="text-gray-600">{comment.likes.length} curtidas</likes>
+                  </div>
+                </div>
+                <div className="comments">
+                  <p> {comment.body}</p>
+                </div>
               </div>
             </div>
           ))
@@ -65,6 +111,16 @@ export default function ReviewDetail() {
       <div>
           <Button label="Comentar" onClick={handleClick} />
       </div>
+      {isTextBoxVisible && (
+        <div className="overlay" onClick= {handleChange}>
+          {/* Popup */}
+          <div className="popup">
+            <textarea className="custom-textarea" placeholder="Digite aqui..."></textarea>
+            <Button label="Confirmar" onClick={handleConfirm} />
+          </div>
+        </div>
+      )}
+      
     </div>
   );
 }
