@@ -45,7 +45,11 @@ const getReviewById = async (req,res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(410).json({ message: "ID inválido" });
     }
-    const review = await Review.findById(new mongoose.Types.ObjectId(id));
+    const review = await Review.findById(new mongoose.Types.ObjectId(id))
+      .populate({
+        path: "comments",
+        populate: { path: "owner", select: "name" },
+      })
     const owner = await User.findById(new mongoose.Types.ObjectId(review.owner));
     const content = await Movie.findById(new mongoose.Types.ObjectId(review.content));
     if (!review) {

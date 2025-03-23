@@ -10,7 +10,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 .photo_img {
     width: 162px; 
@@ -27,7 +26,7 @@ h1 {
     font-family: "Quicksand", sans-serif;
 }
 h2 {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 700;
     margin: 0;
     padding: 0;
@@ -69,7 +68,7 @@ likes {
     justify-content: center;
     background-color: #F7E7DC;
     padding: 20px;
-    height: 100vh;
+    height: auto; 
 }
 .horizontal {
     display: flex;
@@ -97,5 +96,6 @@ likes {
     flex-direction: column;
     justify-content: space-between; 
     height: 241px; 
+
 }
 

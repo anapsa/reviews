@@ -11,6 +11,7 @@ export default function ReviewDetail() {
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [comments, setComments] = useState([]);
   const reviewId = "67df0753c306e96f1d17ae40";
   const handleClick = () => {
     console.log("Botão clicado!");
@@ -28,6 +29,7 @@ export default function ReviewDetail() {
         setPost(data.review);
         setOwner(data.owner || null);
         setContent(data.content || null);
+        setComments(data.review.comments || []);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -43,8 +45,26 @@ export default function ReviewDetail() {
   if (!post) return <p>Nenhum post encontrado.</p>;
 
   return (
-    <div className="vertical">
+    <div className="vertical-left">
       <Review reviewId={reviewId} />
+      <div>
+        <h2>Comentários</h2>
+        {comments.length > 0 ? (
+          comments.map((comment) => (
+            <div key={comment._id} className="comment">
+              <div className="commentV">
+                <co>{comment.owner?.name || "Anônimo"}</co> 
+                <p> {comment.body}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>Sem comentários ainda.</p>
+        )}
+      </div>
+      <div>
+          <Button label="Comentar" onClick={handleClick} />
+      </div>
     </div>
   );
 }

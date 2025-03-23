@@ -47,12 +47,12 @@ export default function Reviews({ reviewId }) {
   if (!post) return <p>Nenhum post encontrado.</p>;
 
   return (
-    <div className="vertical">
-      <div className="vertical">
+    <div>
+      <div >
         {/* Post */}
         <div className="horizontal"> 
             {/* Container da foto */}
-          <div className="mr-4"> {/* Margem à direita para espaçamento */}
+          <div className="mr-4"> 
             <img
               src={content.cover.imageURL}
               alt="Foto do post"
