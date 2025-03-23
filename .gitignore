@@ -34,5 +34,3 @@ lib/
 
 # Deploy
 .vercel
-
-.node
