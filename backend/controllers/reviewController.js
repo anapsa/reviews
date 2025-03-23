@@ -18,6 +18,14 @@ const createReview = async (req, res) => {
     try{
         const newReview = new Review({ title, body, classification, owner: req.user.id, likes: [], content: contentId});
         await newReview.save();
+        const updatedUser= await User.updateOne(
+          { _id: new mongoose.Types.ObjectId(req.user.id) },  
+          { $push: { reviews: newReview._id } }         
+        );
+        if (updatedUser.nModified === 0) {
+          await Review.findByIdAndDelete(new mongoose.Types.ObjectId(newReview._id));
+          return res.status(404).json({ message: "Usuário não encontrada ou não foi atualizada" });
+        }
         res.status(201).json({
           message: "Review criada com sucesso",
           id: newReview._id.toString()  

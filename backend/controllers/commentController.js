@@ -25,8 +25,8 @@ const createComment = async (req, res) => {
         
         await newComment.save();
         const updatedReview = await Review.updateOne(
-            { _id: new mongoose.Types.ObjectId(review) },  // Condição de busca: reviewId
-            { $push: { comments: newComment._id } }         // Adiciona o _id do comentário no campo 'comments'
+            { _id: new mongoose.Types.ObjectId(review) },  
+            { $push: { comments: newComment._id } }         
         );
         if (updatedReview.nModified === 0) {
             return res.status(404).json({ message: "Review não encontrada ou não foi atualizada" });
