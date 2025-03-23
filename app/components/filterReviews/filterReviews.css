@@ -1,27 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Gaseok+One&display=swap');
 
 
-#container {
+#general {
     display: flex;
-    align-items: center;  /* Alinha verticalmente */
-    gap: 12px; /* Espaço entre os elementos */
+    justify-content: center;
+    flex-direction: column;  
+    gap: 12px;
+    align-items: flex-start;
 }
 
+#filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
 #titulo {
     font-family: gasoek-one, sans-serif;
     font-style: normal;
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.2em;
     color: #FFFFFF;
     text-align: center;
-}
-
-body {
-    background-color: #387478;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 #movieButton {
@@ -130,3 +130,54 @@ body {
     background-color: #E2F1E7;
 }
 
+#appliedFilter {
+    display: flex;         /* Muda para inline-flex para garantir o ajuste correto ao conteúdo */
+    padding: 10px 10px;           /* Mantém o espaçamento interno */
+    background-color: #405D72;
+    color: #FFFFFF;
+    border: none;
+    width: auto;
+    border-radius: 20px;
+    
+    font-family: gasoek-one, sans-serif;    
+    font-size: 18px;
+    font-weight: bold;
+    
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    user-select: none;
+    transition-duration: 400ms;
+    align-items: center;          /* Alinha o conteúdo (texto) verticalmente no centro */
+    justify-content: center;      /* Centraliza o conteúdo (texto) horizontalmente */
+    width: fit-content;
+    flex:none;
+}
+
+#appliedFilter:hover {
+    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.24), 0 16px 16px 0 rgba(0,0,0,0.19);
+}
+
+#svg_container{
+    position: absolute;
+    cursor: pointer;
+}
+
+#svgoff, #svgon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  #svgon {
+    opacity: 0;
+  }
+  
+  #svg_container:hover #svgon {
+    opacity: 1; 
+  }
+  
+  #svg_container:hover #svgoff {
+    opacity: 0;
+  }
+  
