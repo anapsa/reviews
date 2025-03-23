@@ -199,7 +199,6 @@ export default function FilterReviews({ selectedMovies, setSelectedMovies }) {
             </div>
             {selectedFilterItem && (
                 <div id='appliedFilter'>
-                    {selectedFilterItem}
                     <div id="svg_container">
                         <svg id="svgoff" width="27" height="26" viewBox="0 0 27 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20.25 6.45654L6.75 19.3696M6.75 6.45654L20.25 19.3696" stroke="white" strokeWidth="2.34783" strokeLinecap="round" strokeLinejoin="round"/>
@@ -208,6 +207,7 @@ export default function FilterReviews({ selectedMovies, setSelectedMovies }) {
                         <path d="M20.25 6.45654L6.75 19.3696M6.75 6.45654L20.25 19.3696" stroke="#FFD11A" strokeWidth="2.34783" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                     </div>
+                    {selectedFilterItem}
                 </div>
             )}
         </div>

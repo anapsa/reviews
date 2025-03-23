@@ -27,7 +27,7 @@
 #movieButton {
     color: #FFFFFF;
     background-color: #243642;
-    border: 0.1px solid #E2F1E7;;
+    border: 0.1px solid #E2F1E7;
     float: left;
     height: 35px;
     width: 150px;
@@ -133,12 +133,12 @@
 }
 
 #appliedFilter {
+    position: relative;
     display: flex;         /* Muda para inline-flex para garantir o ajuste correto ao conteúdo */
-    padding: 10px 10px;          
-    background-color: #405D72;
+    padding: 10px 30px 10px 10px;          
+    background-color: #405d72;
     color: #FFFFFF;
-    border: none;
-    width: auto;
+    border: 1px solid #000000;
     border-radius: 20px;
     
     font-family: gasoek-one, sans-serif;    
@@ -160,8 +160,11 @@
 }
 
 #svg_container{
-    position: relative;
+    position: absolute;
     cursor: pointer;
+    right: 30px;
+    top: 20%;
+    transform: translateY(-50%) translateX(-50%);
     z-index: 1;
 }
 
