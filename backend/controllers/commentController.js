@@ -17,13 +17,26 @@ const createComment = async (req, res) => {
     }
     try{
         const newComment = new Comment({ body, review, owner: req.user.id, likes: []});
+        console.log(review)
+        const reviewCommented = Review.findById(new mongoose.Types.ObjectId(review));
+        console.log(newComment._id)
+        
+
+        
         await newComment.save();
+        const updatedReview = await Review.updateOne(
+            { _id: new mongoose.Types.ObjectId(review) },  // Condição de busca: reviewId
+            { $push: { comments: newComment._id } }         // Adiciona o _id do comentário no campo 'comments'
+        );
+        if (updatedReview.nModified === 0) {
+            return res.status(404).json({ message: "Review não encontrada ou não foi atualizada" });
+        }
         res.status(201).json({
             message: "Comentário criado com sucesso",
             id: newComment._id  
         });
     } catch (error) {
-        res.status(500).json({ message: "Erro ao criar comentário", error });
+        res.status(500).json({ message: `Erro ao criar comentário ${error.text}`, error });
     }
 };
 const deleteComment = async (req, res) => {

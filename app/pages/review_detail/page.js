@@ -1,16 +1,17 @@
 "use client";
 import Button from "../../components/button/Button";
 import HeartButton from "../../components/heart_button/heart_button";
+import Review from "../../components/review/reviews";
 import { useEffect, useState } from "react";
 import "./style.css"
 
-export default function Reviews() {
+export default function ReviewDetail() {
   const [post, setPost] = useState(null);
   const [owner, setOwner] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const reviewId = "67df0753c306e96f1d17ae40";
   const handleClick = () => {
     console.log("Botão clicado!");
   };
@@ -43,33 +44,7 @@ export default function Reviews() {
 
   return (
     <div className="vertical">
-      <div className="vertical">
-        {/* Post */}
-        <div className="horizontal"> 
-            {/* Container da foto */}
-          <div className="mr-4"> {/* Margem à direita para espaçamento */}
-            <img
-              src={content.cover.imageURL}
-              alt="Foto do post"
-              className="photo_img"
-            />
-          </div>
-         <div className="var-vertical">
-            {/* Container do texto */}
-            <div>
-              <h1 className="h1">{post?.title}</h1>
-              <h2 className="h2">{content.name}</h2>
-              <b className="p">por: {owner.name}</b>
-              <p className="b">{post.body}</p>
-            </div>
-            <div className="horizontal">
-              <HeartButton onClick={handleClick} />
-              <p className="text-xl font-bold">Curtir Review </p>
-              <p className="text-gray-600">{post.likes.length} curtidas</p>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Review reviewId={reviewId} />
     </div>
   );
 }

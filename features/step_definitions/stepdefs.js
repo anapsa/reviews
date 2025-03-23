@@ -239,12 +239,13 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
         throw new Error(`Erro ao criar/verificar review: ${error.message}`);
     }
 });
-When('uma requisição POST com um JSON com título {string}, corpo {string} e classificação {int} para a rota {string}', async function (titulo, corpo, classificacao, rota) {
+When('uma requisição POST com um JSON com título {string}, corpo {string}, classificação {int} e conteúdo {string} para a rota {string}', async function (titulo, corpo, classificacao, content, rota) {
     try {
         response = await axios.post(rota, {
             title: titulo,
             body: corpo,
-            classification: classificacao
+            classification: classificacao, 
+            content: content
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
