@@ -1,12 +1,12 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation'; // Importe o useRouter
+import { useRouter } from 'next/navigation';
 import './style_userProfile.css';
 import ReviewCard from '../../components/review_card/ReviewCard';
 
 export default function Page() {
-  const router = useRouter(); // Inicialize o useRouter
-  const [userName, setUserName] = useState('');
+  const router = useRouter();
+  const [userName, setUserName] = useState({ user: {} });
   const [reviews, setReviews] = useState([
     {
       id: 1,
@@ -33,7 +33,8 @@ export default function Page() {
   useEffect(() => {
     const storedUserName = localStorage.getItem('userName');
     if (storedUserName) {
-      setUserName(storedUserName);
+      const parsedUserName = JSON.parse(storedUserName);
+      setUserName(parsedUserName);
     }
 
     const storedUserData = localStorage.getItem('userData');
@@ -44,23 +45,23 @@ export default function Page() {
   }, []);
 
   const follow = async () => {
-    try {
-      if (!userData) {
-        alert('Dados do usuário não carregados.');
-        return;
-      }
+    if (!userName?.user?.name || !userData?.name) {
+      alert('Dados do usuário não carregados.');
+      return;
+    }
 
+    try {
       const response = await fetch('http://localhost:5001/users/follow', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ originName: userName, destinationName: userData.name }),
+        body: JSON.stringify({ originName: userName.user.name, destinationName: userData.name }),
       });
 
       if (response.ok) {
         setIsFollowing(true);
-        const updatedFollowers = [...(userData.followers || []), userName];
+        const updatedFollowers = [...(userData.followers || []), userName.user.name];
         setUserData({ ...userData, followers: updatedFollowers });
         alert('Agora você está seguindo este usuário!');
       } else {
@@ -76,38 +77,35 @@ export default function Page() {
     setShowFollowersModal(!showFollowersModal);
   };
 
-  // Função para voltar à página anterior
   const handleGoBack = () => {
-    router.back(); // Navega para a página anterior
+    router.back();
   };
 
   return (
     <div className="profile-card">
       <div className="header">
-      <button className="back-button" onClick={handleGoBack}>
-        Voltar
-      </button>
+        <button className="back-button" onClick={handleGoBack}>
+          Voltar
+        </button>
       </div>
       <div className="profile-info">
         <div className="avatar"></div>
         <div className="user-details">
-          <h2>{userData ? userData.name : 'Carregando...'}</h2>
+          <h2>{userData?.name || 'Carregando...'}</h2>
           <p>{userData ? `${userData.reviewsCount} reviews` : '0 reviews'} - <span className="stars">4★</span></p>
         </div>
-        {userName !== userData?.name && (
-            <button className="follow-btn" onClick={follow} disabled={isFollowing}>
-                {isFollowing ? 'Seguindo' : 'Seguir'}
-            </button>
+        {userName?.user?.name !== userData?.name && (
+          <button className="follow-btn" onClick={follow} disabled={isFollowing}>
+            {isFollowing ? 'Seguindo' : 'Seguir'}
+          </button>
         )}
         <button className="followers-btn" onClick={toggleFollowersModal}>
           Seguidores
         </button>
       </div>
 
-      {/* Overlay escurecendo o fundo */}
       {showFollowersModal && <div className="overlay" onClick={toggleFollowersModal}></div>}
 
-      {/* Modal de seguidores */}
       {showFollowersModal && (
         <div className="followers-modal">
           <h3>Seguidores</h3>
@@ -126,22 +124,14 @@ export default function Page() {
         {reviews.length > 0 ? (
           reviews.map((review) => (
             <div key={review.id} className="review">
-              <img src={review.movieImage || "https://upload.wikimedia.org/wikipedia/pt/9/9b/Avengers_Endgame.jpg"} alt={review.movie} className = "review-image"/>
-              {/* Conteúdo da review */}
+              <img src={review.movieImage || "https://upload.wikimedia.org/wikipedia/pt/9/9b/Avengers_Endgame.jpg"} alt={review.movie} className="review-image" />
               <div className="review-content">
-                {/* Título da review */}
                 <h3 className="movie-title">{review.title}</h3>
-
-                {/* Informações adicionais */}
                 <p className="movie-info">
                   <strong>Filme:</strong> {review.movie} <br />
                   <strong>Data:</strong> {review.date}
                 </p>
-
-                {/* Texto da avaliação */}
                 <p className="review-text">{review.comment}</p>
-
-                {/* Número de curtidas */}
                 <p className="likes">
                   ❤️ {review.likes} curtidas
                 </p>

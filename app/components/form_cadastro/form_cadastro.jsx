@@ -85,7 +85,7 @@ export default function FormCadastro() {
             if (response.ok) {
                 message.style.color = 'green';
                 setTimeout(() => {
-                    window.location.href = '/pages/teste';
+                    window.location.href = '/pages/page_search';
                 }, 200);
             } else {
                 if (mensagem === 'Username já cadastrado!') {

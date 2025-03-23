@@ -22,6 +22,11 @@
       "static/chunks/main-app.js",
       "static/css/app/pages/page_userProfile/page.css",
       "static/chunks/app/pages/page_userProfile/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

@@ -7,7 +7,7 @@ export default function FormLogin() {
     const [errorMessage, setErrorMessage] = useState('a');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [userData, setUserData] = useState(null);
+    const [userName, setuserName] = useState(null);
     const btn_entrar = useRef(null);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ export default function FormLogin() {
             const data = await response.json();
             const mensagem = data.error + '!';
 
-            setUserData(data);
+            setuserName(data);
             setShowSvgEmail(false);
             setShowSvgPassword(false);
 
@@ -35,9 +35,9 @@ export default function FormLogin() {
             if (response.ok) {
                 setErrorMessage(`Bem-vindo, ${data.user.name}!`);
                 message.style.color = 'green';
-                localStorage.setItem('userData', JSON.stringify(userData));
+                localStorage.setItem('userName', JSON.stringify(data));
                 setTimeout(() => {
-                    window.location.href = '/pages/teste';
+                    window.location.href = '/pages/page_search';
                 }, 200);
             } else {
                 setErrorMessage(mensagem);
