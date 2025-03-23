@@ -17,6 +17,33 @@ export default function Home() {
     const [filteredMovies, setFilteredMovies] = useState([]);
     const [IsSearch, SetIsSearch] = useState(false);
 
+
+    const handleSearch = async (searchQuery) => {
+        if (searchQuery.trim() === "") {
+          setUserData(null);
+          return;
+        }
+
+        const user = "xupenio";
+        try {
+            const response = await fetch(`http://localhost:5001/users/{}/${searchQuery}`);
+            if (response.status === 200) {
+              const data = await response.json();
+              setUserData(data);
+              setError(null);
+            } else {
+              setUserData(null);
+              setError("Usuário não encontrado");
+            }
+          } catch (err) {
+            console.error("Erro ao buscar usuário:", err);
+            setUserData(null);
+            setError("Erro ao conectar ao servidor.");
+          }
+        };
+
+
+
     // Simulando a busca de filmes no backend
     useEffect(() => {
         async function fetchMovies() {

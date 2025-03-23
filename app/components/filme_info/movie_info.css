@@ -69,3 +69,27 @@
     flex-direction: row;
 }
 
+.typeListContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .backButton {
+    background-color:#ffffff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 20px;
+    font-size: 16px;
+  }
+  
+  .backButton:hover {
+    background-color:  #ffffff;
+  }
+  
+  .TypeList {
+    margin: 0;
+  }
