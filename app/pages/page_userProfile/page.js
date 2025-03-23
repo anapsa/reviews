@@ -50,6 +50,7 @@ export default function Page() {
       );
   
       // Filtra as reviews válidas (remove nulls)
+      console.log(reviews)
       const validReviews = reviews.filter(review => review !== null);
       setUserReviews(validReviews); // Atualiza o estado com as reviews encontradas
     } catch (error) {
@@ -105,7 +106,7 @@ export default function Page() {
         <div className="avatar"></div>
         <div className="user-details">
           <h2>{userData?.name || 'Carregando...'}</h2>
-          <p>{userData ? `${userData.reviewsCount} reviews` : '0 reviews'} - <span className="stars">4★</span></p>
+          <p>{userData ? `${userReviews.length} reviews` : '0 reviews'} - <span className="stars">4★</span></p>
         </div>
         {userName?.user?.name !== userData?.name && (
           <button className="follow-btn" onClick={follow} disabled={isFollowing}>
@@ -141,12 +142,12 @@ export default function Page() {
               <div className="review-content">
                 <h3 className="movie-title">{review.title}</h3>
                 <p className="movie-info">
-                  <strong>Filme:</strong> {review.movie} <br />
-                  <strong>Data:</strong> {review.date}
+                  <strong>Filme:</strong> {review.review.title} <br />
+                  <strong>Review:</strong> {review.review.body}
                 </p>
                 <p className="review-text">{review.comment}</p>
-                <p className="likes">
-                  ❤️ {review.likes} curtidas
+                <p className="stars">
+                 ⭐ {review.review.classification} estrelas
                 </p>
               </div>
             </div>

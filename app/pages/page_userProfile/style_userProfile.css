@@ -17,12 +17,16 @@
     height: 120px;
     background-color: #dfe6e9;
 }
-
+.user-details{
+    line-height: 0px;
+    font-size: 20px;
+    margin-top: 15px;
+}
 /* Informações do usuário */
 .profile-info {
     display: flex;
     align-items: center;
-    color:#204649;
+    color: #204649;
     gap: 20px;
     margin-top: -20px;
     width: 100%;
@@ -69,13 +73,12 @@
 
 .followers-btn:hover {
     background-color: #0a1717;
-  }
+}
 
-.follow-btn:hover{
+.follow-btn:hover {
     background-color: #0a1717;
 }
 
-/* Overlay para escurecer o fundo quando o modal estiver aberto */
 .overlay {
     position: fixed;
     top: 0;
@@ -101,7 +104,6 @@
     z-index: 10; /* Fica na frente do overlay */
 }
 
-
 .followers-modal ul {
     list-style: none;
     padding: 0;
@@ -122,28 +124,28 @@
     cursor: pointer;
 }
 
-/* Lista de reviews posicionada à esquerda */
+/* Lista de reviews */
 .reviews {
     width: 100%;
-    max-width: 600px;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Garante que os reviews fiquem à esquerda */
-    justify-content: flex-start;
+    flex-wrap: wrap; /* Permite que as reviews quebrem para a próxima linha */
+    gap: 20px; /* Espaçamento entre as reviews */
+    justify-content: flex-start; /* Alinha as reviews à esquerda */
     margin-top: 60px;
-    margin-left: 100px;
+    padding: 0 40px; /* Adiciona padding para alinhar com o conteúdo acima */
+    margin-left: -45px;
 }
 
 /* Cada review */
 .review {
+    flex: 1 1 calc(50% - 20px); /* Cada review ocupa metade do espaço, menos o gap */
     display: flex;
     align-items: center;
     background: white;
     padding: 15px;
-    margin-bottom: 15px;
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%; /* Mantém um bom layout */
+    box-sizing: border-box;
 }
 
 /* Ajusta a imagem do filme na review */
@@ -161,12 +163,12 @@
 /* Texto das avaliações */
 .movie-info {
     font-size: 14px;
-    color: #666;
+    color: #123336;
 }
 
 .review-text {
     font-size: 14px;
-    color: #444;
+    color: #441515;
 }
 
 .likes {
@@ -189,8 +191,12 @@
     font-size: 16px;
     margin-right: 20px;
     margin-top: 40px;
-  }
-  
-  .back-button:hover {
+}
+
+.back-button:hover {
     background-color: #020b0b;
-  }
+}
+
+p {
+    line-height: 1.7; /* Reduz o espaçamento entre as linhas */
+}
