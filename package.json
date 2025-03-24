@@ -13,7 +13,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "test": "cucumber-js",
+    "test": "cypress run",
+    "test:open": "cypress open",
     "dev": "next dev",
     "clean": "rimraf .next",
     "build": "next build",
@@ -22,8 +23,11 @@
   "license": "ISC",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
+    "cucumber-html-reporter": "^7.2.0",
+    "cucumber-pretty": "^6.0.1",
     "cypress": "^14.2.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
+    "cypress-xpath": "^2.0.1",
     "mongodb-memory-server": "^10.1.4",
     "rimraf": "^6.0.1"
   }

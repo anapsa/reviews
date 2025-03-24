@@ -29,7 +29,6 @@ export default function Page() {
   }, []);
 
   const fetchUserReviews = async (reviewIds) => {
-    console.log(reviewIds)
     try {
       // Verifica se reviewIds é um array antes de usar o map
       if (!Array.isArray(reviewIds)) {

@@ -55,23 +55,24 @@ const getReviewById = async (req,res) => {
       return res.status(410).json({ message: "ID inválido" });
     }
     const review = await Review.findById(new mongoose.Types.ObjectId(id))
+      .populate("owner")
+      .populate("movie")
       .populate({
         path: "comments",
         populate: { path: "owner", select: "name" },
       })
     const owner = await User.findById(new mongoose.Types.ObjectId(review.owner));
-    const content = await Movie.findById(new mongoose.Types.ObjectId(review.content));
+    const movie = await Movie.findById(new mongoose.Types.ObjectId(review.movie));
     if (!review) {
       return res.status(404).json({ message: "Review não encontrado" });
     }
-    console.log(owner)
     res.json({
       review,
       owner,
-      content
+      movie
     });
   } catch (error) {
-    console.log(error.message)
+    console.log("tipo do erro"+ error.message)
     res.status(500).json({ message: "Erro ao buscar reviews" });
   }
 }
