@@ -5,18 +5,21 @@ const mongoose = require("mongoose");
 const { loggedInUser } = require("../routes/userRoutes");
 
 const createReview = async (req, res) => {
-    const { title, body, classification, content} = req.body;
+    const { title, body, classification, movie} = req.body;
     
   
-    if (!title || !classification) {
+    if (!title) {
         return res.status(400).json({ message: "Preencha todos os campos" });
     } 
+    if (classification < 0) {
+      return res.status(400).json({ message: "Preencha todos os campos" });
+    }
     if (!req.user) {
       return res.status(401).json({ message: "Usuário não autenticado"});
     }
-    const contentId = new mongoose.Types.ObjectId(content)
+    const movieId = new mongoose.Types.ObjectId(movie)
     try{
-        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: [], content: contentId});
+        const newReview = new Review({ title, body, classification, owner: req.user.id, likes: [], movie: movieId});
         await newReview.save();
         const updatedUser= await User.updateOne(
           { _id: new mongoose.Types.ObjectId(req.user.id) },  
@@ -32,18 +35,18 @@ const createReview = async (req, res) => {
           id: newReview._id.toString()  
         });
     } catch (error) {
-
+        console.log(error)
         res.status(500).json({ message: "Erro ao criar review", error });
     }
 };
 
 const getReviews = async (req, res) => {
   try {
-    
-    const reviews = await Review.find();
+    const reviews = await Review.find().populate("owner").populate("movie");
     res.json(reviews);
   } catch (error) {
-    res.status(500).json({ message: "Erro ao buscar reviews" });
+    console.log(error)
+    res.status(500).json({ message: `Erro ${error} ao buscar reviews` });
   }
 };
 
@@ -55,23 +58,24 @@ const getReviewById = async (req,res) => {
       return res.status(410).json({ message: "ID inválido" });
     }
     const review = await Review.findById(new mongoose.Types.ObjectId(id))
+      .populate("owner")
+      .populate("movie")
       .populate({
         path: "comments",
         populate: { path: "owner", select: "name" },
       })
     const owner = await User.findById(new mongoose.Types.ObjectId(review.owner));
-    const content = await Movie.findById(new mongoose.Types.ObjectId(review.content));
+    const movie = await Movie.findById(new mongoose.Types.ObjectId(review.movie));
     if (!review) {
       return res.status(404).json({ message: "Review não encontrado" });
     }
-    console.log(owner)
     res.json({
       review,
       owner,
-      content
+      movie
     });
   } catch (error) {
-    console.log(error.message)
+    console.log("tipo do erro"+ error.message)
     res.status(500).json({ message: "Erro ao buscar reviews" });
   }
 }

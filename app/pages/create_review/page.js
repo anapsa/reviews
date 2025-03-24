@@ -8,7 +8,7 @@ export default function CreateReview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const movieId = "67dad4119429a2af3f58ddc9"
-  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA2Mjc0NzkyNjdlZjI0YjM5YWU0NyIsImlhdCI6MTc0Mjc1ODUyNiwiZXhwIjoxNzQyNzYyMTI2fQ.rCUjszUyK5PkHjp1fhagcBO72UIdeYUCLw69yONPKPs"
+  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA2Mjc0NzkyNjdlZjI0YjM5YWU0NyIsImlhdCI6MTc0Mjc3MDE4MywiZXhwIjoxNzQyNzczNzgzfQ.IKJkaq1VDUWpkFDj81LDsCXk2K3SgVj1SW6Fz1jHVkk"
   const [movie, setMovie] = useState('');
   const [textTitle, setTextTitle] = useState('');
   const [textBody, setTextBody] = useState('');
@@ -30,7 +30,7 @@ export default function CreateReview() {
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${userToken}`
         },
-        body: JSON.stringify({title: textTitle, body: textBody, classification: rating, content: movieId}) 
+        body: JSON.stringify({title: textTitle, body: textBody, classification: rating, movie: movieId}) 
       });
 
       if (!response.ok) {
