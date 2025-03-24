@@ -1,6 +1,6 @@
 // userController possui as funções de criação e alteração dos usuários
 
-const User = require("../models/user");
+const User = require("../models/User");
 
 // Criar um novo usuário
 const createUser = async (req, res) => {
@@ -26,9 +26,9 @@ const createUser = async (req, res) => {
     if (userExists) {
       return res.status(400).json({ message: "Email já cadastrado" });
     }
-
+    const reviews = []
     // Cria o novo usuario no banco
-    const newUser = new User({ name, email, password });
+    const newUser = new User({ name, email, password, reviews});
     await newUser.save();
 
     res.status(201).json({ message: "Usuário criado com sucesso" });
