@@ -15,33 +15,7 @@ export default function Home() {
     const [IsAbandoned, SetIsAbandoned] = useState(false);
     const [movies, setMovies] = useState([]);
     const [filteredMovies, setFilteredMovies] = useState([]);
-    const [IsSearch, SetIsSearch] = useState(false);
-
-
-    const handleSearch = async (searchQuery) => {
-        if (searchQuery.trim() === "") {
-          setUserData(null);
-          return;
-        }
-
-        const user = "xupenio";
-        try {
-            const response = await fetch(`http://localhost:5001/users/{}/${searchQuery}`);
-            if (response.status === 200) {
-              const data = await response.json();
-              setUserData(data);
-              setError(null);
-            } else {
-              setUserData(null);
-              setError("Usuário não encontrado");
-            }
-          } catch (err) {
-            console.error("Erro ao buscar usuário:", err);
-            setUserData(null);
-            setError("Erro ao conectar ao servidor.");
-          }
-        };
-
+    const [IsSearch, setIsSearch] = useState(false);
 
 
     // Simulando a busca de filmes no backend
@@ -75,6 +49,27 @@ export default function Home() {
         }
 
     }, [IsWatched, IsAbandoned, movies]);
+
+
+    const handleSearch = (searchValue) => {
+        setSearchTerm(searchValue); // Atualiza o termo de busca
+
+        if (!searchValue) {
+            // Se o campo de busca estiver vazio, mostra todos os filmes do tipo selecionado
+            if (IsWatched) {
+                setFilteredMovies(movies.filter(movie => movie.type === "watched"));
+            } else if (IsAbandoned) {
+                setFilteredMovies(movies.filter(movie => movie.type === "abandoned"));
+            }
+            return;
+        }
+
+        // Filtra os filmes com base no termo de busca
+        const filtered = movies.filter(movie =>
+            movie.title.toLowerCase().includes(searchValue.toLowerCase())
+        );
+        setFilteredMovies(filtered);
+    };
     return (
         <div id='home'>
             <TopBar
@@ -82,6 +77,7 @@ export default function Home() {
                 SetIsRemoveButton={SetIsRemoveButton}
                 SetIsWatched={SetIsWatched}
                 SetIsAbandoned= {SetIsAbandoned}
+                onSearch={handleSearch}
             />
 
             {IsAddButton && (

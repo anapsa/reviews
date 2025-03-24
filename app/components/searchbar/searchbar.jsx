@@ -1,15 +1,27 @@
 import './searchbar.css'
-import { useEffect } from 'react';
+import { useRef, useEffect,useState } from 'react';
 
-function SearchBar(SetIsSearch){
+function SearchBar({ onSearch }){
+    
+    /*
+    const inputRef = useRef(null);
 
     useEffect(() => {
-        const IsSearch = document.getElementById('lupa');
-        IsSearch.addEventListener('click',function(){
-            SetIsSearch(true);
-        });
-    
-    });
+        const lupa = document.getElementById('lupa');
+        const handleClick = () => {
+            const searchValue = inputRef.current.value.trim(); // Obtém o valor do input
+            onSearch(searchValue); // Chama a função de busca
+        };
+
+        lupa.addEventListener('click', handleClick);
+
+        // Limpeza do event listener
+        return () => {
+            lupa.removeEventListener('click', handleClick);
+        };
+    }, [onSearch]);
+
+    */
     
     return (
         <div id='searchbar'>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 
 
- function TopBar({SetIsAddButton, SetIsRemoveButton,SetIsWatched,SetIsAbandoned}){
+ function TopBar({SetIsAddButton, SetIsRemoveButton,SetIsWatched,SetIsAbandoned,onSearch}){
 
     useEffect(() => {
         const IsAddButton = document.getElementById('addButton');
@@ -34,7 +34,7 @@ import { useEffect, useState } from 'react';
     return(
         <div id='topbar'>
             <div id='search_options'>
-                    <SearchBar id='searchbar'/>
+                    <SearchBar  id='searchbar' onSearch={onSearch}/>
                         
                     <div id='filter-container'>
                     <div className="filter-label">Suas Listas:</div>

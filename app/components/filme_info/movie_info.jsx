@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import './movie_info.css';
 
-export default function MovieInfo({ IsWatched, IsAbandoned }) {
+export default function MovieInfo({ IsWatched, IsAbandoned, IsSearch }) {
   const [watchedMovies, setWatchedMovies] = useState([]);
   const [detailedWatchedMovies, setDetailedWatchedMovies] = useState([]);
   const [abandonedMovies, setAbandonedMovies] = useState([]);
   const [detailedAbandonedMovies, setDetailedAbandonedMovies] = useState([]);
+  const [combinedMovies,setCombinedMovies] = useState([]);
+  const [detailedCombinedMovies, setDetailedCombinedMovies] = useState([]);
   const [loading, setLoading] = useState(true);
-  const imageFilme = 'https://upload.wikimedia.org/wikipedia/pt/thumb/1/1d/SchindlerPoster.jpg/250px-SchindlerPoster.jpg';
 
   // Função para voltar à página anterior
   const handleBack = () => {
@@ -33,6 +34,7 @@ export default function MovieInfo({ IsWatched, IsAbandoned }) {
     }
   };
 
+
   const fetchAbandonedList = async (name) => {
     try {
       const response = await fetch(`http://localhost:5001/users/${name}/abandoned`);
@@ -51,28 +53,38 @@ export default function MovieInfo({ IsWatched, IsAbandoned }) {
     }
   };
 
-  const fetchMovieDetails = async (movieName) => {
+  const fetchAllList = async (name) => {
     try {
-      const response = await fetch('http://localhost:5001/movies/get', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name: movieName }),
-      });
-
-      if (!response.ok) {
-        console.error(`Erro ao buscar detalhes do filme "${movieName}":`, response.status);
-        return null;
+      // Busca a lista de filmes assistidos
+      const responseWatched = await fetch(`http://localhost:5001/users/${name}/watched`);
+      if (!responseWatched.ok) {
+        throw new Error(`Erro ao buscar lista de assistidos: ${responseWatched.status}`);
       }
-
-      const data = await response.json();
-      return data.movie || null;
+      const watchedMovies = await responseWatched.json();
+  
+      // Busca a lista de filmes abandonados
+      const responseAbandoned = await fetch(`http://localhost:5001/users/${name}/abandoned`);
+      if (!responseAbandoned.ok) {
+        throw new Error(`Erro ao buscar lista de abandonados: ${responseAbandoned.status}`);
+      }
+      const abandonedMovies = await responseAbandoned.json();
+  
+      // Adiciona uma propriedade `type` para identificar a lista de origem
+      const combinedMovies = [
+        ...watchedMovies.map(movie => ({ ...movie, type: "watched" })),
+        ...abandonedMovies.map(movie => ({ ...movie, type: "abandoned" }))
+      ];
+  
+      // Retorna o JSON combinado
+      console.log(combinedMovies);
+      setCombinedMovies(combinedMovies);
     } catch (error) {
-      console.error(`Erro ao buscar detalhes do filme "${movieName}":`, error.message);
-      return null;
+      console.error("Erro ao buscar as listas de filmes:", error.message);
+      throw error; // Propaga o erro para ser tratado no chamador
     }
   };
+
+
 
   // Função genérica para buscar detalhes dos filmes
   const fetchMoviesDetails = async (movies, setDetailedMovies) => {
@@ -89,11 +101,13 @@ export default function MovieInfo({ IsWatched, IsAbandoned }) {
   };
 
   useEffect(() => {
-    console.log({ IsWatched, IsAbandoned });
+    console.log({ IsWatched, IsAbandoned, IsSearch });
     const userName = 'xupenio';
     fetchWatchedList(userName);
     fetchAbandonedList(userName);
+    fetchAllList(userName);
   }, []);
+
 
   useEffect(() => {
     fetchMoviesDetails(watchedMovies, setDetailedWatchedMovies);
@@ -104,10 +118,15 @@ export default function MovieInfo({ IsWatched, IsAbandoned }) {
   }, [abandonedMovies]);
 
   useEffect(() => {
-    if (detailedWatchedMovies.length > 0 || detailedAbandonedMovies.length > 0) {
+    fetchMoviesDetails(combinedMovies, setDetailedCombinedMovies);
+  }, [combinedMovies]);
+
+
+  useEffect(() => {
+    if (detailedWatchedMovies.length > 0 || detailedAbandonedMovies.length > 0 || detailedCombinedMovies.length >0) {
       setLoading(false);
     }
-  }, [detailedWatchedMovies, detailedAbandonedMovies]);
+  }, [detailedWatchedMovies, detailedAbandonedMovies, detailedCombinedMovies]);
 
   return (
     <div id='movieInfo'>
