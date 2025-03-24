@@ -280,7 +280,7 @@ const deleteWatched = async (req, res) => {
       { $pull: { watched: { title } } } // Removendo o filme com o título correspondente
     );
 
-    if (deletedMovie.nModified > 0) {
+    if (deletedMovie) {
       res.status(200).json({ message: `Filme "${title}" foi deletado` });
     } else {
       res.status(400).json({ message: "Filme não foi encontrado na lista de assistidos" });
@@ -313,7 +313,7 @@ const deleteAbandoned = async (req, res) => {
       { $pull: { abandoned: { title } } } // Removendo o filme com o título correspondente
     );
 
-    if (deletedMovie.nModified > 0) {
+    if (deletedMovie) {
       res.status(200).json({ message: `Filme "${title}" foi deletado` });
     } else {
       res.status(400).json({ message: "Filme não foi encontrado na lista de abandonados" });
