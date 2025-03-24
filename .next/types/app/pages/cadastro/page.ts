@@ -1,23 +1,8 @@
-<<<<<<< HEAD
-<<<<<<<< HEAD:.next/types/app/pages/cadastro/page.ts
 // File: /Users/luanthiers/Desktop/Projetos/Projeto_ESS/reviews_/app/pages/cadastro/page.js
-=======
-// File: /Users/anapaula/Desktop/reviews/app/pages/cadastro/page.js
->>>>>>> ca228117fbd4cc593a50021be8774de06440bafb
 import * as entry from '../../../../../app/pages/cadastro/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
 type TEntry = typeof import('../../../../../app/pages/cadastro/page.js')
-<<<<<<< HEAD
-========
-// File: /Users/anapaula/Desktop/reviews/app/pages/create_review/page.js
-import * as entry from '../../../../../app/pages/create_review/page.js'
-import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
-
-type TEntry = typeof import('../../../../../app/pages/create_review/page.js')
->>>>>>>> ca228117fbd4cc593a50021be8774de06440bafb:.next/types/app/pages/create_review/page.ts
-=======
->>>>>>> ca228117fbd4cc593a50021be8774de06440bafb
 
 type SegmentParams<T extends Object = any> = T extends Record<string, any>
   ? { [K in keyof T]: T[K] extends string ? string | string[] | undefined : never }

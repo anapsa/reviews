@@ -42,7 +42,7 @@ export default function Page() {
           if (response.ok) {
             return await response.json();
           } else {
-            console.error(`Erro ao buscar review com ID ${id}`);
+            //console.error(`Erro ao buscar review com ID ${id}`);
             return null;
           }
         })
@@ -133,7 +133,7 @@ export default function Page() {
       </div>
       <div className="profile-info">
         <div className="avatar"><svg width="130" height="130" viewBox="0 0 243 243" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g clip-path="url(#clip0_1201_5658)">
+            <g clipPath="url(#clip0_1201_5658)">
             <ellipse cx="119" cy="139.5" rx="106" ry="106.5" fill="#629584"/>
             <path d="M123.674 158.627C145.457 158.627 163.116 140.969 163.116 119.186C163.116 97.4033 145.457 79.7448 123.674 79.7448C101.891 79.7448 84.2329 97.4033 84.2329 119.186C84.2329 140.969 101.891 158.627 123.674 158.627Z" fill="#F1C8C8"/>
             <path d="M101.032 164.46L99.2503 146.448L134.833 139.794L155.844 190.952L119.303 232.975L93.2671 181.817L101.032 164.46Z" fill="#F1C8C8"/>
@@ -189,18 +189,18 @@ export default function Page() {
         key={review.id}
         className="review" // Mantém a classe para estilização
         onClick={() => {
-          window.location.href = '/pages/page_search';
+          window.location.href = `/pages/review_detail/${review.review._id}`;
         }}
         style={{
-          width: "100%", // Ocupa 100% da largura
-          border: "none", // Remove a borda padrão do botão
-          background: "#E2F1E7", // Remove o fundo padrão do botão
-          textAlign: "left", // Alinha o conteúdo à esquerda
-          cursor: "pointer", // Mostra o cursor de clique
+          width: "100%", 
+          border: "none", 
+          background: "#E2F1E7", 
+          textAlign: "left", 
+          cursor: "pointer", 
         }}
       >
         <img
-          src={review.movieImage || "https://upload.wikimedia.org/wikipedia/pt/9/9b/Avengers_Endgame.jpg"}
+          src={review.movie?.cover?.imageURL || "https://i.pinimg.com/736x/68/3b/6b/683b6be2fbe5653102efdb079ea9e139.jpg"}
           alt={review.movie}
           className="review-image"
         />
@@ -208,7 +208,7 @@ export default function Page() {
           <h3 className="movie-title">{review.title}</h3>
           <p className="movie-info">
             <strong className = "titulo-review">{review.review.title}</strong><br/>
-            <strong className = "nome-filme">Os Vingadores</strong> <br />
+            <strong className = "nome-filme">{review.movie?.name || "Filme sem Nome"}</strong> <br />
             <strong>Review:</strong> {review.review.body}
           </p>
           <p className="review-text">{review.comment}</p>

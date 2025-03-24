@@ -1,1 +1,8 @@
-{}
+{
+  "/_not-found/page": "app/_not-found/page.js",
+  "/pages/cadastro/page": "app/pages/cadastro/page.js",
+  "/pages/initial_page/page": "app/pages/initial_page/page.js",
+  "/pages/page_search/page": "app/pages/page_search/page.js",
+  "/pages/review_detail/[reviewId]/page": "app/pages/review_detail/[reviewId]/page.js",
+  "/pages/page_userProfile/page": "app/pages/page_userProfile/page.js"
+}

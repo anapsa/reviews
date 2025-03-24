@@ -37,16 +37,9 @@ export default function FormLogin() {
             if (response.ok) {
                 setErrorMessage(`Bem-vindo, ${data.user.name}!`);
                 message.style.color = 'green';
-<<<<<<< HEAD
                 localStorage.setItem('userName', JSON.stringify(data));
-                setTimeout(() => {
-                    window.location.href = '/pages/page_search';
-                }, 200);
-=======
-                localStorage.setItem('userData', JSON.stringify(userData));
                 localStorage.setItem('userToken', JSON.stringify(data.token));
                 router.push('/pages/initial_page'); // Redireciona para a tela inicial
->>>>>>> ca228117fbd4cc593a50021be8774de06440bafb
             } else {
                 setErrorMessage(mensagem);
                 if (mensagem === 'Usuário não encontrado!') {
