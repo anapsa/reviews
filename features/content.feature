@@ -28,14 +28,14 @@ Scenario: Cadastrar filme com informações insuficientes
 
 Scenario: Procurar um filme pelo nome
     Given o filme "Pistoleiro" já está disponível no sistema com gênero "Cowboy", classificação indicativa "Livre", capa "exemplo/pistoleiro.png", título "pistol"
-    When é enviada uma busca com uma requisição GET pelo filme de nome "Pistoleiro" para a route "http://localhost:5001/movies/get"
+    When é enviada uma busca com uma requisição POST pelo filme de nome "Pistoleiro" para a route "http://localhost:5001/movies/get"
     Then o status da resposta deve ser "201"
     And o JSON da resposta deve conter "Filme foi encontrado"
     And o filme retornado deve ter nome "Pistoleiro", gênero "Cowboy", classificação indicativa "Livre", capa "exemplo/pistoleiro.png", título "pistol"
 
 Scenario: Procurar um filme inexistente
     Given o filme "Anora" não está disponível no sistema
-    When é enviada uma busca com uma requisição GET pelo filme de nome "Anora" para a route "http://localhost:5001/movies/get"
+    When é enviada uma busca com uma requisição POST pelo filme de nome "Anora" para a route "http://localhost:5001/movies/get"
     Then o status da resposta deve ser "400"
     And o JSON da resposta deve conter "Filme não foi encontrado"
 

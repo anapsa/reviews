@@ -1,6 +1,6 @@
 'use client';
 
-import FilterReviews from '../../components/filterReviews/filterReviews'
+import ShowMovies from '../../components/showMovies/showMovies'
 
 export default function Home() {
 

@@ -1,3 +1,6 @@
 {
-  "/pages/reviews/page": "app/pages/reviews/page.js"
+  "/pages/movies/addMovie/page": "app/pages/movies/addMovie/page.js",
+  "/pages/teste/page": "app/pages/teste/page.js",
+  "/pages/reviews/page": "app/pages/reviews/page.js",
+  "/pages/movies/page": "app/pages/movies/page.js"
 }

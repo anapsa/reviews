@@ -450,11 +450,11 @@ Given('{string} possui acesso a conta de administrador', function (username) {
     }
   });
 
-  When('é enviada uma busca com uma requisição GET pelo filme de nome {string} para a route {string}', async function (name, route) {
+  When('é enviada uma busca com uma requisição POST pelo filme de nome {string} para a route {string}', async function (name, route) {
     try{
 
-        response = await axios.get(route, {
-            data: {name: name}
+        response = await axios.post(route, {
+            name: name
         });
     } catch (error){
         response = error.response;
@@ -788,29 +788,25 @@ When('uma requisição DELETE for direcionada para a rota {string}', async funct
     }
 });
 
-When("uma requisição GET com classificação {int}, gênero {string}, título {string} é enviada pela rota {string}", 
+When("uma requisição POST com classificação {int}, gênero {string}, título {string} é enviada pela rota {string}", 
     async function(classification, genre, title, route){
     try{
-        response = await axios.get(route, {
-            data: {
-                classification: classification,
-                genre: genre,
-                title: title
-            }
+        response = await axios.post(route, {
+            classification: classification,
+            genre: genre,
+            title: title
         });
     } catch (error){
         response = error.response;
     }
 })
 
-When("uma requisição GET sem classificação, mas com gênero {string}, título {string} é enviada pela rota {string}", 
+When("uma requisição POST sem classificação, mas com gênero {string}, título {string} é enviada pela rota {string}", 
     async function(genre, title, route){
     try{
-        response = await axios.get(route, {
-            data: {
-                genre: genre,
-                title: title
-            }
+        response = await axios.post(route, {
+            genre: genre,
+            title: title
         });
     } catch (error){
         response = error.response;

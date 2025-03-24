@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Freeman&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sevillana&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Freeman&family=Quicksand:wght@300..700&family=Sevillana&display=swap');
+
+form {
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: 'Nunito', serif;
+}
+
+div {
+    margin-bottom: 15px;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    padding: 20px;
+}
+
+#horizontal{
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+#foto{
+    height: 550px;
+    width: 400px;
+    background-color: #D9D9D9;
+    border: 1px solid #000000;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+
+    cursor:pointer;
+}
+
+#foto:hover{
+    border: 5px solid #000000;
+}
+
+#adicionarImagem{
+    display: flex;
+    flex-direction: column;  
+    justify-content: center; 
+    align-items: center;                
+    text-align: center;    
+    gap: 1px;
+}
+
+#textaddim{
+    font-family: 'Freeman', serif;
+}
+
+#textaddim:hover{
+    cursor:pointer;
+    text-decoration: underline;
+}
+
+#miniContainer{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+#movieGenre{
+    width: 450px;
+    height:20px;
+    border-radius: 19px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: 1px solid #000000;
+    font-family: 'Freeman', serif;
+    align-items: center;
+}
+
+#movieRating{
+    width: 80px;
+    height:40px;
+    border-radius: 13px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: 1px solid #000000;
+    font-family: 'Freeman', serif;
+    width: auto;
+}
+
+
+#movieTitle{
+    width: 709px;
+    height:40px;
+    border-radius: 19px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: 1px solid #000000;
+    font-family: 'Freeman', serif;
+}
+
+#movieSynopsis{
+    width: 709px;
+    height: 250px;
+    border-radius: 19px;
+    background-color: #D9D9D9;
+    color: #000000;
+    border: 1px solid #000000;
+    font-family: 'Freeman', serif;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+#env {
+    background-color: #629584;
+    color: white;
+    padding: 5px 5px;
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+
+    font-size: 20px;
+    font-family: 'Freeman', serif;
+    font-style: bold;
+}
+
+#env:hover {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.24), 0 20px 28px 0 rgba(0,0,0,0.19);
+    background-color: #1a2a36;
+    color: yellow;
+
+}
