@@ -9,8 +9,6 @@ export default function FilterReviews() {
     const [movies, setMovies] = useState(null)
     const [movieTitleCover, setMovieTitleCover] = useState([])
 
-    const items = Array.from({ length: 20 }, (_, i) => `Item ${i + 1}`);
-
     useEffect(() => {
             async function getMovies (){
                 const response = await fetch("http://localhost:5001/movies/", {
@@ -31,7 +29,6 @@ export default function FilterReviews() {
                     name: movie.name, 
                     coverURL: movie.cover.imageURL
                 }));
-    
                 setMovieTitleCover(listImageTitle)
             }
             getMovies()

@@ -5,29 +5,23 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/pages/reviews/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/reviews/page.css",
-      "static/chunks/app/pages/reviews/page.js"
-    ],
-    "/pages/teste/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/teste/page.css",
-      "static/chunks/app/pages/teste/page.js"
-    ],
     "/pages/movies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/pages/movies/page.css",
       "static/chunks/app/pages/movies/page.js"
     ],
-    "/pages/movies/addMovie/page": [
+    "/pages/addMovie/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/pages/movies/addMovie/page.css",
-      "static/chunks/app/pages/movies/addMovie/page.js"
+      "static/css/app/pages/addMovie/page.css",
+      "static/chunks/app/pages/addMovie/page.js"
+    ],
+    "/pages/filter/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/filter/page.css",
+      "static/chunks/app/pages/filter/page.js"
     ]
   }
 }
