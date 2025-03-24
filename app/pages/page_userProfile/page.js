@@ -173,7 +173,8 @@ export default function Page() {
         <div className="review-content">
           <h3 className="movie-title">{review.title}</h3>
           <p className="movie-info">
-            <strong>Filme:</strong> {review.review.title} <br />
+            <strong className = "titulo-review">{review.review.title}</strong><br/>
+            <strong className = "nome-filme">Os Vingadores</strong> <br />
             <strong>Review:</strong> {review.review.body}
           </p>
           <p className="review-text">{review.comment}</p>
@@ -184,7 +185,7 @@ export default function Page() {
       </button>
     ))
   ) : (
-    <p>Nenhuma review disponível.</p>
+    <p className = "no-reviews">Este usuário ainda não possui reviews</p>
   )}
 </div>
     </div>

@@ -34,6 +34,21 @@
     line-height: 1.0; /* Reduz o espaçamento entre as linhas */
 }
 
+.titulo-review{
+    font-size: 25px;
+    line-height: 10px;
+}
+
+.nome-filme{
+    color:#70a3a6;
+    font-size: 18px
+}
+
+.no-reviews{
+    color:#e74c3c;
+    font-size: 40px;
+    margin-left: 400px;
+}
 .avatar {
     width: 130px; /* Largura do avatar */
     height: 130px; /* Altura do avatar */
