@@ -1,0 +1,15 @@
+{
+  "pages": {
+    "/layout": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/layout.js"
+    ],
+    "/pages/create_review/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/create_review/page.css",
+      "static/chunks/app/pages/create_review/page.js"
+    ]
+  }
+}
