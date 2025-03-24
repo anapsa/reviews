@@ -1,27 +1,3 @@
 {
-  "pages": {
-    "/layout": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/layout.js"
-    ],
-    "/pages/cadastro/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/cadastro/page.css",
-      "static/chunks/app/pages/cadastro/page.js"
-    ],
-    "/pages/page_search/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/page_search/page.css",
-      "static/chunks/app/pages/page_search/page.js"
-    ],
-    "/pages/page_userProfile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/page_userProfile/page.css",
-      "static/chunks/app/pages/page_userProfile/page.js"
-    ]
-  }
+  "pages": {}
 }

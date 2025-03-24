@@ -7,7 +7,7 @@ const ReviewSchema = new mongoose.Schema({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   likes: [{type: mongoose.Schema.Types.ObjectId, ref: "User", required: true}], 
   comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}],
-  content: { type: mongoose.Schema.Types.ObjectId, ref: "Content", required: true }
+  movie: { type: mongoose.Schema.Types.ObjectId, ref: "Movie", required: true }
 }, { timestamps: true });
 
 

@@ -2,24 +2,25 @@
 import Button from "../../components/button/Button";
 import StarButton from "../../components/star_button/star_button";
 import { useEffect, useState } from "react";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import "./style.css"
 
 export default function CreateReview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const movieId = "67dad4119429a2af3f58ddc9"
-  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA2Mjc0NzkyNjdlZjI0YjM5YWU0NyIsImlhdCI6MTc0Mjc1ODUyNiwiZXhwIjoxNzQyNzYyMTI2fQ.rCUjszUyK5PkHjp1fhagcBO72UIdeYUCLw69yONPKPs"
   const [movie, setMovie] = useState('');
   const [textTitle, setTextTitle] = useState('');
   const [textBody, setTextBody] = useState('');
   const [rating, setRating] = useState(0);
-
+  const router = useRouter();
     const handleClick = async () => {
 
     }
   const handleConfirm = async () => {
     try {
-     
+      const token = JSON.parse(localStorage.getItem('userToken'));
       if (!textTitle.trim()) {
         alert('Por favor, digite o título da review!');
         return;
@@ -28,9 +29,9 @@ export default function CreateReview() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', 
-          'Authorization': `Bearer ${userToken}`
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({title: textTitle, body: textBody, classification: rating, content: movieId}) 
+        body: JSON.stringify({title: textTitle, body: textBody, classification: rating, movie: movieId}) 
       });
 
       if (!response.ok) {
@@ -38,9 +39,10 @@ export default function CreateReview() {
       }
 
     
-      alert('Texto enviado com sucesso!');
+      alert('Review enviada com sucesso!');
       setTextTitle('');
       setTextBody(''); 
+      router.replace('/pages/initial_page');
     } catch (err) {
       setError(err.message);
       console.error('Erro ao enviar:', err);
@@ -75,9 +77,8 @@ export default function CreateReview() {
     <div className="vertical-right">
       <div>
       <div>
-        {/*Filme*/}
         <div className="horizontal"> 
-            {/* Container da foto */}
+
           <div className="mr-4"> 
             <img
               src={movie.cover.imageURL}
@@ -86,7 +87,7 @@ export default function CreateReview() {
             />
           </div>
          <div className="var-vertical">
-            {/* Container do texto */}
+
             <div className="vertical-left">
                 <div className="var-horizontal">
                     <div>
