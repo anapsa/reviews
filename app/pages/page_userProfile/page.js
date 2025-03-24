@@ -59,7 +59,6 @@ export default function Page() {
   };
 
   const follow = async () => {
-    
     if (!userName?.user?.name || !userData?.name) {
       alert('Dados do usuário não carregados.');
       return;
@@ -94,6 +93,36 @@ export default function Page() {
 
   const handleGoBack = () => {
     router.back();
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm("Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.");
+    
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`http://localhost:5001/users/${userName.user.name}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  
+        if (response.ok) {
+          alert("Conta excluída com sucesso!");
+          // Redireciona para a página inicial ou faz logout
+          localStorage.removeItem("userName"); // Remove os dados do usuário do localStorage
+          setTimeout(() => {
+            window.location.href = '/pages/page_cadastro';
+          }, 200);
+        } else {
+          const errorData = await response.json();
+          alert(`Erro: ${errorData.message}`);
+        }
+      } catch (error) {
+        console.error("Erro ao excluir conta:", error);
+        alert("Erro ao conectar ao servidor.");
+      }
+    }
   };
 
   return (
@@ -131,6 +160,11 @@ export default function Page() {
         <button className="followers-btn" onClick={toggleFollowersModal}>
           Seguidores
         </button>
+        {userName?.user?.name == userData?.name && (
+          <button className="delete-account-btn" onClick={handleDeleteAccount}>
+          Excluir Conta
+        </button>    
+        )}
       </div>
 
       {showFollowersModal && <div className="overlay" onClick={toggleFollowersModal}></div>}

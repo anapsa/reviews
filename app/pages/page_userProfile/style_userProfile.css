@@ -44,6 +44,22 @@
     font-size: 18px
 }
 
+.delete-account-btn {
+    padding: 10px 30px;
+    background-color: #e74c3c; /* Vermelho para destacar */
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-account-btn:hover {
+    background-color: #c0392b; /* Vermelho mais escuro ao passar o mouse */
+  }
+  
 .no-reviews{
     color:#e74c3c;
     font-size: 40px;
