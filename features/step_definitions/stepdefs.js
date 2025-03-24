@@ -11,6 +11,7 @@ Given('que existe um usuário com username {string}', async function (username) 
     this.user = this.response.body
 });
 
+
 When('o usuário pesquisa por {string} na barra de pesquisa', async function (searchUser) {
     this.response = await request(BASE_URL).get(`/users/find/${searchUser}`);
     this.searchResult = this.response.body;
@@ -168,6 +169,7 @@ Given('o usuário {string} é proprietário da review com título {string}, corp
     } catch (error) {
         throw new Error('Falha ao criar a review: ' + (error.response ? error.response.data.message : error.message));
     }
+
 });
 Given('existe a review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (titulo, corpo, classificacao, movie) {
     try {
@@ -189,6 +191,7 @@ Given('existe a review com título {string}, corpo {string}, classificação {in
         throw new Error('Falha ao criar a review: ' + (error.response ? error.response.data.message : error.message));
     }
 });
+
 Given('existe o comentário {string} do usuário {string} com senha {string}', async function (conteudo, email, senha) {
     try {
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
@@ -352,11 +355,11 @@ Given('que o usuário {string} está autenticado no sistema', function (username
     assert.strictEqual(systemState.user.name, username, "Usuário incorreto");
   });
 
-  Given('{string} possui acesso a conta de administrador', function (username) {
+Given('{string} possui acesso a conta de administrador', function (username) {
     assert.strictEqual(systemState.user.name, username, "Usuário incorreto");
     systemState.user.admin = true
     assert.strictEqual(systemState.user.admin, true, "Usuário sem acesso ao cadastro de filmes");
-  });
+});
 
   Given('o filme {string} já está disponível no sistema', async function (movie) {
     try{
@@ -430,7 +433,8 @@ Given('que o usuário {string} está autenticado no sistema', function (username
 
 
 
-  When('é enviado novo conteúdo com uma requisição POST com JSON nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string} para a route {string}', async function (name, genre, rating, coverURL, title, route) {
+  When('é enviado novo conteúdo com uma requisição POST com JSON nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string} para a route {string}', 
+    async function (name, genre, rating, coverURL, title, route) {
     try{
         response = await axios.post(route, {
             name: name,
@@ -446,11 +450,11 @@ Given('que o usuário {string} está autenticado no sistema', function (username
     }
   });
 
-  When('é enviada uma busca com uma requisição GET pelo filme de nome {string} para a route {string}', async function (name, route) {
+  When('é enviada uma busca com uma requisição POST pelo filme de nome {string} para a route {string}', async function (name, route) {
     try{
 
-        response = await axios.get(route, {
-            data: {name: name}
+        response = await axios.post(route, {
+            name: name
         });
     } catch (error){
         response = error.response;
@@ -489,7 +493,8 @@ When('uma requisição de modificação POST é enviada para o filme de nome {st
 
 
 
-Then('o filme retornado deve ter nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string}', async function (name, genre, rating, coverURL, title){
+Then('o filme retornado deve ter nome {string}, gênero {string}, classificação indicativa {string}, capa {string}, título {string}', 
+    async function (name, genre, rating, coverURL, title){
     const expectedMovie = {
         name: name,
         genre: genre,
@@ -783,6 +788,44 @@ When('uma requisição DELETE for direcionada para a rota {string}', async funct
     }
 });
 
+When("uma requisição POST com classificação {int}, gênero {string}, título {string} é enviada pela rota {string}", 
+    async function(classification, genre, title, route){
+    try{
+        response = await axios.post(route, {
+            classification: classification,
+            genre: genre,
+            title: title
+        });
+    } catch (error){
+        response = error.response;
+    }
+})
+
+When("uma requisição POST sem classificação, mas com gênero {string}, título {string} é enviada pela rota {string}", 
+    async function(genre, title, route){
+    try{
+        response = await axios.post(route, {
+            genre: genre,
+            title: title
+        });
+    } catch (error){
+        response = error.response;
+    }
+})
+
+Then('a review retornada deve ter título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function(titulo, corpo, classificacao, content){
+    const expectedReview = {
+        title: titulo,
+        body: corpo,
+        classification: classificacao,
+        content: content
+    };
+
+    const jsonResponse = (({title,body,classification,content}) => ({title,body,classification,content}))(response.data.review[0]);
+
+    assert.deepEqual(expectedReview, jsonResponse, "O filme retornado não confere com o registrado");
+});
+
 Then('o status obtido para deleção deve ser {string}',function(expectedStatus){
     assert.strictEqual(response.status.toString(), expectedStatus);
 });
@@ -840,6 +883,3 @@ Then('o JSON da resposta deve ser {string}', function(review) {
     // Remove os campos antes de comparar
     assert.deepStrictEqual(userReview, expectedReview);
 });
-
-
-

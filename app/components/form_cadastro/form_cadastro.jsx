@@ -9,6 +9,7 @@ export default function FormCadastro() {
     const [showSvgPassword, setShowSvgPassword] = useState(false);
     const [showSvgConfirm, setShowSvgConfirm] = useState(false);
     const [errorMessage, setErrorMessage] = useState('a');
+    const [userName, setuserName] = useState(null);
 
     const svgCode_name = `
         <svg width="41" height="41" viewBox="0 0 41 41" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,24 +70,24 @@ export default function FormCadastro() {
                 },
                 body: JSON.stringify({ name, email, password })
             });
-        
-            const data = await response.json();
-            const mensagem = data.message + '!';
 
+            const data = await response.json();
+            const mensagem = data.error + '!';
+            
             setErrorMessage(mensagem);
             setShowSvgName(false);
             setShowSvgEmail(false);
             setShowSvgPassword(false);
+            setuserName(data);
 
             document.getElementById('nome').style.border = '';
             document.getElementById('e-mail').style.border = '';
             document.getElementById('password').style.border = '';
             
             if (response.ok) {
+                setErrorMessage(`Conta criada com sucesso!`);
                 message.style.color = 'green';
-                setTimeout(() => {
-                    window.location.href = '/pages/teste';
-                }, 200);
+                
             } else {
                 if (mensagem === 'Username já cadastrado!') {
                     setShowSvgName(true);
