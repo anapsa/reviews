@@ -5,11 +5,34 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
+    "/pages/initial_page/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/initial_page/page.css",
+      "static/chunks/app/pages/initial_page/page.js"
+    ],
+    "/pages/cadastro/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/cadastro/page.css",
+      "static/chunks/app/pages/cadastro/page.js"
+    ],
     "/pages/create_review/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/pages/create_review/page.css",
       "static/chunks/app/pages/create_review/page.js"
+    ],
+    "/pages/review_detail/[reviewId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/review_detail/[reviewId]/page.css",
+      "static/chunks/app/pages/review_detail/[reviewId]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

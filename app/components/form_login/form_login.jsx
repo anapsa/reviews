@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import './form_login.css';
 
 export default function FormLogin() {
@@ -9,6 +10,7 @@ export default function FormLogin() {
     const [password, setPassword] = useState('');
     const [userData, setUserData] = useState(null);
     const btn_entrar = useRef(null);
+    const router = useRouter();
 
     useEffect(() => {
         const form = document.getElementById('form');
@@ -18,7 +20,7 @@ export default function FormLogin() {
             const response = await fetch('http://localhost:5001/users/login', {
                 method: "POST",
                 headers: {
-                "Content-Type": "application/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ email, password })
             });
@@ -36,9 +38,8 @@ export default function FormLogin() {
                 setErrorMessage(`Bem-vindo, ${data.user.name}!`);
                 message.style.color = 'green';
                 localStorage.setItem('userData', JSON.stringify(userData));
-                setTimeout(() => {
-                    window.location.href = '/pages/teste';
-                }, 200);
+                localStorage.setItem('userToken', JSON.stringify(data.token));
+                router.push('/pages/initial_page'); // Redireciona para a tela inicial
             } else {
                 setErrorMessage(mensagem);
                 if (mensagem === 'Usuário não encontrado!') {
@@ -58,7 +59,7 @@ export default function FormLogin() {
         return () => {
             form.removeEventListener('submit', sendForm);
         }
-    });
+    }, [email, password, router]);
 
     useEffect(() => {
         if (email !== '' && password !== '') {
@@ -78,7 +79,7 @@ export default function FormLogin() {
     `;
     const svgCode_password = svgCode_email;
 
-    return ( 
+    return (
         <div id="container">
             <div id="title">
                 <h1>LOGIN</h1>
@@ -98,7 +99,7 @@ export default function FormLogin() {
                     </div>
 
                     <p id='message' className="error-message">{errorMessage}</p>
-                    <button id="ent" ref={btn_entrar}disabled>ENTRAR</button>
+                    <button id="ent" ref={btn_entrar} disabled>ENTRAR</button>
                 </form>
             </div>
         </div>

@@ -119,6 +119,7 @@ const editReview = async (req, res) => {
 
 const likeReview = async (req, res) => {
   const { reviewId } = req.body;
+  console.log("CURTINDO A REVIEW")
   if (!reviewId) {
     return res.status(400).json({ message: "O ID da review é obrigatório" });
   }

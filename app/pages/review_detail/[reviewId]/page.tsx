@@ -15,11 +15,33 @@ export default function ReviewDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
+  const [userId, setUserId] = useState(null);
   const [isTextBoxVisible, setIsTextBoxVisible] = useState(false);
 
   const [text, setText] = useState('');
 
+  const handleDeleteReview = async () => {
+    try {
+      const token = JSON.parse(localStorage.getItem('userToken'));
+      
+      alert('Texto enviado com sucesso!');
+      const response = await fetch(`http://localhost:5001/reviews/delete/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
+      if (!response.ok) {
+        throw new Error('Erro ao excluir a review');
+      }
+      alert('Review excluída com sucesso!');
+      window.location.href = '/';
+    } catch (err) {
+      console.error('Erro ao excluir:', err);
+      alert('Erro ao excluir a review');
+    }
+  };
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -46,7 +68,10 @@ export default function ReviewDetail() {
         throw new Error('Erro ao enviar o texto!');
       }
 
-      
+      const loggedInUser = JSON.parse(localStorage.getItem('userName'));
+      if (loggedInUser) {
+        setUserId(loggedInUser._id); 
+      }
       alert('Texto enviado com sucesso!');
       setText('');
     } catch (err) {
@@ -85,6 +110,13 @@ export default function ReviewDetail() {
   return (
     <div className="vertical-left">
       <Review reviewId={reviewId} />
+      {userId === post.owner?._id && (
+        <button
+          onClick={handleDeleteReview}
+          className="delete-button"
+          title="Excluir review"
+        > Excluir Review </button>
+      )}
       <div>
         <h2>Comentários</h2>
         {comments.length > 0 ? (

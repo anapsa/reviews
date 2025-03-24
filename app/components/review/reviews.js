@@ -12,9 +12,32 @@ export default function Reviews({ reviewId }) {
   const [movie, setMovie] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [liked, setLiked] = useState(false); 
+  const [userId, setUserId] = useState(null);
 
-  const handleClick = () => {
-    console.log("Botão clicado!");
+  const handleClick = async () => {
+  
+      try {
+        const token = JSON.parse(localStorage.getItem('userToken'));
+        
+        const response = await fetch('http://localhost:5001/reviews/like', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({reviewId: reviewId}) 
+        });
+        
+        if (!response.ok) {
+          setLiked(true);
+          throw new Error('Erro ao enviar o texto!');
+        }
+      } catch (err) {
+        setError(err.message);
+        console.error('Erro ao enviar:', err);
+      }
+    
   };
 
   useEffect(() => {
@@ -32,6 +55,15 @@ export default function Reviews({ reviewId }) {
         setPost(data.review);
         setOwner(data.owner || null);
         setMovie(data.movie || null);
+        const loggedInUser = JSON.parse(localStorage.getItem('userName'));
+        if (loggedInUser) {
+          setUserId(loggedInUser.id); 
+        }
+        if (data.review.likes?.some(like => like === userId)) {
+          setLiked(true);
+        } else {
+          setLiked(false);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -73,7 +105,7 @@ export default function Reviews({ reviewId }) {
                 <p className="b">{post?.body || 'Conteúdo indisponível'}</p>
             </div>
             <div className="horizontal">
-              <HeartButton onClick={handleClick} />
+              <HeartButton onClick={handleClick} liked={liked} setLiked={setLiked} />
               <p className="text-xl font-bold">Curtir Review </p>
               <likes className="text-gray-600">{post.likes.length} curtidas</likes>
             </div>
