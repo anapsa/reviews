@@ -15,12 +15,23 @@
     "dev": "next dev",
     "clean": "rimraf .next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "cy:run": "cypress run --spec 'tests/features/**/*.feature'",
+    "cy:open": "cypress open"
   },
   "license": "ISC",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@cucumber/cucumber": "^11.2.0",
+    "@cypress/code-coverage": "^3.10.7",
+    "@playwright/test": "^1.51.1",
+    "@types/node": "22.13.11",
+    "@types/react": "19.0.12",
+    "cypress": "^13.0.0",
+    "cypress-cucumber-preprocessor": "^4.3.1",
     "mongodb-memory-server": "^10.1.4",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "typescript": "5.8.2"
   }
 }

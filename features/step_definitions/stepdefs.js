@@ -43,7 +43,7 @@ When('o usuário executa a ação de {string} no perfil do usuário {string}', a
          this.response = await request(BASE_URL)
             .post(`/users/follow/${this.targetUser}`)
             .send(requestBody) 
-            .set('Content-Type', 'application/json');
+            .set('movie-Type', 'application/json');
     }
     
   });
@@ -149,13 +149,13 @@ Given('que o usuário {string} com senha {string} está autenticado no sistema',
 Given('que o usuário {string} com senha {string} não está autenticado no sistema', async function (email, password) {
     token = "";
 });
-Given('o usuário {string} é proprietário da review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, titulo, corpo, classificacao, content) {
+Given('o usuário {string} é proprietário da review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, titulo, corpo, classificacao, movie) {
     try {
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: titulo,
             body: corpo,
             classification: classificacao,
-            content: content
+            movie: movie
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -169,13 +169,13 @@ Given('o usuário {string} é proprietário da review com título {string}, corp
         throw new Error('Falha ao criar a review: ' + (error.response ? error.response.data.message : error.message));
     }
 });
-Given('existe a review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (titulo, corpo, classificacao, content) {
+Given('existe a review com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (titulo, corpo, classificacao, movie) {
     try {
         const reviewResponse = await axios.post('http://localhost:5001/reviews/add', {
             title: titulo,
             body: corpo,
             classification: classificacao, 
-            content: content
+            movie: movie
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -213,7 +213,7 @@ Given('existe o comentário {string} do usuário {string} com senha {string}', a
         throw new Error(`Erro ao criar/verificar comentário: ${error.message}`);
     }
 });
-Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, password, title, body, classification, content) {
+Given('existe a review do usuário {string} com senha {string} com título {string}, corpo {string}, classificação {int} e conteúdo {string}', async function (email, password, title, body, classification, movie) {
     try {
         const loginResponse = await axios.post('http://localhost:5001/users/login', {
             email: email,
@@ -225,7 +225,7 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
             title: title,
             body: body,
             classification: classification, 
-            content: content
+            movie: movie
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -239,12 +239,13 @@ Given('existe a review do usuário {string} com senha {string} com título {stri
         throw new Error(`Erro ao criar/verificar review: ${error.message}`);
     }
 });
-When('uma requisição POST com um JSON com título {string}, corpo {string} e classificação {int} para a rota {string}', async function (titulo, corpo, classificacao, rota) {
+When('uma requisição POST com um JSON com título {string}, corpo {string}, classificação {int} e conteúdo {string} para a rota {string}', async function (titulo, corpo, classificacao, movie, rota) {
     try {
         response = await axios.post(rota, {
             title: titulo,
             body: corpo,
-            classification: classificacao
+            classification: classificacao, 
+            movie: movie
         }, {
             headers: { Authorization: `Bearer ${token}` }
         });
