@@ -34,13 +34,18 @@
     line-height: 1.0; /* Reduz o espaçamento entre as linhas */
 }
 
-/* Avatar */
 .avatar {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    background-color: #ccc;
-}
+    width: 130px; /* Largura do avatar */
+    height: 130px; /* Altura do avatar */
+    border-radius: 50%; /* Formato circular */
+    margin-top: -30px;
+    overflow: hidden; /* Garante que o SVG não ultrapasse os limites */
+  }
+  
+  .avatar svg {
+    width: 100%; /* Ocupa 100% da largura do contêiner */
+    height: 100%; /* Ocupa 100% da altura do contêiner */
+  }
 
 /* Botão de seguir */
 .follow-btn {
@@ -141,13 +146,23 @@
     flex: 1 1 calc(50% - 20px); /* Cada review ocupa metade do espaço, menos o gap */
     display: flex;
     align-items: center;
-    background: white;
+    background: rgb(186, 178, 178);
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
 }
-
+  
+  .review:hover {
+    background-color: #f9f9f9; /* Efeito de hover */
+    transform: translateY(-2px); /* Efeito de elevação */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra mais pronunciada */
+  }
+  
+  .review:active {
+    transform: translateY(0); /* Remove o efeito de elevação ao clicar */
+  }
+  
 /* Ajusta a imagem do filme na review */
 .review img {
     width: 80px;
