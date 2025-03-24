@@ -8,7 +8,7 @@ export default function CreateReview() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const movieId = "67dad4119429a2af3f58ddc9"
-  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA2Mjc0NzkyNjdlZjI0YjM5YWU0NyIsImlhdCI6MTc0Mjc3MDE4MywiZXhwIjoxNzQyNzczNzgzfQ.IKJkaq1VDUWpkFDj81LDsCXk2K3SgVj1SW6Fz1jHVkk"
+  const userToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTA2Mjc0NzkyNjdlZjI0YjM5YWU0NyIsImlhdCI6MTc0Mjc4MDA2NSwiZXhwIjoxNzQyNzgzNjY1fQ.u9cw_MVF56U-bzmgoQU8L8Fa24b0Ow3ijwhG_cWZYdc"
   const [movie, setMovie] = useState('');
   const [textTitle, setTextTitle] = useState('');
   const [textBody, setTextBody] = useState('');
@@ -38,7 +38,7 @@ export default function CreateReview() {
       }
 
     
-      alert('Texto enviado com sucesso!');
+      alert('Review enviada com sucesso!');
       setTextTitle('');
       setTextBody(''); 
     } catch (err) {
