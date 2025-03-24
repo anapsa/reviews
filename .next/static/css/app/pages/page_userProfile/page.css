@@ -149,14 +149,14 @@
 
 /* Lista de reviews */
 .reviews {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap; /* Permite que as reviews quebrem para a próxima linha */
-    gap: 20px; /* Espaçamento entre as reviews */
+    gap: 40px; /* Espaçamento entre as reviews */
     justify-content: flex-start; /* Alinha as reviews à esquerda */
     margin-top: 60px;
     padding: 0 40px; /* Adiciona padding para alinhar com o conteúdo acima */
-    margin-left: -45px;
+    margin-left: 100px;
 }
 
 /* Cada review */

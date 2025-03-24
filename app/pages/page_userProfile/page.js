@@ -59,6 +59,7 @@ export default function Page() {
   };
 
   const follow = async () => {
+    
     if (!userName?.user?.name || !userData?.name) {
       alert('Dados do usuário não carregados.');
       return;
@@ -120,7 +121,7 @@ export default function Page() {
         </div>
         <div className="user-details">
           <h2><strong>{userData?.name || 'Carregando...'}</strong></h2>
-          <p><i>{userData ? `${userReviews.length} reviews` : '0 reviews'}</i> - <span className="stars">4★</span></p>
+          <p>{userData ? `${userReviews.length} reviews` : '0 reviews'}   <span className="stars">🎬</span></p>
         </div>
         {userName?.user?.name !== userData?.name && (
           <button className="follow-btn" onClick={follow} disabled={isFollowing}>
@@ -160,7 +161,7 @@ export default function Page() {
         style={{
           width: "100%", // Ocupa 100% da largura
           border: "none", // Remove a borda padrão do botão
-          background: "none", // Remove o fundo padrão do botão
+          background: "#E2F1E7", // Remove o fundo padrão do botão
           textAlign: "left", // Alinha o conteúdo à esquerda
           cursor: "pointer", // Mostra o cursor de clique
         }}
