@@ -81,7 +81,7 @@ const getAllMovies = async (req,res) => {
 }
 
 const findMovie = async (req,res) => {
-    const {name} = req.body
+    const {name} = req.body;
     if(!name){
         return res.status(400).json({message: "Você deve informar o nome do filme a ser procurado"})
     }
@@ -94,7 +94,7 @@ const findMovie = async (req,res) => {
             res.status(400).json({movie: null, message: "Filme não foi encontrado"})
         }
     } catch(error){
-        return res.status(500).json({message: "Erro no apagamento do filme ",error})
+        return res.status(500).json({message: "Erro na procura do filme ",error})
     }
 }
 const findMovieById = async (req,res) => {
