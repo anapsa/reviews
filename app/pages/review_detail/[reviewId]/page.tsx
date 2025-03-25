@@ -50,8 +50,8 @@ export default function ReviewDetail() {
   };
   const handleConfirm = async () => {
     try {
-     
-      if (!text.trim()) {
+      const token = JSON.parse(localStorage.getItem('userToken'));
+      if (text == '') {
         alert('Por favor, digite algo!');
         return;
       }
@@ -59,20 +59,16 @@ export default function ReviewDetail() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', 
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3YTkzMzYzYmM3OWY3OTVmYWE4MmVjMiIsImlhdCI6MTc0MjY5NTk2OSwiZXhwIjoxNzQyNjk5NTY5fQ.WqSBVGhHcT_3gyh8Ysyq605OAZyIuXt-w2rmbmhuqiA'
+          'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify({ body: text, review: reviewId}) 
+        body: JSON.stringify({body: text, review: reviewId}) 
       });
 
       if (!response.ok) {
         throw new Error('Erro ao enviar o texto!');
       }
 
-      const loggedInUser = JSON.parse(localStorage.getItem('userName'));
-      if (loggedInUser) {
-        setUserId(loggedInUser._id); 
-      }
-      alert('Texto enviado com sucesso!');
+      alert('Comentário enviado com sucesso!');
       setText('');
     } catch (err) {
       setError(err.message);
@@ -93,6 +89,10 @@ export default function ReviewDetail() {
         setOwner(data.owner || null);
         setContent(data.content || null);
         setComments(data.review.comments || []);
+        const loggedInUser = JSON.parse(localStorage.getItem('userName'));
+        if (loggedInUser) {
+          setUserId(loggedInUser._id); 
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -109,7 +109,7 @@ export default function ReviewDetail() {
 
   return (
     <div className="vertical-left">
-      <Review reviewId={reviewId} />
+      <Review reviewId={reviewId}/>
       {userId === post.owner?._id && (
         <button
           onClick={handleDeleteReview}
@@ -140,15 +140,17 @@ export default function ReviewDetail() {
           <p>Sem comentários ainda.</p>
         )}
       </div>
-      <div>
+      <div data-testid="comment-button">
           <Button label="Comentar" onClick={handleClick} />
       </div>
       {isTextBoxVisible && (
         <div className="overlay" onClick= {handleChange}>
           {/* Popup */}
           <div className="popup">
-            <textarea className="custom-textarea" placeholder="Digite aqui..."></textarea>
-            <Button label="Confirmar" onClick={handleConfirm} />
+            <textarea className="custom-textarea" placeholder="Digite aqui..." data-testid="comment-textarea"></textarea>
+            <div data-testid="confirm"> 
+              <Button label="Confirmar" onClick={handleConfirm} />
+            </div>
           </div>
         </div>
       )}
