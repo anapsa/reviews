@@ -1,13 +1,17 @@
 {
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.15",
+    "autoprefixer": "^10.4.21",
     "axios": "^1.7.9",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.9.6",
     "next": "^15.2.0",
+    "postcss": "^8.5.3",
     "react-dom": "^19.0.0",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "tailwindcss": "^4.0.15"
   },
   "main": "index.js",
   "scripts": {
@@ -20,6 +24,9 @@
   "license": "ISC",
   "devDependencies": {
     "@cucumber/cucumber": "^11.2.0",
-    "rimraf": "^6.0.1"
+    "@types/node": "22.13.11",
+    "@types/react": "19.0.12",
+    "rimraf": "^6.0.1",
+    "typescript": "5.8.2"
   }
 }

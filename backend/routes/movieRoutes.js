@@ -1,7 +1,7 @@
 //Rotas para cada uma das funcionalidades em movieController
 
 const express = require("express");
-const { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName, findMovie} = require("../controllers/movieController")
+const { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName, findMovie, findMovieById} = require("../controllers/movieController")
 
 const router = express.Router();
 
@@ -12,5 +12,6 @@ router.get("/", getAllMovies);
 router.delete("/delete", deleteMoviebyName)
 router.put("/update", updateMoviebyName)
 router.post("/get", findMovie)
+router.get("/getId/:id", findMovieById)
 
 module.exports = router;

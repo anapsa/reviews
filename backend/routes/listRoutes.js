@@ -7,7 +7,6 @@ router.post('/lists/:type', ListController.createList);
 
 // Rota para obter uma lista pelo tipo (watched ou abandoned)
 router.get('/lists/:type', ListController.getList);
-
 // Rota para obter todas as listas do usuário 
 router.get('/lists', ListController.getAllLists);
 

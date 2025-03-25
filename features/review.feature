@@ -5,7 +5,7 @@ Feature: Criar Reviews
 
 Scenario: Criar uma review válido
     Given que o usuário "ana@email.com" com senha "123456" está autenticado no sistema
-    When uma requisição POST com um JSON com título "Title", corpo "Adorei o filme" e classificação 5 para a rota "http://localhost:5001/reviews/add"
+    When uma requisição POST com um JSON com título "Title", corpo "Adorei o filme", classificação 5 e conteúdo "67ad7e98d4b8624b167ce4a1" para a rota "http://localhost:5001/reviews/add"
     Then o JSON da resposta contém "Review criada com sucesso"
     And o status da resposta é "201"
 

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import './form_login.css';
 
 export default function FormLogin() {
@@ -7,7 +8,58 @@ export default function FormLogin() {
     const [errorMessage, setErrorMessage] = useState('a');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [userName, setuserName] = useState(null);
     const btn_entrar = useRef(null);
+    const router = useRouter();
+
+    useEffect(() => {
+        const form = document.getElementById('form');
+
+        async function sendForm(event) {
+            event.preventDefault();
+            const response = await fetch('http://localhost:5001/users/login', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            const mensagem = data.error + '!';
+
+            setuserName(data);
+            setShowSvgEmail(false);
+            setShowSvgPassword(false);
+
+            document.getElementById('e-mail').style.border = '';
+            document.getElementById('password').style.border = '';
+
+            if (response.ok) {
+                setErrorMessage(`Bem-vindo, ${data.user.name}!`);
+                message.style.color = 'green';
+                localStorage.setItem('userName', JSON.stringify(data));
+                localStorage.setItem('userToken', JSON.stringify(data.token));
+                router.push('/pages/initial_page'); // Redireciona para a tela inicial
+            } else {
+                setErrorMessage(mensagem);
+                if (mensagem === 'Usuário não encontrado!') {
+                    setShowSvgEmail(true);
+                    document.getElementById('e-mail').style.border = '2px solid #FD0808';
+                }
+                else if (mensagem === 'Senha incorreta!') {
+                    setShowSvgPassword(true);
+                    document.getElementById('password').style.border = '2px solid #FD0808';
+                }
+                message.style.color = '#FD0808';
+            }
+        }
+
+        form.addEventListener('submit', sendForm);
+
+        return () => {
+            form.removeEventListener('submit', sendForm);
+        }
+    }, [email, password, router]);
 
     useEffect(() => {
         if (email !== '' && password !== '') {
@@ -27,7 +79,7 @@ export default function FormLogin() {
     `;
     const svgCode_password = svgCode_email;
 
-    return ( 
+    return (
         <div id="container">
             <div id="title">
                 <h1>LOGIN</h1>
@@ -47,7 +99,7 @@ export default function FormLogin() {
                     </div>
 
                     <p id='message' className="error-message">{errorMessage}</p>
-                    <button id="ent" ref={btn_entrar}disabled>ENTRAR</button>
+                    <button id="ent" ref={btn_entrar} disabled>ENTRAR</button>
                 </form>
             </div>
         </div>

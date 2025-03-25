@@ -1,10 +1,11 @@
 const express = require("express");
-const { createReview, getReviews, deleteReview, editReview, likeReview, filterReviews } = require("../controllers/reviewController");
+const { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById, filterReviews} = require("../controllers/reviewController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
 router.post("/add", authMiddleware, createReview);
+router.get("/getReview/:id", getReviewById);
 router.get("/get", getReviews);
 router.delete("/delete", authMiddleware, deleteReview);
 router.put("/edit", authMiddleware, editReview);

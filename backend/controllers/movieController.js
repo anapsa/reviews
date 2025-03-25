@@ -1,7 +1,7 @@
 //movieController possui as funções de criação de conteúdo
 
 const Movie = require("../models/movie");
-
+const mongoose = require("mongoose");
 // Criar um novo filme
 const createMovie = async (req, res) => {
     const {name, genre, rating, cover, synopsis} = req.body;
@@ -81,7 +81,7 @@ const getAllMovies = async (req,res) => {
 }
 
 const findMovie = async (req,res) => {
-    const {name} = req.body
+    const {name} = req.body;
     if(!name){
         return res.status(400).json({message: "Você deve informar o nome do filme a ser procurado"})
     }
@@ -97,5 +97,26 @@ const findMovie = async (req,res) => {
         return res.status(500).json({message: "Erro na procura do filme ",error})
     }
 }
-
-module.exports = { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName, findMovie};
+const findMovieById = async (req,res) => {
+    const { id } = req.params
+    console.log("achou find movie by id")
+    console.log(id)
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(400).json({ message: id });
+    }
+    try{
+        const findMovie = await Movie.findById(new mongoose.Types.ObjectId(id));
+       
+        console.log(findMovie)
+        if(findMovie){
+            res.status(201).json({movie: findMovie, message: "Filme foi encontrado"})
+        }
+        else{
+            res.status(400).json({movie: null, message: "Filme não foi encontrado"})
+        }
+    } catch(error){
+        return res.status(500).json({message: "Erro na busca do filme ",error})
+    }
+}
+module.exports = { createMovie, getAllMovies, deleteMoviebyName, updateMoviebyName, findMovie, findMovieById};
