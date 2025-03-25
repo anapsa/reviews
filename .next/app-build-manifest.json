@@ -5,35 +5,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/pages/cadastro/page": [
+    "/pages/movies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/pages/cadastro/page.css",
-      "static/chunks/app/pages/cadastro/page.js"
+      "static/css/app/pages/movies/page.css",
+      "static/chunks/app/pages/movies/page.js"
     ],
-    "/pages/initial_page/page": [
+    "/pages/addMovie/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/pages/initial_page/page.css",
-      "static/chunks/app/pages/initial_page/page.js"
-    ],
-    "/pages/review_detail/[reviewId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/review_detail/[reviewId]/page.css",
-      "static/chunks/app/pages/review_detail/[reviewId]/page.js"
-    ],
-    "/pages/page_search/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/page_search/page.css",
-      "static/chunks/app/pages/page_search/page.js"
-    ],
-    "/pages/page_userProfile/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/page_userProfile/page.css",
-      "static/chunks/app/pages/page_userProfile/page.js"
+      "static/css/app/pages/addMovie/page.css",
+      "static/chunks/app/pages/addMovie/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
