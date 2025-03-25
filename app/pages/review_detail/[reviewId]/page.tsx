@@ -4,6 +4,7 @@ import HeartButton from "../../../components/heart_button/heart_button";
 import Review from "../../../components/review/reviews";
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import "./style.css"
 
 export default function ReviewDetail() {
@@ -15,33 +16,13 @@ export default function ReviewDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isTextBoxVisible, setIsTextBoxVisible] = useState(false);
-
+  const router = useRouter()
   const [text, setText] = useState('');
 
-  const handleDeleteReview = async () => {
-    try {
-      const token = JSON.parse(localStorage.getItem('userToken'));
-      
-      alert('Texto enviado com sucesso!');
-      const response = await fetch(`http://localhost:5001/reviews/delete/${reviewId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error('Erro ao excluir a review');
-      }
-      alert('Review excluída com sucesso!');
-      window.location.href = '/';
-    } catch (err) {
-      console.error('Erro ao excluir:', err);
-      alert('Erro ao excluir a review');
-    }
-  };
+  
   const handleChange = (event) => {
     setText(event.target.value);
   };
@@ -89,10 +70,16 @@ export default function ReviewDetail() {
         setOwner(data.owner || null);
         setContent(data.content || null);
         setComments(data.review.comments || []);
-        const loggedInUser = JSON.parse(localStorage.getItem('userName'));
+        const loggedInUser = JSON.parse(localStorage.getItem('user'));
         if (loggedInUser) {
-          setUserId(loggedInUser._id); 
+          setUserId(loggedInUser.name); 
         }
+     
+        if(owner?.name == loggedInUser) {
+          setIsOwner(true)
+        }
+        
+       
       } catch (err) {
         setError(err.message);
       } finally {
@@ -106,17 +93,11 @@ export default function ReviewDetail() {
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
   if (!post) return <p>Nenhum post encontrado.</p>;
-
+  
   return (
     <div className="vertical-left">
       <Review reviewId={reviewId}/>
-      {userId === post.owner?._id && (
-        <button
-          onClick={handleDeleteReview}
-          className="delete-button"
-          title="Excluir review"
-        > Excluir Review </button>
-      )}
+     
       <div>
         <h2>Comentários</h2>
         {comments.length > 0 ? (

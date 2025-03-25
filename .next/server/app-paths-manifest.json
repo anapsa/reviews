@@ -1,5 +1,5 @@
 {
   "/pages/cadastro/page": "app/pages/cadastro/page.js",
-  "/pages/review_detail/[reviewId]/page": "app/pages/review_detail/[reviewId]/page.js",
-  "/pages/initial_page/page": "app/pages/initial_page/page.js"
+  "/pages/initial_page/page": "app/pages/initial_page/page.js",
+  "/pages/review_detail/[reviewId]/page": "app/pages/review_detail/[reviewId]/page.js"
 }

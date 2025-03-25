@@ -5,17 +5,17 @@
       "static/chunks/main-app.js",
       "static/chunks/app/layout.js"
     ],
-    "/pages/initial_page/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/pages/initial_page/page.css",
-      "static/chunks/app/pages/initial_page/page.js"
-    ],
     "/pages/cadastro/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/pages/cadastro/page.css",
       "static/chunks/app/pages/cadastro/page.js"
+    ],
+    "/pages/initial_page/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/initial_page/page.css",
+      "static/chunks/app/pages/initial_page/page.js"
     ],
     "/pages/review_detail/[reviewId]/page": [
       "static/chunks/webpack.js",
