@@ -53,18 +53,19 @@ const getReviews = async (req, res) => {
 const getReviewById = async (req,res) => {
   const { id } = req.params;
   try {
-    console.log("Recebendo ID:", id);
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(410).json({ message: "ID inválido" });
     }
     const review = await Review.findById(new mongoose.Types.ObjectId(id))
       .populate("owner")
       .populate("movie")
+      .populate("likes")
       .populate({
         path: "comments",
         populate: { path: "owner", select: "name" },
       })
-    const owner = await User.findById(new mongoose.Types.ObjectId(review.owner));
+    const owner = review.owner;
     const movie = await Movie.findById(new mongoose.Types.ObjectId(review.movie));
     if (!review) {
       return res.status(404).json({ message: "Review não encontrado" });
@@ -82,20 +83,24 @@ const getReviewById = async (req,res) => {
 
 const deleteReview = async (req, res) => {
   const { id } = req.body; 
-
+  console.log("deletando a review");
   try {
       const review = await Review.findById(new mongoose.Types.ObjectId(id));
-
+      console.log(id)
       if (!review) {
+          console.log("nao achou a review")
           return res.status(404).json({ message: "Review não encontrada" });
       }
 
       if (review.owner.toString() !== req.user.id) {
+          console.log("não é o dono")
           return res.status(403).json({ message: "Ação não permitida" });
       }
       await Review.findByIdAndDelete(new mongoose.Types.ObjectId(id));
+      console.log("review sendo deletada");
       res.json({ message: "Review excluída com sucesso" });
   } catch (error) {
+      console.log(error)
       res.status(500).json({ message: "Erro ao excluir review", error });
   }
 };
@@ -119,7 +124,6 @@ const editReview = async (req, res) => {
 
 const likeReview = async (req, res) => {
   const { reviewId } = req.body;
-  console.log("CURTINDO A REVIEW")
   if (!reviewId) {
     return res.status(400).json({ message: "O ID da review é obrigatório" });
   }
@@ -143,6 +147,32 @@ const likeReview = async (req, res) => {
   }
 };
 
+const unlikeReview = async (req, res) => {
+  const { reviewId } = req.body;
+
+  if (!reviewId) {
+    return res.status(400).json({ message: "O ID da review é obrigatório" });
+  }
+  if (!req.user || !req.user.id) {
+    return res.status(401).json({ message: "Usuário não autenticado" });
+  }
+  try {
+    const review = await Review.findById(reviewId);
+    if (!review) {
+      return res.status(404).json({ message: "Review não encontrada" });
+    }
+    const updatedReview = await Review.findByIdAndUpdate(
+      reviewId,
+      { $pull: { likes: req.user.id } }, 
+      { new: true }
+    );
+
+    return res.status(200).json({ message: "Review descurtida com sucesso", review: updatedReview });
+  } catch (error) {
+    console.error("Erro ao descurtir a review: ", error);
+    return res.status(500).json({ message: "Erro interno ao descurtir a review", error: error.message });
+  }
+};
 const filterReviews = async (req, res) => {
   try {
     const { classification, genre, title } = req.body;
@@ -170,11 +200,10 @@ const filterReviews = async (req, res) => {
     const filteredReviews = reviews.filter(review => 
       review.movie && validContentIds.includes(review.movie.toString())
     );
-
     return res.status(200).json({message: filteredReviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: filteredReviews});
   } catch (error) {
     return res.status(500).json({ error: "Erro ao buscar reviews"});
   }
 };
 
-module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById, filterReviews};
+module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById, unlikeReview,filterReviews};
