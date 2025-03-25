@@ -63,6 +63,20 @@ const findUser = async (req, res) => {
   }
 };
 
+const findUserByEmail = async (req, res) => {
+  try {
+    const email = await User.findOne({email : req.params.email});
+
+    if(!email){
+      return res.status(404).json({ message: 'Email não encontrado' });
+    }
+
+    res.json(email)
+  } catch (error) {
+    res.status(500).json({ message: 'Erro ao buscar email' });
+  }
+};
+
 const followUser = async (req, res) => {
   try{
     const {originName, destinationName} = req.body;
@@ -325,4 +339,4 @@ const deleteAbandoned = async (req, res) => {
 
 
 
-module.exports = { createUser, getUsers, findUser, followUser, deleteUser, updateUser, addWatched, addAbandoned,getWatched, getAbandoned, deleteWatched, deleteAbandoned};
+module.exports = { createUser, getUsers, findUser, findUserByEmail, followUser, deleteUser, updateUser, addWatched, addAbandoned,getWatched, getAbandoned, deleteWatched, deleteAbandoned };
