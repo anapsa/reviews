@@ -150,25 +150,25 @@ const filterReviews = async (req, res) => {
     //Classification é atributo da própria review então isso é testado primeiro
     let reviewFilter = {};
     if (classification) reviewFilter.classification = classification;
-
+    
     let reviews = await Review.find(reviewFilter);
-
-
+    
+    
     if (!genre && !title) {
       return res.status(200).json({message: reviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: reviews});
     }
-
+    
     // Extrair por gênero e título que são atributos do objeto movie
-    const contentIds = reviews.filter(review=>review.content!=undefined).map(review => review.content);
-
+    const contentIds = reviews.filter(review=>review.movie!=undefined).map(review => review.movie);
+    
     const contentFilter = { _id: { $in: contentIds } };
     if (genre) contentFilter.genre = genre;
     if (title) contentFilter.name = title;
-
-    const validContents = await Content.find(contentFilter);
+    
+    const validContents = await Movie.find(contentFilter);
     const validContentIds = validContents.map(content => content._id.toString());
     const filteredReviews = reviews.filter(review => 
-      review.content && validContentIds.includes(review.content.toString())
+      review.movie && validContentIds.includes(review.movie.toString())
     );
 
     return res.status(200).json({message: filteredReviews.length > 0 ? "Reviews Encontradas" : "Nenhuma review corresponde aos filtros", review: filteredReviews});
