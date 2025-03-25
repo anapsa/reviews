@@ -22,6 +22,17 @@
       "static/chunks/main-app.js",
       "static/css/app/pages/review_detail/[reviewId]/page.css",
       "static/chunks/app/pages/review_detail/[reviewId]/page.js"
+    ],
+    "/pages/create_review/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/create_review/page.css",
+      "static/chunks/app/pages/create_review/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

@@ -37,15 +37,7 @@ h2 {
     color: #000000;
     font-family: "Quicksand", sans-serif;
 }
-b {
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-    color: #000000;
-    line-height: 1.6;
-    font-family: "Nunito", sans-serif;
-}
+
 p {
     font-size: 16px;
     margin: 0;
@@ -55,7 +47,7 @@ p {
     line-height: 1.6;
     font-family: "Nunito", sans-serif;
 }
-s {
+b {
     font-size: 16px;
     margin: 0;
     padding: 0;

@@ -2,6 +2,7 @@
 import Button from "../../../components/button/Button";
 import HeartButton from "../../../components/heart_button/heart_button";
 import Review from "../../../components/review/reviews";
+import Comment from "../../../components/comments/comments";
 import { useEffect, useState } from "react";
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
@@ -29,6 +30,7 @@ export default function ReviewDetail() {
   const handleClick = () => {
     setIsTextBoxVisible(!isTextBoxVisible);
   };
+  
   const handleConfirm = async () => {
     try {
       const token = JSON.parse(localStorage.getItem('userToken'));
@@ -103,18 +105,10 @@ export default function ReviewDetail() {
         {comments.length > 0 ? (
           comments.map((comment) => (
             <div key={comment._id} className="comment">
-              <div>
-                <div className="commentH">
-                  <b>por: {comment.owner?.name || "Anônimo"}</b> 
-                  <div className="horizontal">
-                    <b className="text-xl font-bold">Curtir Cometário</b>
-                    <b className="text-gray-600">{comment.likes.length} curtidas</b>
-                  </div>
-                </div>
-                <div className="comments">
-                  <p> {comment.body}</p>
-                </div>
-              </div>
+              <Comment
+                key={comment._id}
+                comment={comment}
+              />
             </div>
           ))
         ) : (

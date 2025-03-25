@@ -176,9 +176,9 @@ export default function Reviews({ reviewId}) {
               <p className="text-xl font-bold">
                 {liked ? "Descurtir Review" : "Curtir Review"}
               </p>
-              <s className="text-gray-600">
+              <b className="text-gray-600">
                 {likesCount === 1 ? "1 curtida" : `${likesCount} curtidas`}
-              </s>
+              </b>
             </div>
           </div>
         </div>
