@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from "react";
 import "./style.css"
+import Footer from '../../components/footer/Footer';
+import TopBar from '../../components/topbar_all/TopBar';
 
 export default function ReviewDetail() {
   const [reviews, setReviews] = useState([]);
@@ -60,6 +62,7 @@ export default function ReviewDetail() {
 
   return (
     <div className="vertical"> 
+        <TopBar/>
       <Button label="Postar" onClick={handleConfirm}/>
       {reviews.map((review) => (
         <div className="reviewsContainer"> 
@@ -69,6 +72,7 @@ export default function ReviewDetail() {
           </Link>
         </div>  
       ))}
+      <Footer/>
     </div>
   );
 }

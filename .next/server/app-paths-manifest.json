@@ -1,9 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/pages/cadastro/page": "app/pages/cadastro/page.js",
-  "/pages/Filmes_Assistidos/page": "app/pages/Filmes_Assistidos/page.js",
-  "/pages/initial_page/page": "app/pages/initial_page/page.js",
   "/pages/page_userProfile/page": "app/pages/page_userProfile/page.js",
-  "/pages/page_search/page": "app/pages/page_search/page.js",
-  "/pages/movie_reviews/page": "app/pages/movie_reviews/page.js"
+  "/pages/initial_page/page": "app/pages/initial_page/page.js",
+  "/pages/cadastro/page": "app/pages/cadastro/page.js"
 }

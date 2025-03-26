@@ -4,6 +4,8 @@ import './style_pageSearch.css';
 import { useRouter } from 'next/navigation'; // Importe o useRouter
 import SearchBar from '../../components/search_bar/search_bar';
 import UserCard from '../../components/user_card/user_card';
+import Footer from '../../components/footer/Footer';
+
 
 export default function PageSearch() {
   const router = useRouter(); // Inicialize o useRouter
@@ -97,6 +99,7 @@ export default function PageSearch() {
       ) : (
         error && <p className="error-message">{error}</p>
       )}
-    </div>
+      <Footer/>
+    </div>  
   );
 }

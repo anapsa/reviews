@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import './style_userProfile.css';
 import ReviewCard from '../../components/review_card/ReviewCard';
+import Footer from '../../components/footer/Footer';
 
 export default function Page() {
   const router = useRouter();
@@ -242,6 +243,8 @@ export default function Page() {
     <p className = "no-reviews">Este usuário ainda não possui reviews</p>
   )}
 </div>
-    </div>
+  <Footer/>
+</div>
+
   );
 }
