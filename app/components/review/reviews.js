@@ -35,11 +35,11 @@ export default function Reviews({ reviewId}) {
         throw new Error('Erro ao excluir a review');
       }
       alert('Review excluída com sucesso!');
-      window.location.href = '/';
+      //window.location.href = '/';
       router.replace('/pages/initial_page');
     } catch (err) {
       console.error('Erro ao excluir:', err);
-      alert('Erro ao excluir a review' + err);
+      alert('Erro ao excluir a review');
     }
   };
   const handleUnlikeReview = async () => {
@@ -159,11 +159,13 @@ export default function Reviews({ reviewId}) {
                   <div className="vertical-right">
                     <StarRating rating ={post.classification}></StarRating> 
                     {userId == owner.name && (
-                      <button
-                        onClick={handleDeleteReview}
-                        className="button-style"
-                        title="Excluir review"
-                      > Excluir Review </button>
+                      <div data-testid="excluir"> 
+                        <button
+                          onClick={handleDeleteReview}
+                          className="button-style"
+                          title="Excluir review"
+                        > Excluir Review </button>
+                      </div>
                     )}
                   </div>
                 </div>
