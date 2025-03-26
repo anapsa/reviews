@@ -159,11 +159,12 @@ export default function Reviews({ reviewId}) {
                   <div className="vertical-right">
                     <StarRating rating ={post.classification}></StarRating> 
                     {userId == owner.name && (
-                      <div data-testid="excluir"> 
+                      <div> 
                         <button
                           onClick={handleDeleteReview}
                           className="button-style"
                           title="Excluir review"
+                          data-testid="excluir"
                         > Excluir Review </button>
                       </div>
                     )}
@@ -174,10 +175,16 @@ export default function Reviews({ reviewId}) {
                 <p className="b">{post?.body || 'Conteúdo indisponível'}</p>
             </div>
             <div className="horizontal">
-              <HeartButton onClick={handleClick} liked={liked} setLiked={setLiked} />
-              <p className="text-xl font-bold">
+              <div data-testid={liked ? "unlike-button" : "like-button"}> 
+              <HeartButton onClick={handleClick} liked={liked} setLiked={setLiked}/>
+              </div>
+              <p 
+                className="text-xl font-bold" 
+
+              >
                 {liked ? "Descurtir Review" : "Curtir Review"}
               </p>
+
               <b className="text-gray-600">
                 {likesCount === 1 ? "1 curtida" : `${likesCount} curtidas`}
               </b>
