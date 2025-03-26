@@ -61,6 +61,16 @@ const getReviews = async (req, res) => {
   }
 };
 
+const getMovieReviews = async (req, res) => {
+  try {
+    const movieId = new mongoose.Types.ObjectId(req.params.id);
+    const reviews = await Review.find({ movie: movieId });
+    res.json(reviews);
+  } catch (error) {
+    res.status(500).json({ message: "Erro ao buscar reviews" });
+  }
+};
+
 const getReviewById = async (req,res) => {
   const { id } = req.params;
   try {
@@ -217,4 +227,4 @@ const filterReviews = async (req, res) => {
   }
 };
 
-module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById, unlikeReview,filterReviews};
+module.exports = { createReview, getReviews, deleteReview, editReview, likeReview, getReviewById, unlikeReview, filterReviews, getMovieReviews};
