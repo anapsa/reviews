@@ -82,6 +82,8 @@ export default function ReviewDetail() {
   }, []);
 
   return (
+  <div> 
+
     <div className="vertical">
        <Button label="Postar" onClick={handleConfirm}/>
       {reviews.map((review) => (
@@ -104,5 +106,6 @@ export default function ReviewDetail() {
         <p className="end-message">Você viu todas as reviews disponíveis!</p>
       )}
     </div>
+  </div>
   );
 }

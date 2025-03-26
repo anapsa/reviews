@@ -22,7 +22,7 @@ Scenario: Criar uma review inválida
     Then a mensagem "Por favor, digite o título da review!" deve aparecer na página
     And ele está na tela "/pages/create_review"
 
-Scenario: Criar excluir uma review
+Scenario: Excluir uma review
     Given que o usuário com email "polita@email.com" e senha "12345678" está logado no sistema
     And ele é proprietário da review 
     When ele navega para "review_detail"
@@ -36,3 +36,5 @@ Scenario: Curtir uma review
     When ele navega para "review_detail"
     And confirma "curtir"
     Then o botão "descurtir review" deve aparecer na tela
+
+

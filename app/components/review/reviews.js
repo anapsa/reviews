@@ -82,6 +82,7 @@ export default function Reviews({ reviewId}) {
       if (!response.ok) {
         throw new Error('Erro ao curtir a review!');
       }
+      await new Promise(resolve => setTimeout(resolve, 2000));
       setLikesCount(prev => prev + 1);
       setLiked(!liked);
     } catch (err) {
@@ -175,12 +176,11 @@ export default function Reviews({ reviewId}) {
                 <p className="b">{post?.body || 'Conteúdo indisponível'}</p>
             </div>
             <div className="horizontal">
-              <div data-testid={liked ? "unlike-button" : "like-button"}> 
+              <div> 
               <HeartButton onClick={handleClick} liked={liked} setLiked={setLiked}/>
               </div>
               <p 
                 className="text-xl font-bold" 
-
               >
                 {liked ? "Descurtir Review" : "Curtir Review"}
               </p>
