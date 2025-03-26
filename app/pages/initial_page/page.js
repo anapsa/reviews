@@ -5,7 +5,9 @@ import HeartButton from "../../components/heart_button/heart_button";
 import Review from "../../components/review/reviews";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import "./style.css";
+import "./style.css"
+import Footer from '../../components/footer/Footer';
+import TopBar from '../../components/topbar_all/topbar';
 
 export default function ReviewDetail() {
   const [reviews, setReviews] = useState([]);
@@ -82,10 +84,9 @@ export default function ReviewDetail() {
   }, []);
 
   return (
-  <div> 
-
-    <div className="vertical">
-       <Button label="Postar" onClick={handleConfirm}/>
+    <div className="vertical"> 
+        <TopBar/>
+      <Button label="Postar" onClick={handleConfirm}/>
       {reviews.map((review) => (
         <div className="reviewsContainer"> 
           <Link href={`/pages/review_detail/${review._id}`} className="review-link" > 
@@ -105,7 +106,7 @@ export default function ReviewDetail() {
       {!hasMore && reviews.length > 0 && (
         <p className="end-message">Você viu todas as reviews disponíveis!</p>
       )}
+      <Footer/>
     </div>
-  </div>
   );
 }
