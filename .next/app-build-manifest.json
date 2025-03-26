@@ -34,6 +34,17 @@
       "static/chunks/main-app.js",
       "static/css/app/pages/Filmes_Assistidos/page.css",
       "static/chunks/app/pages/Filmes_Assistidos/page.js"
+    ],
+    "/pages/movie_reviews/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/movie_reviews/page.css",
+      "static/chunks/app/pages/movie_reviews/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
