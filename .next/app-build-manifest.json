@@ -14,6 +14,7 @@
     "/pages/initial_page/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
+      "static/css/app/pages/initial_page/page.css",
       "static/chunks/app/pages/initial_page/page.js"
     ],
     "/pages/page_userProfile/page": [
@@ -22,16 +23,29 @@
       "static/css/app/pages/page_userProfile/page.css",
       "static/chunks/app/pages/page_userProfile/page.js"
     ],
+    "/pages/choseMovie/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/choseMovie/page.css",
+      "static/chunks/app/pages/choseMovie/page.js"
+    ],
     "/pages/page_search/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/pages/page_search/page.css",
       "static/chunks/app/pages/page_search/page.js"
     ],
-    "/_not-found/page": [
+    "/pages/Filmes_Assistidos/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/css/app/pages/Filmes_Assistidos/page.css",
+      "static/chunks/app/pages/Filmes_Assistidos/page.js"
+    ],
+    "/pages/review_detail/[reviewId]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/pages/review_detail/[reviewId]/page.css",
+      "static/chunks/app/pages/review_detail/[reviewId]/page.js"
     ]
   }
 }

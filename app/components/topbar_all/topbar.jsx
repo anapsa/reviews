@@ -33,7 +33,7 @@ const TopBar = () => {
 
     return(
         <div id='topbar'>
-            <button onClick={handleProfile} style={{ border: "none", background: "transparent" }}>
+            <button onClick={handleProfile} style={{ border: "none", background: "transparent", cursor: "pointer" }}>
             <div id='profile_infos'>
                             <svg id ='avatar' width="130" height="80" viewBox="0 0 130 130" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g clipPath="url(#clip0_1355_1795)">
@@ -49,7 +49,6 @@ const TopBar = () => {
                                 </clipPath>
                                 </defs>
                                 </svg>
-                            <p className="profile">Seu perfil</p>
                         </div>
                 </button>
                         <button onClick={handleClick} style={{ border: "none", background: "transparent" }}>
