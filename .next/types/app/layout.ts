@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // File: /Users/luanthiers/Desktop/Projetos/Projeto_ESS/reviews_/app/layout.js
+=======
+// File: /Users/anapaula/Desktop/reviews/app/layout.js
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

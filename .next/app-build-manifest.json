@@ -14,7 +14,6 @@
     "/pages/initial_page/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/pages/initial_page/page.css",
       "static/chunks/app/pages/initial_page/page.js"
     ],
     "/pages/page_userProfile/page": [

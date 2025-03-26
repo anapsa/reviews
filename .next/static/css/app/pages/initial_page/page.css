@@ -137,7 +137,11 @@ b {
 .button-style {
     background: none;
     border: none;
+<<<<<<< HEAD
     color: #ff0000;
+=======
+    color: #970000;
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
     cursor: pointer;
     padding: 0;
     font-size: inherit;
@@ -148,6 +152,7 @@ b {
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/pages/initial_page/style.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&family=Quicksand:wght@300..700&family=Sevillana&display=swap');
 
 * {
@@ -155,10 +160,16 @@ b {
     padding: 0;
     box-sizing: border-box;
 }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Freeman&family=Quicksand:wght@300..700&family=Sevillana&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Pre:wght@400..700&family=Freeman&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Quicksand:wght@300..700&family=Sevillana&display=swap');
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
 
 body {
     font-family: "Nunito", sans-serif;
     background-color: #F7E7DC; 
+<<<<<<< HEAD
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,6 +203,29 @@ body {
     max-width: 500px;
 }
 
+=======
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    justify-content: flex-start;  
+    background-color: #F7E7DC;
+    padding-top: 150px;
+    height: 70vh;
+    gap: 70px;
+}
+.reviews-container {
+    position: relative; 
+}
+  
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
 .invisible-button {
     position: absolute; 
     bottom: 0; 
@@ -201,6 +235,7 @@ body {
     background-color: transparent; 
     border: none;
     z-index: -1;
+<<<<<<< HEAD
     cursor: pointer;
 }
 
@@ -256,6 +291,45 @@ body {
    bottom: 0.01px;
    cursor: pointer;
 }
+=======
+}
+.review-link {
+    display: block;
+    background-color: #ffeee2;
+    border-radius: 8px; 
+    padding: 40px;
+    transition: border-color 0.3s ease; 
+    text-decoration: none;
+}
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+  
+.error-message {
+    color: #d32f2f;
+    padding: 10px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    text-align: center;
+}
+  
+.end-message {
+    text-align: center;
+    color: #666;
+    padding: 20px;
+    font-style: italic;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+  
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/button/Button.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
@@ -309,6 +383,7 @@ body {
     fill: darkred;
 }
 
+<<<<<<< HEAD
 /*!******************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[10].use[3]!./app/components/footer/Footer.css ***!
   \******************************************************************************************************************************************************************************************************************************************************************************/
@@ -450,3 +525,5 @@ body {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
+=======
+>>>>>>> 2bc0fc88e9a331985409da36f86d7fe623b571e8
