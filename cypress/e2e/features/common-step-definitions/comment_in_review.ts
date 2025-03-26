@@ -63,7 +63,7 @@ When('confirma "curtir"', () => {
   cy.get('[data-testid="like-button"]').click();
 });
 Then('o botão "descurtir review" deve aparecer na tela', () => {
-  cy.get('[data-testid="unlike-button"]').should('be.visible');
+  cy.contains("Descurtir Review").should("be.visible");
 });
 When('confirma "excluir"', () => {
   cy.get('[data-testid="excluir"]').click();
