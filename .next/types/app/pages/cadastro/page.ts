@@ -1,4 +1,4 @@
-// File: /Users/anapaula/Desktop/reviews/app/pages/cadastro/page.js
+// File: /Users/luanthiers/Desktop/Projetos/Projeto_ESS/reviews_/app/pages/cadastro/page.js
 import * as entry from '../../../../../app/pages/cadastro/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

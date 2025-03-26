@@ -72,7 +72,7 @@ export default function FormCadastro() {
             });
 
             const data = await response.json();
-            const mensagem = data.error + '!';
+            const mensagem = data.message + '!';
             
             setErrorMessage(mensagem);
             setShowSvgName(false);
