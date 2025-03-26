@@ -23,7 +23,7 @@ Given('que o usuário {string} está na página da review {string}', (email, rev
 
 Given('ele é proprietário da review', () => {
   cy.intercept('POST', 'http://localhost:5001/reviews/add').as('createReview');
-  cy.visit("http://localhost:3000/pages/create_review");
+  cy.visit("http://localhost:3000/pages/create_review/67e327fd1d1cfdd8bf403e6a");
   cy.get('[data-testid="title-textarea"]').type("Lugia é o melhor"); 
   cy.get('[data-testid="body-textarea"]').type("o melhor filme de todos os tempos"); 
   cy.get(`[data-testid="star-5"]`).click();
@@ -35,7 +35,7 @@ Given('ele é proprietário da review', () => {
 });
 Given('existe uma review na página inicial', () => {
     cy.intercept('POST', 'http://localhost:5001/reviews/add').as('createReview');
-    cy.visit("http://localhost:3000/pages/create_review");
+    cy.visit("http://localhost:3000/pages/create_review/67e327fd1d1cfdd8bf403e6a");
     cy.get('[data-testid="title-textarea"]').type("Lugia é o melhor"); 
     cy.get('[data-testid="body-textarea"]').type("o melhor filme de todos os tempos"); 
     cy.get(`[data-testid="star-5"]`).click();

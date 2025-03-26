@@ -5,7 +5,7 @@ Feature: Criar Reviews
 
 Scenario: Criar uma review válida
     Given que o usuário com email "polita@email.com" e senha "12345678" está logado no sistema
-    When ele navega para a tela "/pages/create_review"
+    When ele navega para a tela "/pages/create_review/67e327fd1d1cfdd8bf403e6a"
     And insere o título "Melhor filme de comédia" no título
     And insere o conteúdo "gostei muito do filme" no corpo review
     And insere a classificação "3" estrelas
@@ -15,12 +15,12 @@ Scenario: Criar uma review válida
 
 Scenario: Criar uma review inválida
     Given que o usuário com email "polita@email.com" e senha "12345678" está logado no sistema
-    When ele navega para a tela "/pages/create_review"
+    When ele navega para a tela "/pages/create_review/67e327fd1d1cfdd8bf403e6a"
     And insere o conteúdo "gostei muito do filme" no corpo review
     And insere a classificação "3" estrelas
     And confirma o envio
     Then a mensagem "Por favor, digite o título da review!" deve aparecer na página
-    And ele está na tela "/pages/create_review"
+    And ele está na tela "/pages/create_review/67e327fd1d1cfdd8bf403e6a"
 
 Scenario: Excluir uma review
     Given que o usuário com email "polita@email.com" e senha "12345678" está logado no sistema

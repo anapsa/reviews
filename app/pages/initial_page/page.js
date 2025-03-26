@@ -21,7 +21,7 @@ export default function ReviewDetail() {
   };
 
   const handleConfirm = () => {  
-    router.push(`/pages/create_review`); 
+    router.push(`/pages/choseMovie`); 
   };
 
   const fetchReviews = useCallback(async () => {
